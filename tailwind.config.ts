@@ -9,16 +9,26 @@ export default {
       center: true,
       padding: "1rem",
       screens: {
-        "sm": "640px",
-        "md": "768px", 
-        "lg": "1024px",
-        "xl": "1280px",
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
         "2xl": "1400px",
       },
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'sans-serif'],
+        sans: [
+          "Inter",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "Roboto",
+          "Oxygen",
+          "Ubuntu",
+          "Cantarell",
+          "sans-serif",
+        ],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -79,21 +89,21 @@ export default {
         sm: "var(--radius)",
       },
       spacing: {
-        '18': '4.5rem',
-        '88': '22rem',
-        '112': '28rem',
-        '128': '32rem',
+        "18": "4.5rem",
+        "88": "22rem",
+        "112": "28rem",
+        "128": "32rem",
       },
       minHeight: {
-        '44': '44px', // Minimum touch target size
+        "44": "44px", // Minimum touch target size
       },
       minWidth: {
-        '44': '44px', // Minimum touch target size
+        "44": "44px", // Minimum touch target size
       },
       boxShadow: {
-        'corporate': '0 1px 3px 0 rgb(0 0 0 / 0.1)',
-        'corporate-lg': '0 4px 6px -1px rgb(0 0 0 / 0.1)',
-        'corporate-xl': '0 10px 15px -3px rgb(0 0 0 / 0.1)',
+        corporate: "0 1px 3px 0 rgb(0 0 0 / 0.1)",
+        "corporate-lg": "0 4px 6px -1px rgb(0 0 0 / 0.1)",
+        "corporate-xl": "0 10px 15px -3px rgb(0 0 0 / 0.1)",
       },
       animation: {
         "fade-in": "fadeIn 0.2s ease-in-out",
@@ -114,25 +124,26 @@ export default {
   plugins: [
     require("tailwindcss-animate"),
     // Custom plugin for corporate utilities
-    function({ addUtilities }: any) {
+    function ({ addUtilities }: any) {
       const newUtilities = {
-        '.corporate-transition': {
-          'transition-property': 'color, background-color, border-color, text-decoration-color, fill, stroke',
-          'transition-timing-function': 'cubic-bezier(0.4, 0, 0.2, 1)',
-          'transition-duration': '200ms',
+        ".corporate-transition": {
+          "transition-property":
+            "color, background-color, border-color, text-decoration-color, fill, stroke",
+          "transition-timing-function": "cubic-bezier(0.4, 0, 0.2, 1)",
+          "transition-duration": "200ms",
         },
-        '.corporate-focus': {
-          '&:focus': {
-            'outline': 'none',
-            'box-shadow': '0 0 0 2px hsl(var(--ring))',
+        ".corporate-focus": {
+          "&:focus": {
+            outline: "none",
+            "box-shadow": "0 0 0 2px hsl(var(--ring))",
           },
         },
-        '.corporate-disabled': {
-          'opacity': '0.5',
-          'pointer-events': 'none',
+        ".corporate-disabled": {
+          opacity: "0.5",
+          "pointer-events": "none",
         },
-      }
-      addUtilities(newUtilities)
-    }
+      };
+      addUtilities(newUtilities);
+    },
   ],
 } satisfies Config;

@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
-  Building2, 
-  TrendingUp, 
-  Shield, 
-  Globe, 
+import {
+  Building2,
+  TrendingUp,
+  Shield,
+  Globe,
   CheckCircle,
   BarChart3,
   Users,
@@ -25,11 +25,13 @@ import {
   Star,
   Lock,
   CreditCard,
-  Headphones
+  Headphones,
 } from "lucide-react";
 
 export default function Index() {
-  const [selectedRole, setSelectedRole] = useState<"importer" | "exporter" | null>(null);
+  const [selectedRole, setSelectedRole] = useState<
+    "importer" | "exporter" | null
+  >(null);
 
   const commodityCategories = [
     { name: "Cotton", category: "Textiles", volume: "2.5M tons/year" },
@@ -39,47 +41,48 @@ export default function Index() {
     { name: "Cardamom", category: "Spices", volume: "35K tons/year" },
     { name: "Black Pepper", category: "Spices", volume: "450K tons/year" },
     { name: "Turmeric", category: "Spices", volume: "1.1M tons/year" },
-    { name: "Cinnamon", category: "Spices", volume: "220K tons/year" }
+    { name: "Cinnamon", category: "Spices", volume: "220K tons/year" },
   ];
 
   const platformFeatures = [
     {
       icon: <Shield className="h-6 w-6" />,
       title: "Government Verified",
-      description: "Full KYC with business license and tax ID verification"
+      description: "Full KYC with business license and tax ID verification",
     },
     {
       icon: <Globe className="h-6 w-6" />,
       title: "Global Network",
-      description: "Connect with verified traders across 120+ countries"
+      description: "Connect with verified traders across 120+ countries",
     },
     {
       icon: <DollarSign className="h-6 w-6" />,
       title: "Secure Escrow",
-      description: "Multi-currency payments with 3-step escrow protection"
+      description: "Multi-currency payments with 3-step escrow protection",
     },
     {
       icon: <Truck className="h-6 w-6" />,
       title: "Logistics Tracking",
-      description: "Real-time shipment tracking with integrated logistics partners"
+      description:
+        "Real-time shipment tracking with integrated logistics partners",
     },
     {
       icon: <MessageSquare className="h-6 w-6" />,
       title: "Secure Communication",
-      description: "In-platform messaging with document sharing capabilities"
+      description: "In-platform messaging with document sharing capabilities",
     },
     {
       icon: <Award className="h-6 w-6" />,
       title: "Trust & Reviews",
-      description: "Transaction-based ratings and verified trader badges"
-    }
+      description: "Transaction-based ratings and verified trader badges",
+    },
   ];
 
   const trustIndicators = [
     { label: "Verified Businesses", value: "25,000+" },
     { label: "Countries Active", value: "120+" },
     { label: "Annual Trade Volume", value: "$2.5B+" },
-    { label: "Success Rate", value: "99.7%" }
+    { label: "Success Rate", value: "99.7%" },
   ];
 
   const importerBenefits = [
@@ -88,16 +91,16 @@ export default function Index() {
     "Bulk order discounts and competitive pricing",
     "Secure escrow payment protection",
     "Real-time shipment tracking",
-    "24/7 dispute resolution support"
+    "24/7 dispute resolution support",
   ];
 
   const exporterBenefits = [
-    "Reach global importers instantly", 
+    "Reach global importers instantly",
     "Showcase quality certifications",
     "Secure payment guarantee",
     "Professional business profiles",
     "Market analytics and insights",
-    "Dedicated account management"
+    "Dedicated account management",
   ];
 
   const handleRoleSelection = (role: "importer" | "exporter") => {
@@ -119,21 +122,37 @@ export default function Index() {
                 <Building2 className="h-5 w-5 text-primary-foreground" />
               </div>
               <div>
-                <h1 className="text-xl font-semibold text-foreground">TradeBridge</h1>
-                <p className="text-xs text-muted-foreground">Global Commodity Exchange</p>
+                <h1 className="text-xl font-semibold text-foreground">
+                  TradeBridge
+                </h1>
+                <p className="text-xs text-muted-foreground">
+                  Global Commodity Exchange
+                </p>
               </div>
             </div>
             <nav className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="text-sm text-muted-foreground hover:text-foreground corporate-transition">
+              <a
+                href="#features"
+                className="text-sm text-muted-foreground hover:text-foreground corporate-transition"
+              >
                 Features
               </a>
-              <a href="#commodities" className="text-sm text-muted-foreground hover:text-foreground corporate-transition">
+              <a
+                href="#commodities"
+                className="text-sm text-muted-foreground hover:text-foreground corporate-transition"
+              >
                 Commodities
               </a>
-              <a href="#trust" className="text-sm text-muted-foreground hover:text-foreground corporate-transition">
+              <a
+                href="#trust"
+                className="text-sm text-muted-foreground hover:text-foreground corporate-transition"
+              >
                 Trust & Security
               </a>
-              <a href="#contact" className="text-sm text-muted-foreground hover:text-foreground corporate-transition">
+              <a
+                href="#contact"
+                className="text-sm text-muted-foreground hover:text-foreground corporate-transition"
+              >
                 Contact
               </a>
             </nav>
@@ -151,20 +170,25 @@ export default function Index() {
             </Badge>
             <h2 className="text-4xl md:text-5xl font-semibold text-foreground mb-6 leading-tight">
               Professional Import/Export Platform for
-              <span className="block text-primary">Textiles & Spices Trading</span>
+              <span className="block text-primary">
+                Textiles & Spices Trading
+              </span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              Government-verified platform connecting importers and exporters worldwide. 
-              Secure transactions, quality assurance, and comprehensive business tools.
+              Government-verified platform connecting importers and exporters
+              worldwide. Secure transactions, quality assurance, and
+              comprehensive business tools.
             </p>
           </div>
 
           {/* Role Selection */}
           {!selectedRole ? (
             <div className="mb-16">
-              <h3 className="text-xl font-medium text-foreground mb-6">Choose Your Trading Role</h3>
+              <h3 className="text-xl font-medium text-foreground mb-6">
+                Choose Your Trading Role
+              </h3>
               <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-                <Card 
+                <Card
                   className="card-corporate cursor-pointer hover:shadow-corporate-lg corporate-transition"
                   onClick={() => handleRoleSelection("importer")}
                 >
@@ -180,9 +204,14 @@ export default function Index() {
                   <CardContent className="pt-0">
                     <div className="space-y-2 text-sm text-left">
                       {importerBenefits.slice(0, 3).map((benefit, index) => (
-                        <div key={index} className="flex items-center space-x-2">
+                        <div
+                          key={index}
+                          className="flex items-center space-x-2"
+                        >
                           <CheckCircle className="h-3 w-3 text-success flex-shrink-0" />
-                          <span className="text-muted-foreground">{benefit}</span>
+                          <span className="text-muted-foreground">
+                            {benefit}
+                          </span>
                         </div>
                       ))}
                     </div>
@@ -192,7 +221,7 @@ export default function Index() {
                   </CardContent>
                 </Card>
 
-                <Card 
+                <Card
                   className="card-corporate cursor-pointer hover:shadow-corporate-lg corporate-transition"
                   onClick={() => handleRoleSelection("exporter")}
                 >
@@ -208,9 +237,14 @@ export default function Index() {
                   <CardContent className="pt-0">
                     <div className="space-y-2 text-sm text-left">
                       {exporterBenefits.slice(0, 3).map((benefit, index) => (
-                        <div key={index} className="flex items-center space-x-2">
+                        <div
+                          key={index}
+                          className="flex items-center space-x-2"
+                        >
                           <CheckCircle className="h-3 w-3 text-success flex-shrink-0" />
-                          <span className="text-muted-foreground">{benefit}</span>
+                          <span className="text-muted-foreground">
+                            {benefit}
+                          </span>
                         </div>
                       ))}
                     </div>
@@ -220,54 +254,75 @@ export default function Index() {
                   </CardContent>
                 </Card>
               </div>
-              
+
               <p className="text-muted-foreground text-sm mt-6">
-                Already have an account? 
-                <Link to="/signin" className="text-primary hover:underline ml-1">Sign in here</Link>
+                Already have an account?
+                <Link
+                  to="/signin"
+                  className="text-primary hover:underline ml-1"
+                >
+                  Sign in here
+                </Link>
               </p>
             </div>
           ) : (
             /* Selected Role Details */
             <div className="mb-16">
               <div className="flex items-center justify-center space-x-4 mb-6">
-                <Button 
-                  variant="ghost" 
+                <Button
+                  variant="ghost"
                   onClick={resetRoleSelection}
                   className="text-muted-foreground hover:text-foreground"
                 >
                   ← Back to role selection
                 </Button>
               </div>
-              
+
               <Card className="card-corporate max-w-2xl mx-auto">
                 <CardHeader className="text-center">
-                  <div className={`w-20 h-20 ${selectedRole === "importer" ? "bg-primary/10" : "bg-success/10"} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                  <div
+                    className={`w-20 h-20 ${selectedRole === "importer" ? "bg-primary/10" : "bg-success/10"} rounded-full flex items-center justify-center mx-auto mb-4`}
+                  >
                     {selectedRole === "importer" ? (
                       <ShoppingCart className="h-10 w-10 text-primary" />
                     ) : (
                       <Upload className="h-10 w-10 text-success" />
                     )}
                   </div>
-                  <CardTitle className="text-2xl capitalize">{selectedRole} Registration</CardTitle>
+                  <CardTitle className="text-2xl capitalize">
+                    {selectedRole} Registration
+                  </CardTitle>
                   <p className="text-muted-foreground">
                     Complete verification to access our global trading platform
                   </p>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4 mb-6">
-                    <h4 className="font-medium text-foreground">Your Benefits Include:</h4>
+                    <h4 className="font-medium text-foreground">
+                      Your Benefits Include:
+                    </h4>
                     <div className="grid grid-cols-1 gap-2">
-                      {(selectedRole === "importer" ? importerBenefits : exporterBenefits).map((benefit, index) => (
-                        <div key={index} className="flex items-center space-x-2">
+                      {(selectedRole === "importer"
+                        ? importerBenefits
+                        : exporterBenefits
+                      ).map((benefit, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center space-x-2"
+                        >
                           <CheckCircle className="h-4 w-4 text-success flex-shrink-0" />
-                          <span className="text-muted-foreground text-sm">{benefit}</span>
+                          <span className="text-muted-foreground text-sm">
+                            {benefit}
+                          </span>
                         </div>
                       ))}
                     </div>
                   </div>
 
                   <div className="bg-muted p-4 mb-6">
-                    <h4 className="font-medium text-foreground mb-2">Required Documentation:</h4>
+                    <h4 className="font-medium text-foreground mb-2">
+                      Required Documentation:
+                    </h4>
                     <div className="grid grid-cols-2 gap-2 text-sm text-muted-foreground">
                       <div className="flex items-center space-x-1">
                         <FileCheck className="h-3 w-3" />
@@ -296,7 +351,8 @@ export default function Index() {
                       </Button>
                     </Link>
                     <p className="text-xs text-muted-foreground text-center">
-                      Registration takes 5-10 minutes. Verification typically completed within 24 hours.
+                      Registration takes 5-10 minutes. Verification typically
+                      completed within 24 hours.
                     </p>
                   </div>
                 </CardContent>
@@ -326,19 +382,26 @@ export default function Index() {
               Global Commodity Trading
             </h3>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Trade in key commodities with verified quality and global market reach
+              Trade in key commodities with verified quality and global market
+              reach
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
             {commodityCategories.map((commodity, index) => (
-              <div 
+              <div
                 key={index}
                 className="card-corporate p-4 hover:shadow-corporate-lg corporate-transition"
               >
                 <div className="text-center">
-                  <h4 className="font-medium text-foreground mb-1">{commodity.name}</h4>
-                  <p className="text-xs text-muted-foreground mb-2">{commodity.category}</p>
-                  <div className="text-xs text-primary font-medium">{commodity.volume}</div>
+                  <h4 className="font-medium text-foreground mb-1">
+                    {commodity.name}
+                  </h4>
+                  <p className="text-xs text-muted-foreground mb-2">
+                    {commodity.category}
+                  </p>
+                  <div className="text-xs text-primary font-medium">
+                    {commodity.volume}
+                  </div>
                 </div>
               </div>
             ))}
@@ -352,15 +415,14 @@ export default function Index() {
               Enterprise Trading Platform
             </h3>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Comprehensive tools and security for professional international trade
+              Comprehensive tools and security for professional international
+              trade
             </p>
           </div>
           <div className="grid-corporate-2 lg:grid-cols-3">
             {platformFeatures.map((feature, index) => (
               <div key={index} className="card-corporate p-6">
-                <div className="text-primary mb-4">
-                  {feature.icon}
-                </div>
+                <div className="text-primary mb-4">{feature.icon}</div>
                 <h4 className="text-lg font-medium text-foreground mb-2">
                   {feature.title}
                 </h4>
@@ -380,7 +442,8 @@ export default function Index() {
                 Government-Level Security & Verification
               </h3>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                Every trader undergoes comprehensive verification with government-issued documents
+                Every trader undergoes comprehensive verification with
+                government-issued documents
               </p>
             </div>
             <div className="grid-corporate-3">
@@ -388,27 +451,36 @@ export default function Index() {
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Shield className="h-8 w-8 text-primary" />
                 </div>
-                <h4 className="font-medium text-foreground mb-2">Complete KYC Verification</h4>
+                <h4 className="font-medium text-foreground mb-2">
+                  Complete KYC Verification
+                </h4>
                 <p className="text-sm text-muted-foreground">
-                  Business license, tax ID, and identity verification with government databases
+                  Business license, tax ID, and identity verification with
+                  government databases
                 </p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CreditCard className="h-8 w-8 text-success" />
                 </div>
-                <h4 className="font-medium text-foreground mb-2">Secure Escrow Payments</h4>
+                <h4 className="font-medium text-foreground mb-2">
+                  Secure Escrow Payments
+                </h4>
                 <p className="text-sm text-muted-foreground">
-                  Multi-currency payments with 3-step escrow protection and dispute resolution
+                  Multi-currency payments with 3-step escrow protection and
+                  dispute resolution
                 </p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-warning/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Headphones className="h-8 w-8 text-warning" />
                 </div>
-                <h4 className="font-medium text-foreground mb-2">24/7 Support & Mediation</h4>
+                <h4 className="font-medium text-foreground mb-2">
+                  24/7 Support & Mediation
+                </h4>
                 <p className="text-sm text-muted-foreground">
-                  Professional dispute resolution with clear timelines and escalation paths
+                  Professional dispute resolution with clear timelines and
+                  escalation paths
                 </p>
               </div>
             </div>
@@ -422,19 +494,26 @@ export default function Index() {
               Ready to Start Trading Globally?
             </h3>
             <p className="text-muted-foreground mb-8">
-              Join thousands of verified businesses already trading on our platform
+              Join thousands of verified businesses already trading on our
+              platform
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button className="btn-corporate px-6 py-3 min-h-[44px]" onClick={() => setSelectedRole(null)}>
+              <Button
+                className="btn-corporate px-6 py-3 min-h-[44px]"
+                onClick={() => setSelectedRole(null)}
+              >
                 Choose Your Role
               </Button>
-              <Button variant="outline" className="btn-secondary-corporate px-6 py-3 min-h-[44px]">
+              <Button
+                variant="outline"
+                className="btn-secondary-corporate px-6 py-3 min-h-[44px]"
+              >
                 <Phone className="mr-2 h-4 w-4" />
                 Schedule Demo
               </Button>
             </div>
           </div>
-          
+
           <div className="grid-corporate-3 max-w-2xl mx-auto">
             <div className="text-center">
               <Phone className="h-5 w-5 text-primary mx-auto mb-2" />
@@ -442,7 +521,9 @@ export default function Index() {
             </div>
             <div className="text-center">
               <Mail className="h-5 w-5 text-primary mx-auto mb-2" />
-              <p className="text-sm text-muted-foreground">support@tradebridge.com</p>
+              <p className="text-sm text-muted-foreground">
+                support@tradebridge.com
+              </p>
             </div>
             <div className="text-center">
               <MapPin className="h-5 w-5 text-primary mx-auto mb-2" />
@@ -461,13 +542,34 @@ export default function Index() {
               <span className="font-medium text-foreground">TradeBridge</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              Government-verified import/export platform for global commodity trading
+              Government-verified import/export platform for global commodity
+              trading
             </p>
             <div className="mt-4 flex justify-center space-x-6 text-xs text-muted-foreground">
-              <a href="#" className="hover:text-foreground corporate-transition">Privacy Policy</a>
-              <a href="#" className="hover:text-foreground corporate-transition">Terms of Service</a>
-              <a href="#" className="hover:text-foreground corporate-transition">Compliance</a>
-              <a href="#" className="hover:text-foreground corporate-transition">Support</a>
+              <a
+                href="#"
+                className="hover:text-foreground corporate-transition"
+              >
+                Privacy Policy
+              </a>
+              <a
+                href="#"
+                className="hover:text-foreground corporate-transition"
+              >
+                Terms of Service
+              </a>
+              <a
+                href="#"
+                className="hover:text-foreground corporate-transition"
+              >
+                Compliance
+              </a>
+              <a
+                href="#"
+                className="hover:text-foreground corporate-transition"
+              >
+                Support
+              </a>
             </div>
           </div>
         </div>

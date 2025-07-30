@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -11,13 +11,13 @@
    */
   :root {
     /* Corporate Blue Scale */
-    --primary: 214 100% 25%;        /* Deep corporate blue */
+    --primary: 214 100% 25%; /* Deep corporate blue */
     --primary-foreground: 0 0% 98%;
 
     /* Neutral Greys */
-    --background: 0 0% 100%;         /* Pure white */
-    --foreground: 0 0% 15%;          /* Near black for text */
-    
+    --background: 0 0% 100%; /* Pure white */
+    --foreground: 0 0% 15%; /* Near black for text */
+
     --card: 0 0% 100%;
     --card-foreground: 0 0% 15%;
 
@@ -25,7 +25,7 @@
     --popover-foreground: 0 0% 15%;
 
     /* Secondary greys */
-    --secondary: 0 0% 96%;           /* Light grey backgrounds */
+    --secondary: 0 0% 96%; /* Light grey backgrounds */
     --secondary-foreground: 0 0% 25%;
 
     --muted: 0 0% 96%;
@@ -40,16 +40,16 @@
     --ring: 214 100% 25%;
 
     /* Alert colors - professional tones */
-    --destructive: 0 84% 35%;        /* Professional red */
+    --destructive: 0 84% 35%; /* Professional red */
     --destructive-foreground: 0 0% 98%;
 
-    --success: 145 85% 25%;          /* Professional green */
+    --success: 145 85% 25%; /* Professional green */
     --success-foreground: 0 0% 98%;
 
-    --warning: 45 93% 35%;           /* Professional amber */
+    --warning: 45 93% 35%; /* Professional amber */
     --warning-foreground: 0 0% 15%;
 
-    --radius: 0px;                   /* No rounded corners as per requirements */
+    --radius: 0px; /* No rounded corners as per requirements */
 
     /* Corporate sidebar colors */
     --sidebar-background: 0 0% 98%;
@@ -109,13 +109,29 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-family:
+      "Inter",
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      "Roboto",
+      "Oxygen",
+      "Ubuntu",
+      "Cantarell",
+      sans-serif;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
     line-height: 1.6;
     letter-spacing: -0.01em;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-weight: 600;
     line-height: 1.4;
     letter-spacing: -0.02em;
@@ -305,17 +321,48 @@
 }
 
 /* Corporate Typography Scale */
-.text-corporate-xs { font-size: 0.75rem; line-height: 1rem; }
-.text-corporate-sm { font-size: 0.875rem; line-height: 1.25rem; }
-.text-corporate-base { font-size: 1rem; line-height: 1.5rem; }
-.text-corporate-lg { font-size: 1.125rem; line-height: 1.75rem; }
-.text-corporate-xl { font-size: 1.25rem; line-height: 1.75rem; }
-.text-corporate-2xl { font-size: 1.5rem; line-height: 2rem; }
-.text-corporate-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+.text-corporate-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+.text-corporate-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+.text-corporate-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+.text-corporate-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+.text-corporate-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+.text-corporate-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+.text-corporate-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
 
 /* Professional spacing */
-.spacing-corporate-xs { padding: 0.5rem; }
-.spacing-corporate-sm { padding: 0.75rem; }
-.spacing-corporate-md { padding: 1rem; }
-.spacing-corporate-lg { padding: 1.5rem; }
-.spacing-corporate-xl { padding: 2rem; }
+.spacing-corporate-xs {
+  padding: 0.5rem;
+}
+.spacing-corporate-sm {
+  padding: 0.75rem;
+}
+.spacing-corporate-md {
+  padding: 1rem;
+}
+.spacing-corporate-lg {
+  padding: 1.5rem;
+}
+.spacing-corporate-xl {
+  padding: 2rem;
+}

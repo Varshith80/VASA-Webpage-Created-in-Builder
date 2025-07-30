@@ -3,16 +3,22 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Search, 
-  Filter, 
-  ArrowLeft, 
-  MapPin, 
-  Package, 
-  Star, 
+import {
+  Search,
+  Filter,
+  ArrowLeft,
+  MapPin,
+  Package,
+  Star,
   Building2,
   Verified,
   TrendingUp,
@@ -21,7 +27,7 @@ import {
   AlertCircle,
   CheckCircle,
   Clock,
-  DollarSign
+  DollarSign,
 } from "lucide-react";
 
 export default function Importer() {
@@ -37,7 +43,7 @@ export default function Importer() {
       id: 1,
       type: "Cotton",
       quality: "Premium Grade A",
-      price: 2.50,
+      price: 2.5,
       currency: "USD",
       unit: "per kg",
       moq: "1000 kg",
@@ -51,13 +57,13 @@ export default function Importer() {
       responseTime: "< 2 hours",
       completedOrders: 1250,
       bulkDiscount: "5% off orders > 5000kg",
-      image: "/api/placeholder/300/200"
+      image: "/api/placeholder/300/200",
     },
     {
       id: 2,
       type: "Silk",
       quality: "Mulberry Silk",
-      price: 45.00,
+      price: 45.0,
       currency: "USD",
       unit: "per kg",
       moq: "100 kg",
@@ -71,13 +77,13 @@ export default function Importer() {
       responseTime: "< 1 hour",
       completedOrders: 890,
       bulkDiscount: "3% off orders > 1000kg",
-      image: "/api/placeholder/300/200"
+      image: "/api/placeholder/300/200",
     },
     {
       id: 3,
       type: "Polyester",
       quality: "Industrial Grade",
-      price: 1.80,
+      price: 1.8,
       currency: "USD",
       unit: "per kg",
       moq: "2000 kg",
@@ -91,13 +97,13 @@ export default function Importer() {
       responseTime: "< 4 hours",
       completedOrders: 2100,
       bulkDiscount: "7% off orders > 10000kg",
-      image: "/api/placeholder/300/200"
+      image: "/api/placeholder/300/200",
     },
     {
       id: 4,
       type: "Cardamom",
       quality: "Premium Green",
-      price: 85.00,
+      price: 85.0,
       currency: "USD",
       unit: "per kg",
       moq: "50 kg",
@@ -111,22 +117,51 @@ export default function Importer() {
       responseTime: "< 3 hours",
       completedOrders: 650,
       bulkDiscount: "4% off orders > 500kg",
-      image: "/api/placeholder/300/200"
-    }
+      image: "/api/placeholder/300/200",
+    },
   ];
 
-  const materialTypes = ["Cotton", "Silk", "Polyester", "Wool", "Linen", "Nylon", "Jute", "Cardamom", "Pepper", "Turmeric"];
-  const locations = ["India", "China", "South Korea", "Australia", "France", "Germany", "USA", "Brazil"];
+  const materialTypes = [
+    "Cotton",
+    "Silk",
+    "Polyester",
+    "Wool",
+    "Linen",
+    "Nylon",
+    "Jute",
+    "Cardamom",
+    "Pepper",
+    "Turmeric",
+  ];
+  const locations = [
+    "India",
+    "China",
+    "South Korea",
+    "Australia",
+    "France",
+    "Germany",
+    "USA",
+    "Brazil",
+  ];
   const priceRanges = ["Under $5", "$5-$25", "$25-$50", "Over $50"];
-  const qualityGrades = ["Premium Grade A", "Grade A", "Industrial Grade", "Standard Grade"];
+  const qualityGrades = [
+    "Premium Grade A",
+    "Grade A",
+    "Industrial Grade",
+    "Standard Grade",
+  ];
 
   const filteredMaterials = materials.filter((material) => {
-    const matchesSearch = material.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         material.exporter.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesMaterial = materialFilter === "all" || material.type === materialFilter;
-    const matchesLocation = locationFilter === "all" || material.location === locationFilter;
-    const matchesQuality = qualityFilter === "all" || material.quality === qualityFilter;
-    
+    const matchesSearch =
+      material.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      material.exporter.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesMaterial =
+      materialFilter === "all" || material.type === materialFilter;
+    const matchesLocation =
+      locationFilter === "all" || material.location === locationFilter;
+    const matchesQuality =
+      qualityFilter === "all" || material.quality === qualityFilter;
+
     let matchesPrice = true;
     if (priceFilter !== "all") {
       const price = material.price;
@@ -145,8 +180,14 @@ export default function Importer() {
           break;
       }
     }
-    
-    return matchesSearch && matchesMaterial && matchesLocation && matchesPrice && matchesQuality;
+
+    return (
+      matchesSearch &&
+      matchesMaterial &&
+      matchesLocation &&
+      matchesPrice &&
+      matchesQuality
+    );
   });
 
   return (
@@ -157,18 +198,27 @@ export default function Importer() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Link to="/">
-                <Button variant="ghost" size="sm" className="corporate-transition">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="corporate-transition"
+                >
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Back
                 </Button>
               </Link>
               <div className="flex items-center space-x-2">
                 <Building2 className="h-5 w-5 text-primary" />
-                <span className="font-semibold text-foreground">TradeBridge</span>
+                <span className="font-semibold text-foreground">
+                  TradeBridge
+                </span>
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <Badge variant="secondary" className="trust-badge trust-badge-verified">
+              <Badge
+                variant="secondary"
+                className="trust-badge trust-badge-verified"
+              >
                 <TrendingUp className="h-3 w-3 mr-1" />
                 Importer Dashboard
               </Badge>
@@ -180,9 +230,12 @@ export default function Importer() {
       <div className="container mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-semibold text-foreground mb-2">Global Commodity Marketplace</h1>
+          <h1 className="text-3xl font-semibold text-foreground mb-2">
+            Global Commodity Marketplace
+          </h1>
           <p className="text-muted-foreground">
-            Discover verified suppliers and high-quality materials from trusted exporters worldwide
+            Discover verified suppliers and high-quality materials from trusted
+            exporters worldwide
           </p>
         </div>
 
@@ -201,7 +254,7 @@ export default function Importer() {
                 />
               </div>
             </div>
-            
+
             <div className="form-group">
               <Label className="form-label">Material Type</Label>
               <Select value={materialFilter} onValueChange={setMaterialFilter}>
@@ -211,7 +264,9 @@ export default function Importer() {
                 <SelectContent>
                   <SelectItem value="all">All Materials</SelectItem>
                   {materialTypes.map((type) => (
-                    <SelectItem key={type} value={type}>{type}</SelectItem>
+                    <SelectItem key={type} value={type}>
+                      {type}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -226,7 +281,9 @@ export default function Importer() {
                 <SelectContent>
                   <SelectItem value="all">All Locations</SelectItem>
                   {locations.map((location) => (
-                    <SelectItem key={location} value={location}>{location}</SelectItem>
+                    <SelectItem key={location} value={location}>
+                      {location}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -241,7 +298,9 @@ export default function Importer() {
                 <SelectContent>
                   <SelectItem value="all">All Prices</SelectItem>
                   {priceRanges.map((range) => (
-                    <SelectItem key={range} value={range}>{range}</SelectItem>
+                    <SelectItem key={range} value={range}>
+                      {range}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -256,7 +315,9 @@ export default function Importer() {
                 <SelectContent>
                   <SelectItem value="all">All Grades</SelectItem>
                   {qualityGrades.map((grade) => (
-                    <SelectItem key={grade} value={grade}>{grade}</SelectItem>
+                    <SelectItem key={grade} value={grade}>
+                      {grade}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -267,7 +328,10 @@ export default function Importer() {
         {/* Results Summary */}
         <div className="flex items-center justify-between mb-6">
           <p className="text-muted-foreground">
-            <span className="font-medium text-foreground">{filteredMaterials.length}</span> verified suppliers found
+            <span className="font-medium text-foreground">
+              {filteredMaterials.length}
+            </span>{" "}
+            verified suppliers found
           </p>
           <div className="flex items-center space-x-2">
             <Select defaultValue="featured">
@@ -288,15 +352,22 @@ export default function Importer() {
         {/* Materials Grid */}
         <div className="grid-corporate-3">
           {filteredMaterials.map((material) => (
-            <Card key={material.id} className="card-corporate hover:shadow-corporate-lg corporate-transition">
+            <Card
+              key={material.id}
+              className="card-corporate hover:shadow-corporate-lg corporate-transition"
+            >
               <CardHeader className="pb-3">
                 <div className="aspect-video bg-muted flex items-center justify-center mb-3">
                   <Package className="h-12 w-12 text-muted-foreground" />
                 </div>
                 <div className="flex items-start justify-between">
                   <div>
-                    <CardTitle className="text-lg font-medium">{material.type}</CardTitle>
-                    <p className="text-sm text-muted-foreground">{material.quality}</p>
+                    <CardTitle className="text-lg font-medium">
+                      {material.type}
+                    </CardTitle>
+                    <p className="text-sm text-muted-foreground">
+                      {material.quality}
+                    </p>
                   </div>
                   {material.exporterVerified && (
                     <Verified className="h-5 w-5 text-success" />
@@ -310,39 +381,51 @@ export default function Importer() {
                     <span className="text-2xl font-semibold text-primary">
                       ${material.price.toFixed(2)}
                     </span>
-                    <span className="text-sm text-muted-foreground ml-1">{material.unit}</span>
+                    <span className="text-sm text-muted-foreground ml-1">
+                      {material.unit}
+                    </span>
                   </div>
                   <div className="text-right">
                     <p className="text-xs text-muted-foreground">MOQ</p>
                     <p className="text-sm font-medium">{material.moq}</p>
                   </div>
                 </div>
-                
+
                 {/* Exporter Info */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-1">
                       <MapPin className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-sm text-muted-foreground">{material.location}</span>
+                      <span className="text-sm text-muted-foreground">
+                        {material.location}
+                      </span>
                     </div>
                     <div className="flex items-center space-x-1">
                       <Star className="h-4 w-4 text-yellow-500 fill-current" />
-                      <span className="text-sm font-medium">{material.exporterRating}</span>
+                      <span className="text-sm font-medium">
+                        {material.exporterRating}
+                      </span>
                     </div>
                   </div>
-                  
-                  <p className="text-sm font-medium text-foreground">{material.exporter}</p>
-                  
+
+                  <p className="text-sm font-medium text-foreground">
+                    {material.exporter}
+                  </p>
+
                   {/* Trust Badges */}
                   <div className="flex flex-wrap gap-1">
                     {material.exporterBadges.map((badge, index) => (
-                      <Badge key={index} variant="outline" className="trust-badge trust-badge-verified text-xs">
+                      <Badge
+                        key={index}
+                        variant="outline"
+                        className="trust-badge trust-badge-verified text-xs"
+                      >
                         {badge}
                       </Badge>
                     ))}
                   </div>
                 </div>
-                
+
                 {/* Key Stats */}
                 <div className="grid grid-cols-2 gap-3 text-xs">
                   <div className="space-y-1">
@@ -350,7 +433,9 @@ export default function Importer() {
                       <Package className="h-3 w-3 text-muted-foreground" />
                       <span className="text-muted-foreground">In Stock:</span>
                     </div>
-                    <p className="font-medium">{material.inStock.toLocaleString()} kg</p>
+                    <p className="font-medium">
+                      {material.inStock.toLocaleString()} kg
+                    </p>
                   </div>
                   <div className="space-y-1">
                     <div className="flex items-center space-x-1">
@@ -360,20 +445,24 @@ export default function Importer() {
                     <p className="font-medium">{material.responseTime}</p>
                   </div>
                 </div>
-                
+
                 {/* Bulk Discount */}
                 {material.bulkDiscount && (
                   <div className="bg-success/10 border border-success/20 p-2">
                     <div className="flex items-center space-x-1">
                       <DollarSign className="h-3 w-3 text-success" />
-                      <span className="text-xs font-medium text-success">{material.bulkDiscount}</span>
+                      <span className="text-xs font-medium text-success">
+                        {material.bulkDiscount}
+                      </span>
                     </div>
                   </div>
                 )}
-                
+
                 {/* Certificates */}
                 <div className="space-y-1">
-                  <p className="text-xs text-muted-foreground">Certifications:</p>
+                  <p className="text-xs text-muted-foreground">
+                    Certifications:
+                  </p>
                   <div className="flex flex-wrap gap-1">
                     {material.certificates.map((cert, index) => (
                       <Badge key={index} variant="outline" className="text-xs">
@@ -383,14 +472,17 @@ export default function Importer() {
                     ))}
                   </div>
                 </div>
-                
+
                 {/* Actions */}
                 <div className="space-y-2 pt-2">
                   <Button className="btn-corporate w-full">
                     <ShoppingCart className="h-4 w-4 mr-2" />
                     Request Quote
                   </Button>
-                  <Button variant="outline" className="btn-secondary-corporate w-full text-xs">
+                  <Button
+                    variant="outline"
+                    className="btn-secondary-corporate w-full text-xs"
+                  >
                     View Details & Samples
                   </Button>
                 </div>
@@ -403,12 +495,14 @@ export default function Importer() {
         {filteredMaterials.length === 0 && (
           <div className="text-center py-16">
             <AlertCircle className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-xl font-medium text-foreground mb-2">No materials found</h3>
+            <h3 className="text-xl font-medium text-foreground mb-2">
+              No materials found
+            </h3>
             <p className="text-muted-foreground mb-6">
               Try adjusting your search criteria or filters to find more results
             </p>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               onClick={() => {
                 setSearchTerm("");
                 setMaterialFilter("all");

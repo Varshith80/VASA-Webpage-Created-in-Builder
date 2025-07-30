@@ -3,13 +3,19 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  ArrowLeft, 
+import {
+  ArrowLeft,
   Building2,
   User,
   Mail,
@@ -27,7 +33,7 @@ import {
   MapPin,
   Calendar,
   CreditCard,
-  Globe
+  Globe,
 } from "lucide-react";
 
 interface RegistrationData {
@@ -38,14 +44,14 @@ interface RegistrationData {
   dateOfBirth: string;
   gender: string;
   nationality: string;
-  
+
   // Contact Information
   email: string;
   phone: string;
   alternatePhone: string;
   password: string;
   confirmPassword: string;
-  
+
   // Business Information
   businessName: string;
   businessType: string;
@@ -53,32 +59,32 @@ interface RegistrationData {
   yearEstablished: string;
   employeeCount: string;
   annualTurnover: string;
-  
+
   // Legal Information
   licenseNumber: string;
   taxId: string;
   vatNumber: string;
   incorporationNumber: string;
-  
+
   // Address Information
   businessAddress: string;
   city: string;
   state: string;
   country: string;
   postalCode: string;
-  
+
   // Trade Information
   tradingExperience: string;
   primaryMarkets: string[];
   commoditiesDealt: string[];
   averageOrderValue: string;
-  
+
   // Reference Information
   bankName: string;
   bankAccountNumber: string;
   bankBranch: string;
   swiftCode: string;
-  
+
   // References
   businessReference1: string;
   businessReference2: string;
@@ -92,10 +98,13 @@ export default function Registration() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [otpSent, setOtpSent] = useState({ email: false, phone: false });
-  const [otpVerified, setOtpVerified] = useState({ email: false, phone: false });
+  const [otpVerified, setOtpVerified] = useState({
+    email: false,
+    phone: false,
+  });
   const [emailOtp, setEmailOtp] = useState("");
   const [phoneOtp, setPhoneOtp] = useState("");
-  
+
   const [registrationData, setRegistrationData] = useState<RegistrationData>({
     firstName: "",
     lastName: "",
@@ -134,7 +143,7 @@ export default function Registration() {
     businessReference1: "",
     businessReference2: "",
     tradeReference1: "",
-    tradeReference2: ""
+    tradeReference2: "",
   });
 
   const [documents, setDocuments] = useState({
@@ -144,71 +153,105 @@ export default function Registration() {
     addressProof: null as File | null,
     bankStatement: null as File | null,
     tradeLicense: null as File | null,
-    certificateOfIncorporation: null as File | null
+    certificateOfIncorporation: null as File | null,
   });
 
   const businessTypes = [
     "Private Limited Company",
-    "Public Limited Company", 
+    "Public Limited Company",
     "Partnership Firm",
     "Sole Proprietorship",
     "Limited Liability Partnership (LLP)",
     "Cooperative Society",
     "Trust",
-    "Non-Profit Organization"
+    "Non-Profit Organization",
   ];
 
   const businessCategories = [
     "Manufacturer",
-    "Trader/Dealer", 
+    "Trader/Dealer",
     "Exporter",
     "Importer",
     "Wholesaler",
     "Retailer",
     "Service Provider",
-    "Consultant"
+    "Consultant",
   ];
 
   const countries = [
-    "India", "United States", "China", "Germany", "United Kingdom",
-    "France", "Italy", "Japan", "Canada", "Australia", "Brazil",
-    "South Korea", "Netherlands", "Singapore", "UAE", "Others"
+    "India",
+    "United States",
+    "China",
+    "Germany",
+    "United Kingdom",
+    "France",
+    "Italy",
+    "Japan",
+    "Canada",
+    "Australia",
+    "Brazil",
+    "South Korea",
+    "Netherlands",
+    "Singapore",
+    "UAE",
+    "Others",
   ];
 
   const commodities = [
-    "Cotton", "Silk", "Polyester", "Wool", "Linen", "Nylon", "Jute",
-    "Cardamom", "Black Pepper", "Turmeric", "Cinnamon", "Cloves",
-    "Cashews", "Almonds", "Spices (Mixed)", "Essential Oils"
+    "Cotton",
+    "Silk",
+    "Polyester",
+    "Wool",
+    "Linen",
+    "Nylon",
+    "Jute",
+    "Cardamom",
+    "Black Pepper",
+    "Turmeric",
+    "Cinnamon",
+    "Cloves",
+    "Cashews",
+    "Almonds",
+    "Spices (Mixed)",
+    "Essential Oils",
   ];
 
   const markets = [
-    "Asia-Pacific", "North America", "Europe", "Middle East", 
-    "Africa", "Latin America", "Oceania"
+    "Asia-Pacific",
+    "North America",
+    "Europe",
+    "Middle East",
+    "Africa",
+    "Latin America",
+    "Oceania",
   ];
 
-  const handleInputChange = (field: keyof RegistrationData, value: string | string[]) => {
-    setRegistrationData(prev => ({
+  const handleInputChange = (
+    field: keyof RegistrationData,
+    value: string | string[],
+  ) => {
+    setRegistrationData((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
   const handleFileUpload = (field: keyof typeof documents, file: File) => {
-    setDocuments(prev => ({
+    setDocuments((prev) => ({
       ...prev,
-      [field]: file
+      [field]: file,
     }));
   };
 
   const sendOtp = async (type: "email" | "phone") => {
     // Simulate OTP sending
-    setOtpSent(prev => ({ ...prev, [type]: true }));
+    setOtpSent((prev) => ({ ...prev, [type]: true }));
   };
 
   const verifyOtp = async (type: "email" | "phone", otp: string) => {
     // Simulate OTP verification
     if (otp === "123456") {
-      setOtpVerified(prev => ({ ...prev, [type]: true }));
+      setOtpVerified((prev) => ({ ...prev, [type]: true }));
     }
   };
 
@@ -225,17 +268,31 @@ export default function Registration() {
   };
 
   const getStepIcon = (step: number) => {
-    if (step < currentStep) return <CheckCircle className="h-5 w-5 text-success" />;
-    if (step === currentStep) return <div className="h-5 w-5 bg-primary rounded-full" />;
+    if (step < currentStep)
+      return <CheckCircle className="h-5 w-5 text-success" />;
+    if (step === currentStep)
+      return <div className="h-5 w-5 bg-primary rounded-full" />;
     return <div className="h-5 w-5 bg-muted-foreground rounded-full" />;
   };
 
   const steps = [
-    { number: 1, title: "Personal Information", description: "Basic personal details" },
-    { number: 2, title: "Business Information", description: "Company and legal details" },
-    { number: 3, title: "Verification", description: "Email and phone verification" },
+    {
+      number: 1,
+      title: "Personal Information",
+      description: "Basic personal details",
+    },
+    {
+      number: 2,
+      title: "Business Information",
+      description: "Company and legal details",
+    },
+    {
+      number: 3,
+      title: "Verification",
+      description: "Email and phone verification",
+    },
     { number: 4, title: "Documents", description: "Upload required documents" },
-    { number: 5, title: "Review & Submit", description: "Final verification" }
+    { number: 5, title: "Review & Submit", description: "Final verification" },
   ];
 
   return (
@@ -246,14 +303,20 @@ export default function Registration() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Link to="/">
-                <Button variant="ghost" size="sm" className="corporate-transition">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="corporate-transition"
+                >
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Back to Home
                 </Button>
               </Link>
               <div className="flex items-center space-x-2">
                 <Building2 className="h-5 w-5 text-primary" />
-                <span className="font-semibold text-foreground">TradeBridge</span>
+                <span className="font-semibold text-foreground">
+                  TradeBridge
+                </span>
               </div>
             </div>
             <Badge variant="secondary" className="trust-badge">
@@ -275,12 +338,18 @@ export default function Registration() {
                     {getStepIcon(step.number)}
                   </div>
                   <div className="text-center">
-                    <p className="text-sm font-medium text-foreground">{step.title}</p>
-                    <p className="text-xs text-muted-foreground">{step.description}</p>
+                    <p className="text-sm font-medium text-foreground">
+                      {step.title}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {step.description}
+                    </p>
                   </div>
                 </div>
                 {index < steps.length - 1 && (
-                  <div className={`flex-1 h-px mx-4 ${step.number < currentStep ? 'bg-success' : 'bg-border'}`} />
+                  <div
+                    className={`flex-1 h-px mx-4 ${step.number < currentStep ? "bg-success" : "bg-border"}`}
+                  />
                 )}
               </div>
             ))}
@@ -291,13 +360,19 @@ export default function Registration() {
         <div className="max-w-2xl mx-auto mb-8">
           <Card className="card-corporate">
             <CardHeader>
-              <CardTitle className="text-center">Select Your Trading Role</CardTitle>
+              <CardTitle className="text-center">
+                Select Your Trading Role
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-4">
                 <Button
                   variant={role === "importer" ? "default" : "outline"}
-                  className={role === "importer" ? "btn-corporate" : "btn-secondary-corporate"}
+                  className={
+                    role === "importer"
+                      ? "btn-corporate"
+                      : "btn-secondary-corporate"
+                  }
                   onClick={() => setRole("importer")}
                 >
                   <User className="mr-2 h-4 w-4" />
@@ -305,7 +380,11 @@ export default function Registration() {
                 </Button>
                 <Button
                   variant={role === "exporter" ? "default" : "outline"}
-                  className={role === "exporter" ? "btn-corporate" : "btn-secondary-corporate"}
+                  className={
+                    role === "exporter"
+                      ? "btn-corporate"
+                      : "btn-secondary-corporate"
+                  }
                   onClick={() => setRole("exporter")}
                 >
                   <Building2 className="mr-2 h-4 w-4" />
@@ -320,11 +399,14 @@ export default function Registration() {
         <div className="max-w-2xl mx-auto">
           <Card className="card-corporate">
             <CardHeader>
-              <CardTitle>Step {currentStep}: {steps[currentStep - 1].title}</CardTitle>
-              <p className="text-muted-foreground">{steps[currentStep - 1].description}</p>
+              <CardTitle>
+                Step {currentStep}: {steps[currentStep - 1].title}
+              </CardTitle>
+              <p className="text-muted-foreground">
+                {steps[currentStep - 1].description}
+              </p>
             </CardHeader>
             <CardContent className="space-y-6">
-              
               {/* Step 1: Personal Information */}
               {currentStep === 1 && (
                 <div className="space-y-4">
@@ -333,7 +415,9 @@ export default function Registration() {
                       <Label className="form-label">First Name *</Label>
                       <Input
                         value={registrationData.firstName}
-                        onChange={(e) => handleInputChange("firstName", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("firstName", e.target.value)
+                        }
                         className="input-corporate"
                         required
                       />
@@ -342,7 +426,9 @@ export default function Registration() {
                       <Label className="form-label">Last Name *</Label>
                       <Input
                         value={registrationData.lastName}
-                        onChange={(e) => handleInputChange("lastName", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("lastName", e.target.value)
+                        }
                         className="input-corporate"
                         required
                       />
@@ -355,7 +441,9 @@ export default function Registration() {
                       <Input
                         type="number"
                         value={registrationData.age}
-                        onChange={(e) => handleInputChange("age", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("age", e.target.value)
+                        }
                         className="input-corporate"
                         required
                       />
@@ -365,14 +453,21 @@ export default function Registration() {
                       <Input
                         type="date"
                         value={registrationData.dateOfBirth}
-                        onChange={(e) => handleInputChange("dateOfBirth", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("dateOfBirth", e.target.value)
+                        }
                         className="input-corporate"
                         required
                       />
                     </div>
                     <div className="form-group">
                       <Label className="form-label">Gender</Label>
-                      <Select value={registrationData.gender} onValueChange={(value) => handleInputChange("gender", value)}>
+                      <Select
+                        value={registrationData.gender}
+                        onValueChange={(value) =>
+                          handleInputChange("gender", value)
+                        }
+                      >
                         <SelectTrigger className="input-corporate">
                           <SelectValue placeholder="Select" />
                         </SelectTrigger>
@@ -380,7 +475,9 @@ export default function Registration() {
                           <SelectItem value="male">Male</SelectItem>
                           <SelectItem value="female">Female</SelectItem>
                           <SelectItem value="other">Other</SelectItem>
-                          <SelectItem value="prefer-not-to-say">Prefer not to say</SelectItem>
+                          <SelectItem value="prefer-not-to-say">
+                            Prefer not to say
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -389,13 +486,20 @@ export default function Registration() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="form-group">
                       <Label className="form-label">Nationality *</Label>
-                      <Select value={registrationData.nationality} onValueChange={(value) => handleInputChange("nationality", value)}>
+                      <Select
+                        value={registrationData.nationality}
+                        onValueChange={(value) =>
+                          handleInputChange("nationality", value)
+                        }
+                      >
                         <SelectTrigger className="input-corporate">
                           <SelectValue placeholder="Select nationality" />
                         </SelectTrigger>
                         <SelectContent>
                           {countries.map((country) => (
-                            <SelectItem key={country} value={country}>{country}</SelectItem>
+                            <SelectItem key={country} value={country}>
+                              {country}
+                            </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
@@ -405,7 +509,9 @@ export default function Registration() {
                       <Input
                         type="tel"
                         value={registrationData.phone}
-                        onChange={(e) => handleInputChange("phone", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("phone", e.target.value)
+                        }
                         className="input-corporate"
                         placeholder="+1 234 567 8900"
                         required
@@ -419,7 +525,9 @@ export default function Registration() {
                       <Input
                         type="email"
                         value={registrationData.email}
-                        onChange={(e) => handleInputChange("email", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("email", e.target.value)
+                        }
                         className="input-corporate"
                         required
                       />
@@ -429,7 +537,9 @@ export default function Registration() {
                       <Input
                         type="tel"
                         value={registrationData.alternatePhone}
-                        onChange={(e) => handleInputChange("alternatePhone", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("alternatePhone", e.target.value)
+                        }
                         className="input-corporate"
                         placeholder="+1 234 567 8901"
                       />
@@ -443,7 +553,9 @@ export default function Registration() {
                         <Input
                           type={showPassword ? "text" : "password"}
                           value={registrationData.password}
-                          onChange={(e) => handleInputChange("password", e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("password", e.target.value)
+                          }
                           className="input-corporate pr-10"
                           required
                         />
@@ -454,7 +566,11 @@ export default function Registration() {
                           className="absolute right-0 top-0 h-full px-3"
                           onClick={() => setShowPassword(!showPassword)}
                         >
-                          {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                          {showPassword ? (
+                            <EyeOff className="h-4 w-4" />
+                          ) : (
+                            <Eye className="h-4 w-4" />
+                          )}
                         </Button>
                       </div>
                     </div>
@@ -464,7 +580,9 @@ export default function Registration() {
                         <Input
                           type={showConfirmPassword ? "text" : "password"}
                           value={registrationData.confirmPassword}
-                          onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("confirmPassword", e.target.value)
+                          }
                           className="input-corporate pr-10"
                           required
                         />
@@ -473,9 +591,15 @@ export default function Registration() {
                           variant="ghost"
                           size="sm"
                           className="absolute right-0 top-0 h-full px-3"
-                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                          onClick={() =>
+                            setShowConfirmPassword(!showConfirmPassword)
+                          }
                         >
-                          {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                          {showConfirmPassword ? (
+                            <EyeOff className="h-4 w-4" />
+                          ) : (
+                            <Eye className="h-4 w-4" />
+                          )}
                         </Button>
                       </div>
                     </div>
@@ -490,7 +614,9 @@ export default function Registration() {
                     <Label className="form-label">Business Name *</Label>
                     <Input
                       value={registrationData.businessName}
-                      onChange={(e) => handleInputChange("businessName", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("businessName", e.target.value)
+                      }
                       className="input-corporate"
                       placeholder="Legal business name as per registration"
                       required
@@ -500,26 +626,40 @@ export default function Registration() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="form-group">
                       <Label className="form-label">Business Type *</Label>
-                      <Select value={registrationData.businessType} onValueChange={(value) => handleInputChange("businessType", value)}>
+                      <Select
+                        value={registrationData.businessType}
+                        onValueChange={(value) =>
+                          handleInputChange("businessType", value)
+                        }
+                      >
                         <SelectTrigger className="input-corporate">
                           <SelectValue placeholder="Select business type" />
                         </SelectTrigger>
                         <SelectContent>
                           {businessTypes.map((type) => (
-                            <SelectItem key={type} value={type}>{type}</SelectItem>
+                            <SelectItem key={type} value={type}>
+                              {type}
+                            </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
                     </div>
                     <div className="form-group">
                       <Label className="form-label">Business Category *</Label>
-                      <Select value={registrationData.businessCategory} onValueChange={(value) => handleInputChange("businessCategory", value)}>
+                      <Select
+                        value={registrationData.businessCategory}
+                        onValueChange={(value) =>
+                          handleInputChange("businessCategory", value)
+                        }
+                      >
                         <SelectTrigger className="input-corporate">
                           <SelectValue placeholder="Select category" />
                         </SelectTrigger>
                         <SelectContent>
                           {businessCategories.map((category) => (
-                            <SelectItem key={category} value={category}>{category}</SelectItem>
+                            <SelectItem key={category} value={category}>
+                              {category}
+                            </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
@@ -532,7 +672,9 @@ export default function Registration() {
                       <Input
                         type="number"
                         value={registrationData.yearEstablished}
-                        onChange={(e) => handleInputChange("yearEstablished", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("yearEstablished", e.target.value)
+                        }
                         className="input-corporate"
                         placeholder="YYYY"
                         required
@@ -540,7 +682,12 @@ export default function Registration() {
                     </div>
                     <div className="form-group">
                       <Label className="form-label">Employee Count</Label>
-                      <Select value={registrationData.employeeCount} onValueChange={(value) => handleInputChange("employeeCount", value)}>
+                      <Select
+                        value={registrationData.employeeCount}
+                        onValueChange={(value) =>
+                          handleInputChange("employeeCount", value)
+                        }
+                      >
                         <SelectTrigger className="input-corporate">
                           <SelectValue placeholder="Select range" />
                         </SelectTrigger>
@@ -555,7 +702,12 @@ export default function Registration() {
                     </div>
                     <div className="form-group">
                       <Label className="form-label">Annual Turnover</Label>
-                      <Select value={registrationData.annualTurnover} onValueChange={(value) => handleInputChange("annualTurnover", value)}>
+                      <Select
+                        value={registrationData.annualTurnover}
+                        onValueChange={(value) =>
+                          handleInputChange("annualTurnover", value)
+                        }
+                      >
                         <SelectTrigger className="input-corporate">
                           <SelectValue placeholder="Select range" />
                         </SelectTrigger>
@@ -572,10 +724,14 @@ export default function Registration() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="form-group">
-                      <Label className="form-label">Import/Export License Number *</Label>
+                      <Label className="form-label">
+                        Import/Export License Number *
+                      </Label>
                       <Input
                         value={registrationData.licenseNumber}
-                        onChange={(e) => handleInputChange("licenseNumber", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("licenseNumber", e.target.value)
+                        }
                         className="input-corporate"
                         placeholder="Government issued license number"
                         required
@@ -585,7 +741,9 @@ export default function Registration() {
                       <Label className="form-label">Tax ID/GST Number *</Label>
                       <Input
                         value={registrationData.taxId}
-                        onChange={(e) => handleInputChange("taxId", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("taxId", e.target.value)
+                        }
                         className="input-corporate"
                         placeholder="Tax identification number"
                         required
@@ -598,7 +756,9 @@ export default function Registration() {
                       <Label className="form-label">VAT Number</Label>
                       <Input
                         value={registrationData.vatNumber}
-                        onChange={(e) => handleInputChange("vatNumber", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("vatNumber", e.target.value)
+                        }
                         className="input-corporate"
                         placeholder="VAT registration number"
                       />
@@ -607,7 +767,12 @@ export default function Registration() {
                       <Label className="form-label">Incorporation Number</Label>
                       <Input
                         value={registrationData.incorporationNumber}
-                        onChange={(e) => handleInputChange("incorporationNumber", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "incorporationNumber",
+                            e.target.value,
+                          )
+                        }
                         className="input-corporate"
                         placeholder="Company incorporation number"
                       />
@@ -616,12 +781,16 @@ export default function Registration() {
 
                   {/* Address Information */}
                   <div className="space-y-4 border-t border-border pt-4">
-                    <h4 className="font-medium text-foreground">Business Address</h4>
+                    <h4 className="font-medium text-foreground">
+                      Business Address
+                    </h4>
                     <div className="form-group">
                       <Label className="form-label">Full Address *</Label>
                       <Textarea
                         value={registrationData.businessAddress}
-                        onChange={(e) => handleInputChange("businessAddress", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("businessAddress", e.target.value)
+                        }
                         className="input-corporate"
                         rows={3}
                         placeholder="Complete business address"
@@ -633,7 +802,9 @@ export default function Registration() {
                         <Label className="form-label">City *</Label>
                         <Input
                           value={registrationData.city}
-                          onChange={(e) => handleInputChange("city", e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("city", e.target.value)
+                          }
                           className="input-corporate"
                           required
                         />
@@ -642,7 +813,9 @@ export default function Registration() {
                         <Label className="form-label">State/Province *</Label>
                         <Input
                           value={registrationData.state}
-                          onChange={(e) => handleInputChange("state", e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("state", e.target.value)
+                          }
                           className="input-corporate"
                           required
                         />
@@ -651,13 +824,20 @@ export default function Registration() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="form-group">
                         <Label className="form-label">Country *</Label>
-                        <Select value={registrationData.country} onValueChange={(value) => handleInputChange("country", value)}>
+                        <Select
+                          value={registrationData.country}
+                          onValueChange={(value) =>
+                            handleInputChange("country", value)
+                          }
+                        >
                           <SelectTrigger className="input-corporate">
                             <SelectValue placeholder="Select country" />
                           </SelectTrigger>
                           <SelectContent>
                             {countries.map((country) => (
-                              <SelectItem key={country} value={country}>{country}</SelectItem>
+                              <SelectItem key={country} value={country}>
+                                {country}
+                              </SelectItem>
                             ))}
                           </SelectContent>
                         </Select>
@@ -666,7 +846,9 @@ export default function Registration() {
                         <Label className="form-label">Postal Code *</Label>
                         <Input
                           value={registrationData.postalCode}
-                          onChange={(e) => handleInputChange("postalCode", e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("postalCode", e.target.value)
+                          }
                           className="input-corporate"
                           required
                         />
@@ -682,10 +864,13 @@ export default function Registration() {
                   <div className="bg-muted p-4">
                     <div className="flex items-center space-x-2 mb-2">
                       <Info className="h-4 w-4 text-primary" />
-                      <span className="font-medium text-foreground">Verification Required</span>
+                      <span className="font-medium text-foreground">
+                        Verification Required
+                      </span>
                     </div>
                     <p className="text-sm text-muted-foreground">
-                      We need to verify your email and phone number to ensure account security and prevent fraud.
+                      We need to verify your email and phone number to ensure
+                      account security and prevent fraud.
                     </p>
                   </div>
 
@@ -694,7 +879,9 @@ export default function Registration() {
                     <div className="flex items-center justify-between">
                       <div>
                         <Label className="form-label">Email Verification</Label>
-                        <p className="text-sm text-muted-foreground">{registrationData.email}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {registrationData.email}
+                        </p>
                       </div>
                       {otpVerified.email ? (
                         <Badge className="trust-badge trust-badge-verified">
@@ -736,7 +923,9 @@ export default function Registration() {
                     <div className="flex items-center justify-between">
                       <div>
                         <Label className="form-label">Phone Verification</Label>
-                        <p className="text-sm text-muted-foreground">{registrationData.phone}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {registrationData.phone}
+                        </p>
                       </div>
                       {otpVerified.phone ? (
                         <Badge className="trust-badge trust-badge-verified">
@@ -781,50 +970,79 @@ export default function Registration() {
                   <div className="bg-muted p-4">
                     <div className="flex items-center space-x-2 mb-2">
                       <FileText className="h-4 w-4 text-primary" />
-                      <span className="font-medium text-foreground">Required Documents</span>
+                      <span className="font-medium text-foreground">
+                        Required Documents
+                      </span>
                     </div>
                     <p className="text-sm text-muted-foreground">
-                      Please upload clear, readable copies of the following documents. All documents must be valid and current.
+                      Please upload clear, readable copies of the following
+                      documents. All documents must be valid and current.
                     </p>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Business License */}
                     <div className="space-y-2">
-                      <Label className="form-label">Business License/Registration Certificate *</Label>
+                      <Label className="form-label">
+                        Business License/Registration Certificate *
+                      </Label>
                       <div className="border-2 border-dashed border-border p-4 text-center">
                         <Upload className="h-6 w-6 text-muted-foreground mx-auto mb-2" />
-                        <p className="text-sm text-muted-foreground">Click to upload</p>
-                        <p className="text-xs text-muted-foreground">PDF, JPG, PNG (Max 10MB)</p>
+                        <p className="text-sm text-muted-foreground">
+                          Click to upload
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          PDF, JPG, PNG (Max 10MB)
+                        </p>
                         <input
                           type="file"
                           accept=".pdf,.jpg,.jpeg,.png"
-                          onChange={(e) => e.target.files?.[0] && handleFileUpload("businessLicense", e.target.files[0])}
+                          onChange={(e) =>
+                            e.target.files?.[0] &&
+                            handleFileUpload(
+                              "businessLicense",
+                              e.target.files[0],
+                            )
+                          }
                           className="hidden"
                         />
                       </div>
                       {documents.businessLicense && (
-                        <p className="text-sm text-success">✓ {documents.businessLicense.name}</p>
+                        <p className="text-sm text-success">
+                          ✓ {documents.businessLicense.name}
+                        </p>
                       )}
                     </div>
 
                     {/* Tax Certificate */}
                     <div className="space-y-2">
-                      <Label className="form-label">Tax ID/GST Certificate *</Label>
+                      <Label className="form-label">
+                        Tax ID/GST Certificate *
+                      </Label>
                       <div className="border-2 border-dashed border-border p-4 text-center">
                         <Upload className="h-6 w-6 text-muted-foreground mx-auto mb-2" />
-                        <p className="text-sm text-muted-foreground">Click to upload</p>
-                        <p className="text-xs text-muted-foreground">PDF, JPG, PNG (Max 10MB)</p>
+                        <p className="text-sm text-muted-foreground">
+                          Click to upload
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          PDF, JPG, PNG (Max 10MB)
+                        </p>
                       </div>
                     </div>
 
                     {/* Identity Proof */}
                     <div className="space-y-2">
-                      <Label className="form-label">Government-issued ID *</Label>
+                      <Label className="form-label">
+                        Government-issued ID *
+                      </Label>
                       <div className="border-2 border-dashed border-border p-4 text-center">
                         <Upload className="h-6 w-6 text-muted-foreground mx-auto mb-2" />
-                        <p className="text-sm text-muted-foreground">Passport, Driver's License, National ID</p>
-                        <p className="text-xs text-muted-foreground">PDF, JPG, PNG (Max 10MB)</p>
+                        <p className="text-sm text-muted-foreground">
+                          Passport, Driver's License, National ID
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          PDF, JPG, PNG (Max 10MB)
+                        </p>
                       </div>
                     </div>
 
@@ -833,28 +1051,44 @@ export default function Registration() {
                       <Label className="form-label">Address Proof *</Label>
                       <div className="border-2 border-dashed border-border p-4 text-center">
                         <Upload className="h-6 w-6 text-muted-foreground mx-auto mb-2" />
-                        <p className="text-sm text-muted-foreground">Utility bill, Bank statement</p>
-                        <p className="text-xs text-muted-foreground">PDF, JPG, PNG (Max 10MB)</p>
+                        <p className="text-sm text-muted-foreground">
+                          Utility bill, Bank statement
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          PDF, JPG, PNG (Max 10MB)
+                        </p>
                       </div>
                     </div>
 
                     {/* Bank Statement */}
                     <div className="space-y-2">
-                      <Label className="form-label">Bank Statement (Last 3 months) *</Label>
+                      <Label className="form-label">
+                        Bank Statement (Last 3 months) *
+                      </Label>
                       <div className="border-2 border-dashed border-border p-4 text-center">
                         <Upload className="h-6 w-6 text-muted-foreground mx-auto mb-2" />
-                        <p className="text-sm text-muted-foreground">Official bank statement</p>
-                        <p className="text-xs text-muted-foreground">PDF (Max 10MB)</p>
+                        <p className="text-sm text-muted-foreground">
+                          Official bank statement
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          PDF (Max 10MB)
+                        </p>
                       </div>
                     </div>
 
                     {/* Trade License */}
                     <div className="space-y-2">
-                      <Label className="form-label">Import/Export Trade License *</Label>
+                      <Label className="form-label">
+                        Import/Export Trade License *
+                      </Label>
                       <div className="border-2 border-dashed border-border p-4 text-center">
                         <Upload className="h-6 w-6 text-muted-foreground mx-auto mb-2" />
-                        <p className="text-sm text-muted-foreground">Government trade license</p>
-                        <p className="text-xs text-muted-foreground">PDF, JPG, PNG (Max 10MB)</p>
+                        <p className="text-sm text-muted-foreground">
+                          Government trade license
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          PDF, JPG, PNG (Max 10MB)
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -867,7 +1101,9 @@ export default function Registration() {
                   <div className="bg-success/10 border border-success/20 p-4">
                     <div className="flex items-center space-x-2 mb-2">
                       <CheckCircle className="h-4 w-4 text-success" />
-                      <span className="font-medium text-success">Registration Complete</span>
+                      <span className="font-medium text-success">
+                        Registration Complete
+                      </span>
                     </div>
                     <p className="text-sm text-success">
                       Please review all information and submit for verification.
@@ -875,11 +1111,16 @@ export default function Registration() {
                   </div>
 
                   <div className="space-y-4">
-                    <h4 className="font-medium text-foreground">Registration Summary</h4>
+                    <h4 className="font-medium text-foreground">
+                      Registration Summary
+                    </h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                       <div>
                         <p className="text-muted-foreground">Name:</p>
-                        <p className="font-medium">{registrationData.firstName} {registrationData.lastName}</p>
+                        <p className="font-medium">
+                          {registrationData.firstName}{" "}
+                          {registrationData.lastName}
+                        </p>
                       </div>
                       <div>
                         <p className="text-muted-foreground">Email:</p>
@@ -887,7 +1128,9 @@ export default function Registration() {
                       </div>
                       <div>
                         <p className="text-muted-foreground">Business:</p>
-                        <p className="font-medium">{registrationData.businessName}</p>
+                        <p className="font-medium">
+                          {registrationData.businessName}
+                        </p>
                       </div>
                       <div>
                         <p className="text-muted-foreground">Role:</p>
@@ -897,12 +1140,22 @@ export default function Registration() {
                   </div>
 
                   <div className="bg-muted p-4">
-                    <h4 className="font-medium text-foreground mb-2">Next Steps</h4>
+                    <h4 className="font-medium text-foreground mb-2">
+                      Next Steps
+                    </h4>
                     <div className="space-y-2 text-sm text-muted-foreground">
-                      <p>1. Our verification team will review your documents (24-48 hours)</p>
-                      <p>2. You'll receive email updates on verification status</p>
+                      <p>
+                        1. Our verification team will review your documents
+                        (24-48 hours)
+                      </p>
+                      <p>
+                        2. You'll receive email updates on verification status
+                      </p>
                       <p>3. Once approved, you can start trading immediately</p>
-                      <p>4. Complete your business profile to attract more partners</p>
+                      <p>
+                        4. Complete your business profile to attract more
+                        partners
+                      </p>
                     </div>
                   </div>
 
@@ -911,10 +1164,26 @@ export default function Registration() {
                       <input type="checkbox" className="mt-1" required />
                       <div className="text-sm text-muted-foreground">
                         <p>
-                          I hereby confirm that all information provided is accurate and complete. 
-                          I agree to the <a href="#" className="text-primary hover:underline">Terms of Service</a>, 
-                          <a href="#" className="text-primary hover:underline ml-1">Privacy Policy</a>, and 
-                          <a href="#" className="text-primary hover:underline ml-1">Trading Agreement</a>.
+                          I hereby confirm that all information provided is
+                          accurate and complete. I agree to the{" "}
+                          <a href="#" className="text-primary hover:underline">
+                            Terms of Service
+                          </a>
+                          ,
+                          <a
+                            href="#"
+                            className="text-primary hover:underline ml-1"
+                          >
+                            Privacy Policy
+                          </a>
+                          , and
+                          <a
+                            href="#"
+                            className="text-primary hover:underline ml-1"
+                          >
+                            Trading Agreement
+                          </a>
+                          .
                         </p>
                       </div>
                     </div>
@@ -922,8 +1191,9 @@ export default function Registration() {
                       <input type="checkbox" className="mt-1" required />
                       <div className="text-sm text-muted-foreground">
                         <p>
-                          I authorize TradeBridge to verify the provided information with relevant authorities 
-                          and financial institutions for account verification purposes.
+                          I authorize TradeBridge to verify the provided
+                          information with relevant authorities and financial
+                          institutions for account verification purposes.
                         </p>
                       </div>
                     </div>
@@ -941,21 +1211,20 @@ export default function Registration() {
                 >
                   Previous
                 </Button>
-                
+
                 {currentStep < 5 ? (
                   <Button
                     onClick={nextStep}
                     className="btn-corporate"
                     disabled={
-                      (currentStep === 3 && (!otpVerified.email || !otpVerified.phone))
+                      currentStep === 3 &&
+                      (!otpVerified.email || !otpVerified.phone)
                     }
                   >
                     Next Step
                   </Button>
                 ) : (
-                  <Button className="btn-corporate">
-                    Submit Registration
-                  </Button>
+                  <Button className="btn-corporate">Submit Registration</Button>
                 )}
               </div>
             </CardContent>

@@ -7,9 +7,15 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { 
-  ArrowLeft, 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  ArrowLeft,
   Building2,
   AlertTriangle,
   MessageSquare,
@@ -31,7 +37,7 @@ import {
   Gavel,
   Users,
   Camera,
-  Paperclip
+  Paperclip,
 } from "lucide-react";
 
 interface Dispute {
@@ -120,8 +126,8 @@ export default function DisputeResolution() {
       quality: 0,
       communication: 0,
       delivery: 0,
-      professionalism: 0
-    }
+      professionalism: 0,
+    },
   });
 
   // Mock disputes data
@@ -139,52 +145,86 @@ export default function DisputeResolution() {
       complainant: {
         name: "John Smith",
         role: "importer",
-        company: "Fashion Corp Ltd."
+        company: "Fashion Corp Ltd.",
       },
       respondent: {
         name: "Rajesh Kumar",
         role: "exporter",
-        company: "Global Cotton Co."
+        company: "Global Cotton Co.",
       },
-      description: "The cotton received does not match the quality specifications agreed upon. The fiber length is significantly shorter than promised, affecting our production quality.",
+      description:
+        "The cotton received does not match the quality specifications agreed upon. The fiber length is significantly shorter than promised, affecting our production quality.",
       timeline: [
-        { date: "2024-01-20", event: "Dispute raised", actor: "John Smith", status: "completed" },
-        { date: "2024-01-20", event: "Notification sent to respondent", actor: "System", status: "completed" },
-        { date: "2024-01-21", event: "Respondent acknowledged", actor: "Rajesh Kumar", status: "completed" },
-        { date: "2024-01-22", event: "Evidence submitted", actor: "John Smith", status: "completed" },
-        { date: "2024-01-22", event: "Moderator assigned", actor: "System", status: "completed" },
-        { date: "2024-01-23", event: "Mediation scheduled", actor: "Sarah Johnson", status: "pending" }
+        {
+          date: "2024-01-20",
+          event: "Dispute raised",
+          actor: "John Smith",
+          status: "completed",
+        },
+        {
+          date: "2024-01-20",
+          event: "Notification sent to respondent",
+          actor: "System",
+          status: "completed",
+        },
+        {
+          date: "2024-01-21",
+          event: "Respondent acknowledged",
+          actor: "Rajesh Kumar",
+          status: "completed",
+        },
+        {
+          date: "2024-01-22",
+          event: "Evidence submitted",
+          actor: "John Smith",
+          status: "completed",
+        },
+        {
+          date: "2024-01-22",
+          event: "Moderator assigned",
+          actor: "System",
+          status: "completed",
+        },
+        {
+          date: "2024-01-23",
+          event: "Mediation scheduled",
+          actor: "Sarah Johnson",
+          status: "pending",
+        },
       ],
       messages: [
         {
           id: "msg-1",
           sender: "John Smith",
-          content: "The cotton quality is not as per specifications. I have photographic evidence and lab test results.",
+          content:
+            "The cotton quality is not as per specifications. I have photographic evidence and lab test results.",
           timestamp: "2024-01-20T10:00:00Z",
           attachments: [
             { name: "lab-test-results.pdf", type: "PDF", size: "2.3 MB" },
-            { name: "quality-photos.zip", type: "ZIP", size: "15.7 MB" }
-          ]
+            { name: "quality-photos.zip", type: "ZIP", size: "15.7 MB" },
+          ],
         },
         {
           id: "msg-2",
           sender: "Rajesh Kumar",
-          content: "I understand your concern. Let me review our quality control records and provide evidence of our testing.",
-          timestamp: "2024-01-21T14:30:00Z"
+          content:
+            "I understand your concern. Let me review our quality control records and provide evidence of our testing.",
+          timestamp: "2024-01-21T14:30:00Z",
         },
         {
           id: "msg-3",
           sender: "Sarah Johnson (Moderator)",
-          content: "I have been assigned to this case. I've reviewed the evidence from both parties. Let's schedule a mediation call for tomorrow at 3 PM UTC.",
-          timestamp: "2024-01-22T16:00:00Z"
-        }
+          content:
+            "I have been assigned to this case. I've reviewed the evidence from both parties. Let's schedule a mediation call for tomorrow at 3 PM UTC.",
+          timestamp: "2024-01-22T16:00:00Z",
+        },
       ],
       moderator: {
         name: "Sarah Johnson",
         id: "MOD-005",
-        assignedDate: "2024-01-22"
-      }
-    }
+        assignedDate: "2024-01-22",
+      },
+    },
   ];
 
   // Mock reviews data
@@ -196,26 +236,27 @@ export default function DisputeResolution() {
         name: "Alice Chen",
         role: "importer",
         company: "Textile Innovations Inc.",
-        verified: true
+        verified: true,
       },
       reviewee: {
         name: "Mohammed Hassan",
         role: "exporter",
-        company: "Spice Trading Co."
+        company: "Spice Trading Co.",
       },
       material: "Premium Cardamom",
       orderAmount: "$17,000",
       rating: 5,
-      review: "Excellent quality cardamom, delivered on time with all certifications. Mohammed was very responsive throughout the process and provided regular updates. Highly recommended!",
+      review:
+        "Excellent quality cardamom, delivered on time with all certifications. Mohammed was very responsive throughout the process and provided regular updates. Highly recommended!",
       date: "2024-01-15",
       helpful: 8,
       categories: {
         quality: 5,
         communication: 5,
         delivery: 5,
-        professionalism: 5
+        professionalism: 5,
       },
-      verified: true
+      verified: true,
     },
     {
       id: "REV-002",
@@ -224,47 +265,59 @@ export default function DisputeResolution() {
         name: "David Wilson",
         role: "importer",
         company: "Global Textiles Ltd.",
-        verified: true
+        verified: true,
       },
       reviewee: {
         name: "Priya Sharma",
         role: "exporter",
-        company: "Silk Masters Ltd."
+        company: "Silk Masters Ltd.",
       },
       material: "Mulberry Silk",
       orderAmount: "$22,500",
       rating: 4,
-      review: "Good quality silk, though delivery was slightly delayed. Communication could have been better during the shipping phase. Overall satisfied with the transaction.",
+      review:
+        "Good quality silk, though delivery was slightly delayed. Communication could have been better during the shipping phase. Overall satisfied with the transaction.",
       date: "2024-01-12",
       helpful: 5,
       categories: {
         quality: 4,
         communication: 3,
         delivery: 3,
-        professionalism: 4
+        professionalism: 4,
       },
-      verified: true
-    }
+      verified: true,
+    },
   ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "open": return "bg-blue-100 text-blue-800";
-      case "in-review": return "bg-yellow-100 text-yellow-800";
-      case "mediation": return "bg-orange-100 text-orange-800";
-      case "resolved": return "bg-green-100 text-green-800";
-      case "closed": return "bg-gray-100 text-gray-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "open":
+        return "bg-blue-100 text-blue-800";
+      case "in-review":
+        return "bg-yellow-100 text-yellow-800";
+      case "mediation":
+        return "bg-orange-100 text-orange-800";
+      case "resolved":
+        return "bg-green-100 text-green-800";
+      case "closed":
+        return "bg-gray-100 text-gray-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case "urgent": return "bg-red-100 text-red-800";
-      case "high": return "bg-orange-100 text-orange-800";
-      case "medium": return "bg-yellow-100 text-yellow-800";
-      case "low": return "bg-green-100 text-green-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "urgent":
+        return "bg-red-100 text-red-800";
+      case "high":
+        return "bg-orange-100 text-orange-800";
+      case "medium":
+        return "bg-yellow-100 text-yellow-800";
+      case "low":
+        return "bg-green-100 text-green-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -291,14 +344,20 @@ export default function DisputeResolution() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Link to="/orders">
-                <Button variant="ghost" size="sm" className="corporate-transition">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="corporate-transition"
+                >
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Back to Orders
                 </Button>
               </Link>
               <div className="flex items-center space-x-2">
                 <Building2 className="h-5 w-5 text-primary" />
-                <span className="font-semibold text-foreground">TradeBridge</span>
+                <span className="font-semibold text-foreground">
+                  TradeBridge
+                </span>
               </div>
             </div>
             <Badge variant="secondary" className="trust-badge">
@@ -311,11 +370,19 @@ export default function DisputeResolution() {
 
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-semibold text-foreground mb-2">Support Center</h1>
-          <p className="text-muted-foreground">Manage disputes, view reviews, and get assistance</p>
+          <h1 className="text-3xl font-semibold text-foreground mb-2">
+            Support Center
+          </h1>
+          <p className="text-muted-foreground">
+            Manage disputes, view reviews, and get assistance
+          </p>
         </div>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+        <Tabs
+          value={activeTab}
+          onValueChange={setActiveTab}
+          className="space-y-6"
+        >
           <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="disputes">Active Disputes</TabsTrigger>
             <TabsTrigger value="create-dispute">Report Issue</TabsTrigger>
@@ -328,12 +395,16 @@ export default function DisputeResolution() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Disputes List */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-foreground">Your Disputes</h3>
+                <h3 className="text-lg font-semibold text-foreground">
+                  Your Disputes
+                </h3>
                 {disputes.map((dispute) => (
-                  <Card 
-                    key={dispute.id} 
+                  <Card
+                    key={dispute.id}
                     className={`card-corporate cursor-pointer ${
-                      selectedDispute === dispute.id ? 'ring-2 ring-primary' : ''
+                      selectedDispute === dispute.id
+                        ? "ring-2 ring-primary"
+                        : ""
                     }`}
                     onClick={() => setSelectedDispute(dispute.id)}
                   >
@@ -345,7 +416,7 @@ export default function DisputeResolution() {
                         </div>
                         <div className="flex items-center space-x-2">
                           <Badge className={getStatusColor(dispute.status)}>
-                            {dispute.status.replace('-', ' ')}
+                            {dispute.status.replace("-", " ")}
                           </Badge>
                           <Badge className={getPriorityColor(dispute.priority)}>
                             {dispute.priority}
@@ -355,9 +426,12 @@ export default function DisputeResolution() {
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-2">
-                        <p className="font-medium text-foreground">{dispute.disputeType}</p>
+                        <p className="font-medium text-foreground">
+                          {dispute.disputeType}
+                        </p>
                         <p className="text-sm text-muted-foreground">
-                          Order: {dispute.orderId} • {dispute.material} • {dispute.orderAmount}
+                          Order: {dispute.orderId} • {dispute.material} •{" "}
+                          {dispute.orderAmount}
                         </p>
                         <p className="text-sm text-muted-foreground line-clamp-2">
                           {dispute.description}
@@ -381,31 +455,51 @@ export default function DisputeResolution() {
                     </CardHeader>
                     <CardContent className="space-y-6">
                       {(() => {
-                        const dispute = disputes.find(d => d.id === selectedDispute)!;
+                        const dispute = disputes.find(
+                          (d) => d.id === selectedDispute,
+                        )!;
                         return (
                           <>
                             {/* Dispute Info */}
                             <div className="space-y-3">
                               <div className="flex items-center justify-between">
-                                <h4 className="font-medium">{dispute.disputeType}</h4>
-                                <Badge className={getStatusColor(dispute.status)}>
-                                  {dispute.status.replace('-', ' ')}
+                                <h4 className="font-medium">
+                                  {dispute.disputeType}
+                                </h4>
+                                <Badge
+                                  className={getStatusColor(dispute.status)}
+                                >
+                                  {dispute.status.replace("-", " ")}
                                 </Badge>
                               </div>
-                              <p className="text-sm text-muted-foreground">{dispute.description}</p>
+                              <p className="text-sm text-muted-foreground">
+                                {dispute.description}
+                              </p>
                             </div>
 
                             {/* Parties */}
                             <div className="grid grid-cols-2 gap-4">
                               <div>
-                                <p className="text-sm font-medium text-foreground mb-1">Complainant</p>
-                                <p className="text-sm text-muted-foreground">{dispute.complainant.name}</p>
-                                <p className="text-xs text-muted-foreground">{dispute.complainant.company}</p>
+                                <p className="text-sm font-medium text-foreground mb-1">
+                                  Complainant
+                                </p>
+                                <p className="text-sm text-muted-foreground">
+                                  {dispute.complainant.name}
+                                </p>
+                                <p className="text-xs text-muted-foreground">
+                                  {dispute.complainant.company}
+                                </p>
                               </div>
                               <div>
-                                <p className="text-sm font-medium text-foreground mb-1">Respondent</p>
-                                <p className="text-sm text-muted-foreground">{dispute.respondent.name}</p>
-                                <p className="text-xs text-muted-foreground">{dispute.respondent.company}</p>
+                                <p className="text-sm font-medium text-foreground mb-1">
+                                  Respondent
+                                </p>
+                                <p className="text-sm text-muted-foreground">
+                                  {dispute.respondent.name}
+                                </p>
+                                <p className="text-xs text-muted-foreground">
+                                  {dispute.respondent.company}
+                                </p>
                               </div>
                             </div>
 
@@ -414,9 +508,13 @@ export default function DisputeResolution() {
                               <div className="bg-muted p-3">
                                 <div className="flex items-center space-x-2 mb-1">
                                   <Gavel className="h-4 w-4 text-primary" />
-                                  <span className="text-sm font-medium">Assigned Moderator</span>
+                                  <span className="text-sm font-medium">
+                                    Assigned Moderator
+                                  </span>
                                 </div>
-                                <p className="text-sm text-foreground">{dispute.moderator.name}</p>
+                                <p className="text-sm text-foreground">
+                                  {dispute.moderator.name}
+                                </p>
                                 <p className="text-xs text-muted-foreground">
                                   Assigned: {dispute.moderator.assignedDate}
                                 </p>
@@ -425,17 +523,24 @@ export default function DisputeResolution() {
 
                             {/* Timeline */}
                             <div>
-                              <h5 className="font-medium text-foreground mb-3">Timeline</h5>
+                              <h5 className="font-medium text-foreground mb-3">
+                                Timeline
+                              </h5>
                               <div className="space-y-3">
                                 {dispute.timeline.map((event, index) => (
-                                  <div key={index} className="flex items-center space-x-3">
+                                  <div
+                                    key={index}
+                                    className="flex items-center space-x-3"
+                                  >
                                     {event.status === "completed" ? (
                                       <CheckCircle className="h-4 w-4 text-success" />
                                     ) : (
                                       <Clock className="h-4 w-4 text-warning" />
                                     )}
                                     <div className="flex-1">
-                                      <p className="text-sm font-medium">{event.event}</p>
+                                      <p className="text-sm font-medium">
+                                        {event.event}
+                                      </p>
                                       <p className="text-xs text-muted-foreground">
                                         {event.actor} • {event.date}
                                       </p>
@@ -447,30 +552,53 @@ export default function DisputeResolution() {
 
                             {/* Messages */}
                             <div>
-                              <h5 className="font-medium text-foreground mb-3">Communication</h5>
+                              <h5 className="font-medium text-foreground mb-3">
+                                Communication
+                              </h5>
                               <div className="space-y-3 max-h-64 overflow-y-auto">
                                 {dispute.messages.map((message) => (
-                                  <div key={message.id} className="bg-muted p-3">
+                                  <div
+                                    key={message.id}
+                                    className="bg-muted p-3"
+                                  >
                                     <div className="flex items-center justify-between mb-2">
-                                      <span className="text-sm font-medium">{message.sender}</span>
+                                      <span className="text-sm font-medium">
+                                        {message.sender}
+                                      </span>
                                       <span className="text-xs text-muted-foreground">
-                                        {new Date(message.timestamp).toLocaleString()}
+                                        {new Date(
+                                          message.timestamp,
+                                        ).toLocaleString()}
                                       </span>
                                     </div>
-                                    <p className="text-sm text-muted-foreground mb-2">{message.content}</p>
-                                    {message.attachments && message.attachments.length > 0 && (
-                                      <div className="space-y-1">
-                                        {message.attachments.map((attachment, index) => (
-                                          <div key={index} className="flex items-center space-x-2 text-xs">
-                                            <Paperclip className="h-3 w-3" />
-                                            <span>{attachment.name} ({attachment.size})</span>
-                                            <Button variant="ghost" size="sm">
-                                              <Download className="h-3 w-3" />
-                                            </Button>
-                                          </div>
-                                        ))}
-                                      </div>
-                                    )}
+                                    <p className="text-sm text-muted-foreground mb-2">
+                                      {message.content}
+                                    </p>
+                                    {message.attachments &&
+                                      message.attachments.length > 0 && (
+                                        <div className="space-y-1">
+                                          {message.attachments.map(
+                                            (attachment, index) => (
+                                              <div
+                                                key={index}
+                                                className="flex items-center space-x-2 text-xs"
+                                              >
+                                                <Paperclip className="h-3 w-3" />
+                                                <span>
+                                                  {attachment.name} (
+                                                  {attachment.size})
+                                                </span>
+                                                <Button
+                                                  variant="ghost"
+                                                  size="sm"
+                                                >
+                                                  <Download className="h-3 w-3" />
+                                                </Button>
+                                              </div>
+                                            ),
+                                          )}
+                                        </div>
+                                      )}
                                   </div>
                                 ))}
                               </div>
@@ -508,7 +636,8 @@ export default function DisputeResolution() {
                         Select a Dispute
                       </h3>
                       <p className="text-muted-foreground">
-                        Choose a dispute from the list to view details and communicate
+                        Choose a dispute from the list to view details and
+                        communicate
                       </p>
                     </CardContent>
                   </Card>
@@ -534,8 +663,12 @@ export default function DisputeResolution() {
                       <SelectValue placeholder="Select order" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="ORD-2024-001">ORD-2024-001 - Premium Cotton</SelectItem>
-                      <SelectItem value="ORD-2024-002">ORD-2024-002 - Mulberry Silk</SelectItem>
+                      <SelectItem value="ORD-2024-001">
+                        ORD-2024-001 - Premium Cotton
+                      </SelectItem>
+                      <SelectItem value="ORD-2024-002">
+                        ORD-2024-002 - Mulberry Silk
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -550,8 +683,12 @@ export default function DisputeResolution() {
                       <SelectItem value="quality">Quality Issue</SelectItem>
                       <SelectItem value="delivery">Delivery Problem</SelectItem>
                       <SelectItem value="payment">Payment Issue</SelectItem>
-                      <SelectItem value="communication">Communication Problem</SelectItem>
-                      <SelectItem value="documentation">Documentation Issue</SelectItem>
+                      <SelectItem value="communication">
+                        Communication Problem
+                      </SelectItem>
+                      <SelectItem value="documentation">
+                        Documentation Issue
+                      </SelectItem>
                       <SelectItem value="other">Other</SelectItem>
                     </SelectContent>
                   </Select>
@@ -565,9 +702,15 @@ export default function DisputeResolution() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="low">Low - Minor issue</SelectItem>
-                      <SelectItem value="medium">Medium - Moderate impact</SelectItem>
-                      <SelectItem value="high">High - Significant impact</SelectItem>
-                      <SelectItem value="urgent">Urgent - Business critical</SelectItem>
+                      <SelectItem value="medium">
+                        Medium - Moderate impact
+                      </SelectItem>
+                      <SelectItem value="high">
+                        High - Significant impact
+                      </SelectItem>
+                      <SelectItem value="urgent">
+                        Urgent - Business critical
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -580,7 +723,8 @@ export default function DisputeResolution() {
                     rows={5}
                   />
                   <p className="form-help">
-                    Include specific details, dates, and any relevant information
+                    Include specific details, dates, and any relevant
+                    information
                   </p>
                 </div>
 
@@ -602,7 +746,8 @@ export default function DisputeResolution() {
                     Submit Dispute Report
                   </Button>
                   <p className="text-xs text-muted-foreground text-center">
-                    You will receive email confirmation and updates on the dispute progress
+                    You will receive email confirmation and updates on the
+                    dispute progress
                   </p>
                 </div>
               </CardContent>
@@ -613,7 +758,9 @@ export default function DisputeResolution() {
           <TabsContent value="reviews">
             <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-foreground">Reviews & Ratings</h3>
+                <h3 className="text-lg font-semibold text-foreground">
+                  Reviews & Ratings
+                </h3>
                 <Button className="btn-corporate">
                   <Star className="h-4 w-4 mr-2" />
                   Write Review
@@ -627,16 +774,22 @@ export default function DisputeResolution() {
                       <div className="flex items-start justify-between">
                         <div>
                           <div className="flex items-center space-x-2 mb-1">
-                            <span className="font-medium">{review.reviewer.name}</span>
+                            <span className="font-medium">
+                              {review.reviewer.name}
+                            </span>
                             {review.reviewer.verified && (
                               <CheckCircle className="h-4 w-4 text-success" />
                             )}
                           </div>
-                          <p className="text-sm text-muted-foreground">{review.reviewer.company}</p>
+                          <p className="text-sm text-muted-foreground">
+                            {review.reviewer.company}
+                          </p>
                         </div>
                         <div className="text-right">
                           {renderStars(review.rating)}
-                          <p className="text-xs text-muted-foreground mt-1">{review.date}</p>
+                          <p className="text-xs text-muted-foreground mt-1">
+                            {review.date}
+                          </p>
                         </div>
                       </div>
                     </CardHeader>
@@ -644,9 +797,12 @@ export default function DisputeResolution() {
                       <div className="space-y-4">
                         <div>
                           <p className="text-sm text-muted-foreground mb-1">
-                            Order: {review.orderId} • {review.material} • {review.orderAmount}
+                            Order: {review.orderId} • {review.material} •{" "}
+                            {review.orderAmount}
                           </p>
-                          <p className="text-sm text-foreground">{review.review}</p>
+                          <p className="text-sm text-foreground">
+                            {review.review}
+                          </p>
                         </div>
 
                         <div className="grid grid-cols-2 gap-3 text-xs">
@@ -664,7 +820,10 @@ export default function DisputeResolution() {
                           </div>
                           <div className="flex items-center justify-between">
                             <span>Professionalism:</span>
-                            {renderStars(review.categories.professionalism, "sm")}
+                            {renderStars(
+                              review.categories.professionalism,
+                              "sm",
+                            )}
                           </div>
                         </div>
 
@@ -675,7 +834,10 @@ export default function DisputeResolution() {
                               Helpful ({review.helpful})
                             </Button>
                             {review.verified && (
-                              <Badge variant="outline" className="trust-badge trust-badge-verified text-xs">
+                              <Badge
+                                variant="outline"
+                                className="trust-badge trust-badge-verified text-xs"
+                              >
                                 <CheckCircle className="h-3 w-3 mr-1" />
                                 Verified
                               </Badge>
@@ -707,9 +869,7 @@ export default function DisputeResolution() {
                   <p className="text-muted-foreground mb-4">
                     Get instant help from our support team
                   </p>
-                  <Button className="btn-corporate w-full">
-                    Start Chat
-                  </Button>
+                  <Button className="btn-corporate w-full">Start Chat</Button>
                 </CardContent>
               </Card>
 
@@ -721,9 +881,14 @@ export default function DisputeResolution() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground mb-2">24/7 Support Available</p>
+                  <p className="text-muted-foreground mb-2">
+                    24/7 Support Available
+                  </p>
                   <p className="font-medium mb-4">+1 (555) 123-4567</p>
-                  <Button variant="outline" className="btn-secondary-corporate w-full">
+                  <Button
+                    variant="outline"
+                    className="btn-secondary-corporate w-full"
+                  >
                     Call Now
                   </Button>
                 </CardContent>
@@ -737,9 +902,14 @@ export default function DisputeResolution() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground mb-2">Response within 4 hours</p>
+                  <p className="text-muted-foreground mb-2">
+                    Response within 4 hours
+                  </p>
                   <p className="font-medium mb-4">support@tradebridge.com</p>
-                  <Button variant="outline" className="btn-secondary-corporate w-full">
+                  <Button
+                    variant="outline"
+                    className="btn-secondary-corporate w-full"
+                  >
                     Send Email
                   </Button>
                 </CardContent>

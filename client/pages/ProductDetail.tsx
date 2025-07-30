@@ -6,8 +6,8 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  ArrowLeft, 
+import {
+  ArrowLeft,
   Building2,
   Star,
   MapPin,
@@ -32,7 +32,7 @@ import {
   Flag,
   Verified,
   CreditCard,
-  Scale
+  Scale,
 } from "lucide-react";
 
 export default function ProductDetail() {
@@ -46,18 +46,19 @@ export default function ProductDetail() {
     name: "Premium Organic Cotton",
     category: "Textiles",
     quality: "Grade A Premium",
-    description: "High-quality organic cotton sourced from certified farms. Perfect for premium textile manufacturing with excellent fiber strength and purity.",
+    description:
+      "High-quality organic cotton sourced from certified farms. Perfect for premium textile manufacturing with excellent fiber strength and purity.",
     images: [
       "/api/placeholder/600/400",
-      "/api/placeholder/600/400", 
       "/api/placeholder/600/400",
-      "/api/placeholder/600/400"
+      "/api/placeholder/600/400",
+      "/api/placeholder/600/400",
     ],
     price: {
-      USD: 2.50,
-      EUR: 2.30,
-      GBP: 2.00,
-      INR: 208.75
+      USD: 2.5,
+      EUR: 2.3,
+      GBP: 2.0,
+      INR: 208.75,
     },
     unit: "per kg",
     moq: 1000,
@@ -75,7 +76,7 @@ export default function ProductDetail() {
       location: "Mumbai, India",
       badges: ["Prime Seller", "Verified Business", "Quality Assured"],
       businessLicense: "IEC123456789",
-      certifications: ["ISO 9001:2015", "GOTS Certified", "Fair Trade"]
+      certifications: ["ISO 9001:2015", "GOTS Certified", "Fair Trade"],
     },
     specifications: {
       origin: "Gujarat, India",
@@ -86,72 +87,73 @@ export default function ProductDetail() {
       strength: "28-32 g/tex",
       color: "Natural White",
       packaging: "Pressed Bales",
-      shelfLife: "2 years"
+      shelfLife: "2 years",
     },
     certifications: [
       {
         name: "GOTS Certified",
         issuer: "Global Organic Textile Standard",
         validUntil: "2025-12-31",
-        certificateNumber: "GOTS-IND-2024-001"
+        certificateNumber: "GOTS-IND-2024-001",
       },
       {
         name: "ISO 9001:2015",
         issuer: "Bureau Veritas",
         validUntil: "2026-06-15",
-        certificateNumber: "ISO-9001-2024-789"
+        certificateNumber: "ISO-9001-2024-789",
       },
       {
         name: "Fair Trade Certified",
         issuer: "Fair Trade USA",
         validUntil: "2025-09-30",
-        certificateNumber: "FT-USA-2024-456"
-      }
+        certificateNumber: "FT-USA-2024-456",
+      },
     ],
     documents: [
       {
         name: "Quality Inspection Report",
         type: "PDF",
         size: "2.3 MB",
-        date: "2024-01-10"
+        date: "2024-01-10",
       },
       {
         name: "Origin Certificate",
-        type: "PDF", 
+        type: "PDF",
         size: "1.8 MB",
-        date: "2024-01-08"
+        date: "2024-01-08",
       },
       {
         name: "Sample Test Results",
         type: "PDF",
         size: "3.1 MB",
-        date: "2024-01-05"
-      }
+        date: "2024-01-05",
+      },
     ],
     shipping: {
       ports: ["JNPT Mumbai", "Chennai Port", "Kandla Port"],
       leadTime: "15-20 days",
       packagingOptions: ["Pressed Bales", "Loose Packing"],
-      insuranceIncluded: true
+      insuranceIncluded: true,
     },
     paymentTerms: {
       advance: 10,
       inspection: 50,
       delivery: 40,
       currencies: ["USD", "EUR", "GBP", "INR"],
-      methods: ["Wire Transfer", "Letter of Credit", "Platform Escrow"]
+      methods: ["Wire Transfer", "Letter of Credit", "Platform Escrow"],
     },
     qualityAssurance: {
       sampling: "Pre-shipment sampling available",
       inspection: "Third-party inspection supported",
       warranty: "Quality guarantee up to delivery",
-      returns: "Returns accepted within 48 hours of delivery"
-    }
+      returns: "Returns accepted within 48 hours of delivery",
+    },
   };
 
   const calculateTotal = () => {
     const qty = parseFloat(quantity) || 0;
-    const unitPrice = product.price[selectedCurrency as keyof typeof product.price];
+    const unitPrice =
+      product.price[selectedCurrency as keyof typeof product.price];
     const subtotal = qty * unitPrice;
     const platformFee = subtotal * 0.025; // 2.5% platform fee
     const paymentProcessing = subtotal * 0.015; // 1.5% payment processing
@@ -164,9 +166,9 @@ export default function ProductDetail() {
       paymentProcessing,
       insurance,
       total,
-      advance: total * 0.10,
-      inspection: total * 0.50,
-      delivery: total * 0.40
+      advance: total * 0.1,
+      inspection: total * 0.5,
+      delivery: total * 0.4,
     };
   };
 
@@ -180,14 +182,20 @@ export default function ProductDetail() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Link to="/importer">
-                <Button variant="ghost" size="sm" className="corporate-transition">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="corporate-transition"
+                >
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Back to Search
                 </Button>
               </Link>
               <div className="flex items-center space-x-2">
                 <Building2 className="h-5 w-5 text-primary" />
-                <span className="font-semibold text-foreground">TradeBridge</span>
+                <span className="font-semibold text-foreground">
+                  TradeBridge
+                </span>
               </div>
             </div>
             <div className="flex items-center space-x-2">
@@ -217,7 +225,10 @@ export default function ProductDetail() {
                 </div>
                 <div className="grid grid-cols-4 gap-2">
                   {product.images.slice(1).map((_, index) => (
-                    <div key={index} className="aspect-square bg-muted flex items-center justify-center">
+                    <div
+                      key={index}
+                      className="aspect-square bg-muted flex items-center justify-center"
+                    >
                       <Package className="h-6 w-6 text-muted-foreground" />
                     </div>
                   ))}
@@ -238,9 +249,14 @@ export default function ProductDetail() {
                   </div>
                   <div className="text-right">
                     <div className="text-3xl font-bold text-primary">
-                      {selectedCurrency} {product.price[selectedCurrency as keyof typeof product.price].toFixed(2)}
+                      {selectedCurrency}{" "}
+                      {product.price[
+                        selectedCurrency as keyof typeof product.price
+                      ].toFixed(2)}
                     </div>
-                    <div className="text-sm text-muted-foreground">{product.unit}</div>
+                    <div className="text-sm text-muted-foreground">
+                      {product.unit}
+                    </div>
                   </div>
                 </div>
               </CardHeader>
@@ -252,11 +268,15 @@ export default function ProductDetail() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                   <div>
                     <p className="text-muted-foreground text-sm">MOQ</p>
-                    <p className="font-medium">{product.moq.toLocaleString()} kg</p>
+                    <p className="font-medium">
+                      {product.moq.toLocaleString()} kg
+                    </p>
                   </div>
                   <div>
                     <p className="text-muted-foreground text-sm">In Stock</p>
-                    <p className="font-medium">{product.stockQuantity.toLocaleString()} kg</p>
+                    <p className="font-medium">
+                      {product.stockQuantity.toLocaleString()} kg
+                    </p>
                   </div>
                   <div>
                     <p className="text-muted-foreground text-sm">Lead Time</p>
@@ -264,35 +284,46 @@ export default function ProductDetail() {
                   </div>
                   <div>
                     <p className="text-muted-foreground text-sm">Origin</p>
-                    <p className="font-medium">{product.specifications.origin}</p>
+                    <p className="font-medium">
+                      {product.specifications.origin}
+                    </p>
                   </div>
                 </div>
 
                 <Tabs defaultValue="specifications" className="mt-6">
                   <TabsList className="grid w-full grid-cols-4">
-                    <TabsTrigger value="specifications">Specifications</TabsTrigger>
-                    <TabsTrigger value="certifications">Certifications</TabsTrigger>
+                    <TabsTrigger value="specifications">
+                      Specifications
+                    </TabsTrigger>
+                    <TabsTrigger value="certifications">
+                      Certifications
+                    </TabsTrigger>
                     <TabsTrigger value="documents">Documents</TabsTrigger>
                     <TabsTrigger value="shipping">Shipping</TabsTrigger>
                   </TabsList>
 
                   <TabsContent value="specifications" className="mt-4">
                     <div className="grid grid-cols-2 gap-4">
-                      {Object.entries(product.specifications).map(([key, value]) => (
-                        <div key={key}>
-                          <p className="text-muted-foreground text-sm capitalize">
-                            {key.replace(/([A-Z])/g, ' $1').trim()}
-                          </p>
-                          <p className="font-medium">{value}</p>
-                        </div>
-                      ))}
+                      {Object.entries(product.specifications).map(
+                        ([key, value]) => (
+                          <div key={key}>
+                            <p className="text-muted-foreground text-sm capitalize">
+                              {key.replace(/([A-Z])/g, " $1").trim()}
+                            </p>
+                            <p className="font-medium">{value}</p>
+                          </div>
+                        ),
+                      )}
                     </div>
                   </TabsContent>
 
                   <TabsContent value="certifications" className="mt-4">
                     <div className="space-y-4">
                       {product.certifications.map((cert, index) => (
-                        <div key={index} className="flex items-center justify-between p-3 bg-muted">
+                        <div
+                          key={index}
+                          className="flex items-center justify-between p-3 bg-muted"
+                        >
                           <div className="flex items-center space-x-3">
                             <Award className="h-5 w-5 text-success" />
                             <div>
@@ -314,7 +345,10 @@ export default function ProductDetail() {
                   <TabsContent value="documents" className="mt-4">
                     <div className="space-y-3">
                       {product.documents.map((doc, index) => (
-                        <div key={index} className="flex items-center justify-between p-3 bg-muted">
+                        <div
+                          key={index}
+                          className="flex items-center justify-between p-3 bg-muted"
+                        >
                           <div className="flex items-center space-x-3">
                             <FileText className="h-5 w-5 text-primary" />
                             <div>
@@ -339,21 +373,29 @@ export default function ProductDetail() {
                         <p className="font-medium mb-2">Available Ports</p>
                         <div className="flex flex-wrap gap-2">
                           {product.shipping.ports.map((port, index) => (
-                            <Badge key={index} variant="outline">{port}</Badge>
+                            <Badge key={index} variant="outline">
+                              {port}
+                            </Badge>
                           ))}
                         </div>
                       </div>
                       <div>
                         <p className="font-medium mb-2">Packaging Options</p>
                         <div className="flex flex-wrap gap-2">
-                          {product.shipping.packagingOptions.map((option, index) => (
-                            <Badge key={index} variant="outline">{option}</Badge>
-                          ))}
+                          {product.shipping.packagingOptions.map(
+                            (option, index) => (
+                              <Badge key={index} variant="outline">
+                                {option}
+                              </Badge>
+                            ),
+                          )}
                         </div>
                       </div>
                       <div className="flex items-center space-x-2">
                         <Shield className="h-4 w-4 text-success" />
-                        <span className="text-sm">Insurance included in shipping</span>
+                        <span className="text-sm">
+                          Insurance included in shipping
+                        </span>
                       </div>
                     </div>
                   </TabsContent>
@@ -384,7 +426,9 @@ export default function ProductDetail() {
                         <Verified className="h-4 w-4 text-success" />
                       )}
                     </div>
-                    <p className="text-sm text-muted-foreground">{product.exporter.company}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {product.exporter.company}
+                    </p>
                   </div>
                 </div>
 
@@ -393,21 +437,31 @@ export default function ProductDetail() {
                     <p className="text-muted-foreground">Rating</p>
                     <div className="flex items-center space-x-1">
                       <Star className="h-4 w-4 text-yellow-500 fill-current" />
-                      <span className="font-medium">{product.exporter.rating}</span>
-                      <span className="text-muted-foreground">({product.exporter.reviewCount})</span>
+                      <span className="font-medium">
+                        {product.exporter.rating}
+                      </span>
+                      <span className="text-muted-foreground">
+                        ({product.exporter.reviewCount})
+                      </span>
                     </div>
                   </div>
                   <div>
                     <p className="text-muted-foreground">Response Time</p>
-                    <p className="font-medium">{product.exporter.responseTime}</p>
+                    <p className="font-medium">
+                      {product.exporter.responseTime}
+                    </p>
                   </div>
                   <div>
                     <p className="text-muted-foreground">Orders Completed</p>
-                    <p className="font-medium">{product.exporter.completedOrders}</p>
+                    <p className="font-medium">
+                      {product.exporter.completedOrders}
+                    </p>
                   </div>
                   <div>
                     <p className="text-muted-foreground">Established</p>
-                    <p className="font-medium">{product.exporter.yearEstablished}</p>
+                    <p className="font-medium">
+                      {product.exporter.yearEstablished}
+                    </p>
                   </div>
                 </div>
 
@@ -420,7 +474,11 @@ export default function ProductDetail() {
                   <p className="text-sm font-medium">Trust Badges</p>
                   <div className="flex flex-wrap gap-1">
                     {product.exporter.badges.map((badge, index) => (
-                      <Badge key={index} variant="outline" className="trust-badge trust-badge-verified text-xs">
+                      <Badge
+                        key={index}
+                        variant="outline"
+                        className="trust-badge trust-badge-verified text-xs"
+                      >
                         {badge}
                       </Badge>
                     ))}
@@ -432,7 +490,10 @@ export default function ProductDetail() {
                     <MessageSquare className="h-4 w-4 mr-2" />
                     Contact Supplier
                   </Button>
-                  <Button variant="outline" className="btn-secondary-corporate w-full">
+                  <Button
+                    variant="outline"
+                    className="btn-secondary-corporate w-full"
+                  >
                     <Eye className="h-4 w-4 mr-2" />
                     View Profile
                   </Button>
@@ -472,35 +533,50 @@ export default function ProductDetail() {
                     className="input-corporate w-full"
                   >
                     {product.paymentTerms.currencies.map((currency) => (
-                      <option key={currency} value={currency}>{currency}</option>
+                      <option key={currency} value={currency}>
+                        {currency}
+                      </option>
                     ))}
                   </select>
                 </div>
 
                 {quantity && parseFloat(quantity) >= product.moq && (
                   <div className="space-y-3 p-4 bg-muted">
-                    <h4 className="font-medium text-foreground">Order Summary</h4>
+                    <h4 className="font-medium text-foreground">
+                      Order Summary
+                    </h4>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
                         <span>Subtotal:</span>
-                        <span>{selectedCurrency} {costs.subtotal.toFixed(2)}</span>
+                        <span>
+                          {selectedCurrency} {costs.subtotal.toFixed(2)}
+                        </span>
                       </div>
                       <div className="flex justify-between">
                         <span>Platform Fee (2.5%):</span>
-                        <span>{selectedCurrency} {costs.platformFee.toFixed(2)}</span>
+                        <span>
+                          {selectedCurrency} {costs.platformFee.toFixed(2)}
+                        </span>
                       </div>
                       <div className="flex justify-between">
                         <span>Payment Processing (1.5%):</span>
-                        <span>{selectedCurrency} {costs.paymentProcessing.toFixed(2)}</span>
+                        <span>
+                          {selectedCurrency}{" "}
+                          {costs.paymentProcessing.toFixed(2)}
+                        </span>
                       </div>
                       <div className="flex justify-between">
                         <span>Insurance (0.5%):</span>
-                        <span>{selectedCurrency} {costs.insurance.toFixed(2)}</span>
+                        <span>
+                          {selectedCurrency} {costs.insurance.toFixed(2)}
+                        </span>
                       </div>
                       <div className="border-t border-border pt-2">
                         <div className="flex justify-between font-medium">
                           <span>Total:</span>
-                          <span>{selectedCurrency} {costs.total.toFixed(2)}</span>
+                          <span>
+                            {selectedCurrency} {costs.total.toFixed(2)}
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -510,15 +586,21 @@ export default function ProductDetail() {
                       <div className="space-y-1 text-xs">
                         <div className="flex justify-between">
                           <span>Advance (10%):</span>
-                          <span>{selectedCurrency} {costs.advance.toFixed(2)}</span>
+                          <span>
+                            {selectedCurrency} {costs.advance.toFixed(2)}
+                          </span>
                         </div>
                         <div className="flex justify-between">
                           <span>On Inspection (50%):</span>
-                          <span>{selectedCurrency} {costs.inspection.toFixed(2)}</span>
+                          <span>
+                            {selectedCurrency} {costs.inspection.toFixed(2)}
+                          </span>
                         </div>
                         <div className="flex justify-between">
                           <span>On Delivery (40%):</span>
-                          <span>{selectedCurrency} {costs.delivery.toFixed(2)}</span>
+                          <span>
+                            {selectedCurrency} {costs.delivery.toFixed(2)}
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -526,7 +608,7 @@ export default function ProductDetail() {
                 )}
 
                 <div className="space-y-3">
-                  <Button 
+                  <Button
                     className="btn-corporate w-full"
                     disabled={!quantity || parseFloat(quantity) < product.moq}
                     onClick={() => setShowOrderForm(true)}
@@ -534,7 +616,10 @@ export default function ProductDetail() {
                     <CreditCard className="h-4 w-4 mr-2" />
                     Place Order
                   </Button>
-                  <Button variant="outline" className="btn-secondary-corporate w-full">
+                  <Button
+                    variant="outline"
+                    className="btn-secondary-corporate w-full"
+                  >
                     <Calculator className="h-4 w-4 mr-2" />
                     Request Quote
                   </Button>
@@ -543,7 +628,9 @@ export default function ProductDetail() {
                 <div className="bg-success/10 border border-success/20 p-3">
                   <div className="flex items-center space-x-2 mb-2">
                     <Shield className="h-4 w-4 text-success" />
-                    <span className="text-sm font-medium text-success">Secure Transaction</span>
+                    <span className="text-sm font-medium text-success">
+                      Secure Transaction
+                    </span>
                   </div>
                   <div className="text-xs text-success space-y-1">
                     <p>• Payments protected by escrow</p>
@@ -553,8 +640,11 @@ export default function ProductDetail() {
                 </div>
 
                 <div className="text-xs text-muted-foreground">
-                  <p>By placing an order, you agree to our terms and conditions. 
-                  All transactions are subject to verification and compliance checks.</p>
+                  <p>
+                    By placing an order, you agree to our terms and conditions.
+                    All transactions are subject to verification and compliance
+                    checks.
+                  </p>
                 </div>
               </CardContent>
             </Card>
