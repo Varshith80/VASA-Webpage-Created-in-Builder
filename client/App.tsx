@@ -13,6 +13,7 @@ import Orders from "./pages/Orders";
 import Registration from "./pages/Registration";
 import Messages from "./pages/Messages";
 import ProductDetail from "./pages/ProductDetail";
+import DisputeResolution from "./pages/DisputeResolution";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
