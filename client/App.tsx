@@ -11,6 +11,8 @@ import Importer from "./pages/Importer";
 import Exporter from "./pages/Exporter";
 import Orders from "./pages/Orders";
 import Registration from "./pages/Registration";
+import Messages from "./pages/Messages";
+import ProductDetail from "./pages/ProductDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
