@@ -29,6 +29,8 @@ const App = () => (
           <Route path="/exporter" element={<Exporter />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/registration" element={<Registration />} />
+          <Route path="/messages" element={<Messages />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
