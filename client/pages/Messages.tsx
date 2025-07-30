@@ -344,11 +344,7 @@ export default function Messages() {
                   <div className="flex items-start space-x-3">
                     <div className="relative">
                       <Avatar className="h-10 w-10">
-                        <AvatarContent>
-                          <div className="w-full h-full bg-primary/10 flex items-center justify-center">
-                            <Building2 className="h-5 w-5 text-primary" />
-                          </div>
-                        </AvatarContent>
+                        <AvatarImage />
                         <AvatarFallback>
                           {conversation.participant.name.split(' ').map(n => n[0]).join('')}
                         </AvatarFallback>
