@@ -26,6 +26,7 @@ const App = () => (
           <Route path="/importer" element={<Importer />} />
           <Route path="/exporter" element={<Exporter />} />
           <Route path="/orders" element={<Orders />} />
+          <Route path="/registration" element={<Registration />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
