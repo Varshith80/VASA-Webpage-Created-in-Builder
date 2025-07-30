@@ -2,96 +2,103 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 @layer base {
   /**
-   * Tailwind CSS theme
-   * tailwind.config.ts expects the following color variables to be expressed as HSL values.
-   * A different format will require also updating the theme in tailwind.config.ts.
-  */
+   * Professional Corporate Color Palette
+   * Minimalist design with blues, greys, whites, and subtle black accents
+   */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Corporate Blue Scale */
+    --primary: 214 100% 25%;        /* Deep corporate blue */
+    --primary-foreground: 0 0% 98%;
 
+    /* Neutral Greys */
+    --background: 0 0% 100%;         /* Pure white */
+    --foreground: 0 0% 15%;          /* Near black for text */
+    
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Secondary greys */
+    --secondary: 0 0% 96%;           /* Light grey backgrounds */
+    --secondary-foreground: 0 0% 25%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 0 0% 94%;
+    --accent-foreground: 0 0% 15%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Subtle borders */
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 214 100% 25%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Alert colors - professional tones */
+    --destructive: 0 84% 35%;        /* Professional red */
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --success: 145 85% 25%;          /* Professional green */
+    --success-foreground: 0 0% 98%;
 
-    --radius: 0.5rem;
+    --warning: 45 93% 35%;           /* Professional amber */
+    --warning-foreground: 0 0% 15%;
 
+    --radius: 0px;                   /* No rounded corners as per requirements */
+
+    /* Corporate sidebar colors */
     --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
+    --sidebar-foreground: 0 0% 25%;
+    --sidebar-primary: 214 100% 25%;
     --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 0 0% 94%;
+    --sidebar-accent-foreground: 0 0% 15%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 214 100% 25%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 0 0% 8%;
+    --foreground: 0 0% 98%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 214 100% 45%;
+    --primary-foreground: 0 0% 15%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 45%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 214 100% 45%;
+
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 214 100% 45%;
+    --sidebar-primary-foreground: 0 0% 15%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 214 100% 45%;
   }
 }
 
@@ -102,28 +109,213 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
   }
 }
 
 @layer components {
-  .gradient-text {
-    @apply text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-700;
+  /* Corporate Button Styles */
+  .btn-corporate {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 border-0 font-medium transition-colors duration-200;
+    @apply px-6 py-3 text-sm;
+    box-shadow: none;
+    border-radius: 0;
   }
 
-  .card-hover {
-    @apply transition-all duration-200 hover:shadow-lg hover:-translate-y-1;
+  .btn-corporate:hover {
+    @apply bg-primary/85;
   }
 
-  .btn-primary {
-    @apply bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl transition-all duration-200;
+  .btn-secondary-corporate {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border font-medium transition-colors duration-200;
+    @apply px-6 py-3 text-sm;
+    box-shadow: none;
+    border-radius: 0;
   }
 
-  .marketplace-card {
-    @apply bg-white rounded-xl shadow-sm border border-slate-200 hover:shadow-lg hover:border-slate-300 transition-all duration-200;
+  /* Corporate Card Styles */
+  .card-corporate {
+    @apply bg-card border border-border;
+    border-radius: 0;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
   }
 
-  .input-focus {
-    @apply focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+  .card-corporate:hover {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  }
+
+  /* Corporate Input Styles */
+  .input-corporate {
+    @apply border-border bg-background text-foreground placeholder:text-muted-foreground;
+    @apply px-3 py-2 text-sm font-normal transition-colors;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .input-corporate:focus {
+    @apply outline-none ring-2 ring-ring border-transparent;
+  }
+
+  /* Status Indicators */
+  .status-success {
+    @apply bg-success text-success-foreground;
+  }
+
+  .status-warning {
+    @apply bg-warning text-warning-foreground;
+  }
+
+  .status-error {
+    @apply bg-destructive text-destructive-foreground;
+  }
+
+  .status-info {
+    @apply bg-primary text-primary-foreground;
+  }
+
+  /* Trust Badges */
+  .trust-badge {
+    @apply inline-flex items-center px-3 py-1 text-xs font-medium border;
+    border-radius: 0;
+  }
+
+  .trust-badge-verified {
+    @apply bg-success/10 text-success border-success/20;
+  }
+
+  .trust-badge-premium {
+    @apply bg-primary/10 text-primary border-primary/20;
+  }
+
+  /* Corporate Layout */
+  .corporate-header {
+    @apply bg-background border-b border-border;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  }
+
+  .corporate-sidebar {
+    @apply bg-sidebar-background border-r border-sidebar-border;
+  }
+
+  /* Table Styles */
+  .table-corporate {
+    @apply w-full border-collapse;
+  }
+
+  .table-corporate th {
+    @apply bg-muted text-muted-foreground font-medium text-left px-4 py-3 border-b border-border text-sm;
+  }
+
+  .table-corporate td {
+    @apply px-4 py-3 border-b border-border text-sm;
+  }
+
+  .table-corporate tr:hover {
+    @apply bg-muted/50;
+  }
+
+  /* Form Layouts */
+  .form-group {
+    @apply space-y-2;
+  }
+
+  .form-label {
+    @apply text-sm font-medium text-foreground;
+  }
+
+  .form-error {
+    @apply text-destructive text-sm font-normal;
+  }
+
+  .form-help {
+    @apply text-muted-foreground text-sm;
+  }
+
+  /* Notification Styles */
+  .notification-banner {
+    @apply fixed top-0 left-0 right-0 z-50 px-4 py-3 text-sm font-medium;
+  }
+
+  .notification-info {
+    @apply bg-primary text-primary-foreground;
+  }
+
+  .notification-success {
+    @apply bg-success text-success-foreground;
+  }
+
+  .notification-warning {
+    @apply bg-warning text-warning-foreground;
+  }
+
+  .notification-error {
+    @apply bg-destructive text-destructive-foreground;
+  }
+
+  /* Corporate Grid Layouts */
+  .grid-corporate {
+    @apply grid gap-6;
+  }
+
+  .grid-corporate-2 {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-6;
+  }
+
+  .grid-corporate-3 {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+  }
+
+  .grid-corporate-4 {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6;
+  }
+
+  /* Accessibility Enhancements */
+  .focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2;
+  }
+
+  /* Mobile Touch Targets */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+
+  /* High Contrast Support */
+  @media (prefers-contrast: high) {
+    .high-contrast {
+      @apply border-2 border-foreground;
+    }
+  }
+
+  /* Reduced Motion Support */
+  @media (prefers-reduced-motion: reduce) {
+    .motion-safe {
+      animation: none;
+      transition: none;
+    }
   }
 }
+
+/* Corporate Typography Scale */
+.text-corporate-xs { font-size: 0.75rem; line-height: 1rem; }
+.text-corporate-sm { font-size: 0.875rem; line-height: 1.25rem; }
+.text-corporate-base { font-size: 1rem; line-height: 1.5rem; }
+.text-corporate-lg { font-size: 1.125rem; line-height: 1.75rem; }
+.text-corporate-xl { font-size: 1.25rem; line-height: 1.75rem; }
+.text-corporate-2xl { font-size: 1.5rem; line-height: 2rem; }
+.text-corporate-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+
+/* Professional spacing */
+.spacing-corporate-xs { padding: 0.5rem; }
+.spacing-corporate-sm { padding: 0.75rem; }
+.spacing-corporate-md { padding: 1rem; }
+.spacing-corporate-lg { padding: 1.5rem; }
+.spacing-corporate-xl { padding: 2rem; }
