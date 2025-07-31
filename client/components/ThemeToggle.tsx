@@ -18,11 +18,10 @@ export function ThemeToggle({ className }: { className?: string }) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="outline"
           size="sm"
           className={cn(
-            "h-9 w-9 px-0 border-border/50 hover:border-border hover:bg-accent",
-            "dark:border-border dark:hover:bg-accent dark:hover:text-accent-foreground",
+            "h-9 w-9 px-0 bg-primary text-primary-foreground hover:bg-primary/90",
+            "shadow-sm border-0",
             className
           )}
           aria-label="Toggle theme"
