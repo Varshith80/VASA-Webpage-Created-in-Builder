@@ -229,12 +229,16 @@ export default function Index() {
               international trade.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12" role="group" aria-label="Get started options">
               <Link to="/register?role=importer">
-                <Button size="lg" className="px-8 py-4 text-lg group">
-                  <ShoppingCart className="mr-2 h-5 w-5" />
+                <Button
+                  size="lg"
+                  className="px-8 py-4 text-lg group"
+                  aria-label="Register as an importer to start buying products globally"
+                >
+                  <ShoppingCart className="mr-2 h-5 w-5" aria-hidden="true" />
                   Start Importing
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
                 </Button>
               </Link>
 
@@ -243,10 +247,11 @@ export default function Index() {
                   size="lg"
                   variant="outline"
                   className="px-8 py-4 text-lg group"
+                  aria-label="Register as an exporter to start selling products globally"
                 >
-                  <Upload className="mr-2 h-5 w-5" />
+                  <Upload className="mr-2 h-5 w-5" aria-hidden="true" />
                   Start Exporting
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
                 </Button>
               </Link>
             </div>
