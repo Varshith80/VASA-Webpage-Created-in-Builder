@@ -352,10 +352,13 @@ productSchema.methods.incrementInquiries = function () {
 };
 
 // Method to update availability
-productSchema.methods.updateAvailability = function (
+productSchema.methods.updateAvailability = async function (
   quantityChange,
   isReservation = false,
 ) {
+  const wasOutOfStock = this.inventory.availableQuantity <= this.inventory.reservedQuantity;
+  const wasLowStock = this.inventory.availableQuantity <= (this.inventory.reorderLevel || 0);
+
   if (isReservation) {
     this.inventory.reservedQuantity += quantityChange;
   } else {
@@ -369,7 +372,33 @@ productSchema.methods.updateAvailability = function (
     this.status = "active";
   }
 
-  return this.save();
+  const result = await this.save();
+
+  // Trigger webhook events for stock changes
+  try {
+    // Populate seller info for webhook
+    await this.populate({ path: 'seller', select: 'firstName lastName email companyName role address' });
+
+    const currentAvailable = this.inventory.availableQuantity - this.inventory.reservedQuantity;
+    const reorderLevel = this.inventory.reorderLevel || 0;
+
+    // Check for out of stock
+    if (!wasOutOfStock && currentAvailable <= 0) {
+      await WebhookEvents.emitProductOutOfStock(this, null, 0);
+    }
+
+    // Check for low stock
+    if (!wasLowStock && currentAvailable > 0 && currentAvailable <= reorderLevel) {
+      await WebhookEvents.emitProductLowStock(this, currentAvailable, reorderLevel);
+    }
+
+    // Emit product updated event
+    await WebhookEvents.emitProductUpdated(this, ['inventory']);
+  } catch (webhookError) {
+    console.error("Webhook error in updateAvailability:", webhookError);
+  }
+
+  return result;
 };
 
 // Method to calculate price with bulk discount
