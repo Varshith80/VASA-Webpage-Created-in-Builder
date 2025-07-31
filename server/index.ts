@@ -94,11 +94,6 @@ connectDB();
 
 // API Routes
 import authRoutes from './routes/auth.js';
-import userRoutes from './routes/users.js';
-import productRoutes from './routes/products.js';
-import orderRoutes from './routes/orders.js';
-import uploadRoutes from './routes/upload.js';
-import adminRoutes from './routes/admin.js';
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
