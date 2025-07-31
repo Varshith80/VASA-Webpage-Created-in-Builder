@@ -1,18 +1,16 @@
-const express = require('express');
-const bcrypt = require('bcryptjs');
-const crypto = require('crypto');
-const { body, validationResult } = require('express-validator');
-const User = require('../models/User');
-const {
+import express from 'express';
+import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
+import { body, validationResult } from 'express-validator';
+import User from '../models/User.js';
+import {
   generateToken,
   generateRefreshToken,
   verifyRefreshToken,
   createAuthRateLimit,
   logAuthEvent,
   authenticate
-} = require('../middleware/auth');
-const { sendEmail } = require('../utils/email');
-const upload = require('../middleware/upload');
+} from '../middleware/auth.js';
 
 const router = express.Router();
 
