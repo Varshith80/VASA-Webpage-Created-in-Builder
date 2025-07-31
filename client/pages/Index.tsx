@@ -195,7 +195,11 @@ export default function Index() {
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-b from-background to-muted/50">
+      <section
+        className="py-20 bg-gradient-to-b from-background to-muted/50"
+        aria-labelledby="hero-heading"
+        role="main"
+      >
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <div className="flex flex-wrap items-center justify-center gap-2 mb-6">
