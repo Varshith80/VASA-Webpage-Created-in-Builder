@@ -34,7 +34,7 @@ export default defineConfig(({ mode }) => ({
     },
   },
   optimizeDeps: {
-    exclude: ["server/**"],
+    exclude: ["server"],
   },
 }));
 
