@@ -277,7 +277,7 @@ const securityHeaders = (req, res, next) => {
   next();
 };
 
-module.exports = {
+export {
   generateToken,
   generateRefreshToken,
   verifyToken,
