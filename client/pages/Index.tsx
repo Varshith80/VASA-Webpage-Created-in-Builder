@@ -246,7 +246,7 @@ export default function Index() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="px-8 py-4 text-lg group border-2 border-primary/30 hover:border-primary hover:bg-primary hover:text-primary-foreground transition-all shadow-lg hover:shadow-xl"
+                  className="px-8 py-4 text-lg group border-2 border-primary text-primary bg-background hover:bg-primary hover:text-primary-foreground transition-all shadow-lg hover:shadow-xl font-semibold"
                   aria-label="Register as an exporter to start selling products globally"
                 >
                   <Upload className="mr-2 h-5 w-5" aria-hidden="true" />
