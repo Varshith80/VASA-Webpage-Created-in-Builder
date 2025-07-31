@@ -38,24 +38,42 @@ export function ThemeToggle({ className }: { className?: string }) {
       <DropdownMenuContent align="end" className="min-w-[160px]">
         <DropdownMenuItem
           onClick={() => setTheme('light')}
-          className={cn("cursor-pointer", theme === 'light' && "bg-accent")}
+          className={cn(
+            "cursor-pointer flex items-center justify-between",
+            theme === 'light' && "bg-accent font-medium"
+          )}
         >
-          <Sun className="mr-2 h-4 w-4" />
-          <span>Light</span>
+          <div className="flex items-center">
+            <Sun className="mr-2 h-4 w-4" />
+            <span>Light</span>
+          </div>
+          {theme === 'light' && <div className="h-2 w-2 rounded-full bg-primary" />}
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => setTheme('dark')}
-          className={cn("cursor-pointer", theme === 'dark' && "bg-accent")}
+          className={cn(
+            "cursor-pointer flex items-center justify-between",
+            theme === 'dark' && "bg-accent font-medium"
+          )}
         >
-          <Moon className="mr-2 h-4 w-4" />
-          <span>Dark</span>
+          <div className="flex items-center">
+            <Moon className="mr-2 h-4 w-4" />
+            <span>Dark</span>
+          </div>
+          {theme === 'dark' && <div className="h-2 w-2 rounded-full bg-primary" />}
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => setTheme('system')}
-          className={cn("cursor-pointer", theme === 'system' && "bg-accent")}
+          className={cn(
+            "cursor-pointer flex items-center justify-between",
+            theme === 'system' && "bg-accent font-medium"
+          )}
         >
-          <Monitor className="mr-2 h-4 w-4" />
-          <span>System</span>
+          <div className="flex items-center">
+            <Monitor className="mr-2 h-4 w-4" />
+            <span>System</span>
+          </div>
+          {theme === 'system' && <div className="h-2 w-2 rounded-full bg-primary" />}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
