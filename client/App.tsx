@@ -19,6 +19,7 @@ import ProductDetail from "./pages/ProductDetail";
 import DisputeResolution from "./pages/DisputeResolution";
 import Webhooks from "./pages/Webhooks";
 import Dashboard from "./pages/Dashboard";
+import NotificationSettings from "./pages/NotificationSettings";
 import NotFound from "./pages/NotFound";
 import { BugReportButton } from "./components/BugReportWidget";
 
