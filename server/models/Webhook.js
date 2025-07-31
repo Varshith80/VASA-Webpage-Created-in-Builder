@@ -234,6 +234,9 @@ const webhookSchema = new mongoose.Schema(
   }
 );
 
+// Apply pagination plugin
+webhookSchema.plugin(mongoosePaginate);
+
 // Indexes for performance
 webhookSchema.index({ userId: 1, isActive: 1 });
 webhookSchema.index({ events: 1, isActive: 1 });
