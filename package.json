@@ -1,7 +1,9 @@
 {
-  "name": "fusion-starter",
+  "name": "vasa-global-trade",
   "private": true,
   "type": "module",
+  "description": "VASA - Global Export-Import Ecommerce Platform",
+  "version": "1.0.0",
   "pkg": {
     "assets": [
       "dist/spa/*"
