@@ -1,46 +1,52 @@
-import React, { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
-import { 
-  ArrowUpDown, 
-  DollarSign, 
-  TrendingUp, 
-  TrendingDown, 
+import React, { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import {
+  ArrowUpDown,
+  DollarSign,
+  TrendingUp,
+  TrendingDown,
   RefreshCw,
   Calculator,
   Clock,
   AlertTriangle,
-  Info
-} from 'lucide-react';
-import { ContextualTooltip } from './ContextualTooltip';
-import { cn } from '@/lib/utils';
+  Info,
+} from "lucide-react";
+import { ContextualTooltip } from "./ContextualTooltip";
+import { cn } from "@/lib/utils";
 
 // Major trading currencies
 const CURRENCIES = [
-  { code: 'USD', name: 'US Dollar', symbol: '$', flag: '🇺🇸' },
-  { code: 'EUR', name: 'Euro', symbol: '€', flag: '🇪🇺' },
-  { code: 'GBP', name: 'British Pound', symbol: '£', flag: '🇬🇧' },
-  { code: 'JPY', name: 'Japanese Yen', symbol: '¥', flag: '🇯🇵' },
-  { code: 'CNY', name: 'Chinese Yuan', symbol: '¥', flag: '🇨🇳' },
-  { code: 'INR', name: 'Indian Rupee', symbol: '₹', flag: '🇮🇳' },
-  { code: 'CAD', name: 'Canadian Dollar', symbol: 'C$', flag: '🇨🇦' },
-  { code: 'AUD', name: 'Australian Dollar', symbol: 'A$', flag: '🇦🇺' },
-  { code: 'CHF', name: 'Swiss Franc', symbol: 'CHF', flag: '🇨🇭' },
-  { code: 'SGD', name: 'Singapore Dollar', symbol: 'S$', flag: '🇸🇬' },
-  { code: 'HKD', name: 'Hong Kong Dollar', symbol: 'HK$', flag: '🇭🇰' },
-  { code: 'SEK', name: 'Swedish Krona', symbol: 'kr', flag: '🇸🇪' },
-  { code: 'NOK', name: 'Norwegian Krone', symbol: 'kr', flag: '🇳🇴' },
-  { code: 'DKK', name: 'Danish Krone', symbol: 'kr', flag: '🇩🇰' },
-  { code: 'MXN', name: 'Mexican Peso', symbol: '$', flag: '🇲🇽' },
-  { code: 'BRL', name: 'Brazilian Real', symbol: 'R$', flag: '🇧🇷' },
-  { code: 'ZAR', name: 'South African Rand', symbol: 'R', flag: '🇿🇦' },
-  { code: 'KRW', name: 'South Korean Won', symbol: '₩', flag: '🇰🇷' },
-  { code: 'THB', name: 'Thai Baht', symbol: '฿', flag: '🇹🇭' },
-  { code: 'AED', name: 'UAE Dirham', symbol: 'د.إ', flag: '🇦🇪' },
+  { code: "USD", name: "US Dollar", symbol: "$", flag: "🇺🇸" },
+  { code: "EUR", name: "Euro", symbol: "€", flag: "🇪🇺" },
+  { code: "GBP", name: "British Pound", symbol: "£", flag: "🇬🇧" },
+  { code: "JPY", name: "Japanese Yen", symbol: "¥", flag: "🇯🇵" },
+  { code: "CNY", name: "Chinese Yuan", symbol: "¥", flag: "🇨🇳" },
+  { code: "INR", name: "Indian Rupee", symbol: "₹", flag: "🇮🇳" },
+  { code: "CAD", name: "Canadian Dollar", symbol: "C$", flag: "🇨🇦" },
+  { code: "AUD", name: "Australian Dollar", symbol: "A$", flag: "🇦🇺" },
+  { code: "CHF", name: "Swiss Franc", symbol: "CHF", flag: "🇨🇭" },
+  { code: "SGD", name: "Singapore Dollar", symbol: "S$", flag: "🇸🇬" },
+  { code: "HKD", name: "Hong Kong Dollar", symbol: "HK$", flag: "🇭🇰" },
+  { code: "SEK", name: "Swedish Krona", symbol: "kr", flag: "🇸🇪" },
+  { code: "NOK", name: "Norwegian Krone", symbol: "kr", flag: "🇳🇴" },
+  { code: "DKK", name: "Danish Krone", symbol: "kr", flag: "🇩🇰" },
+  { code: "MXN", name: "Mexican Peso", symbol: "$", flag: "🇲🇽" },
+  { code: "BRL", name: "Brazilian Real", symbol: "R$", flag: "🇧🇷" },
+  { code: "ZAR", name: "South African Rand", symbol: "R", flag: "🇿🇦" },
+  { code: "KRW", name: "South Korean Won", symbol: "₩", flag: "🇰🇷" },
+  { code: "THB", name: "Thai Baht", symbol: "฿", flag: "🇹🇭" },
+  { code: "AED", name: "UAE Dirham", symbol: "د.إ", flag: "🇦🇪" },
 ];
 
 // Mock exchange rates - in real app this would come from an API
@@ -86,12 +92,12 @@ interface ConversionResult {
 }
 
 export function CurrencyConverter({
-  defaultFrom = 'USD',
-  defaultTo = 'EUR',
+  defaultFrom = "USD",
+  defaultTo = "EUR",
   defaultAmount = 1000,
   onConvert,
   className,
-  compact = false
+  compact = false,
 }: CurrencyConverterProps) {
   const [fromCurrency, setFromCurrency] = useState(defaultFrom);
   const [toCurrency, setToCurrency] = useState(defaultTo);
@@ -108,10 +114,10 @@ export function CurrencyConverter({
     if (!amount || isNaN(Number(amount))) return;
 
     setLoading(true);
-    
+
     // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 300));
-    
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
     const fromRate = MOCK_RATES[fromCurrency as keyof typeof MOCK_RATES] || 1;
     const toRate = MOCK_RATES[toCurrency as keyof typeof MOCK_RATES] || 1;
     const rate = toRate / fromRate;
@@ -141,13 +147,15 @@ export function CurrencyConverter({
   };
 
   const formatCurrency = (amount: number, currencyCode: string) => {
-    const currency = CURRENCIES.find(c => c.code === currencyCode);
+    const currency = CURRENCIES.find((c) => c.code === currencyCode);
     const symbol = currency?.symbol || currencyCode;
-    
-    return new Intl.NumberFormat('en-US', {
-      style: 'decimal',
-      minimumFractionDigits: currencyCode === 'JPY' || currencyCode === 'KRW' ? 0 : 2,
-      maximumFractionDigits: currencyCode === 'JPY' || currencyCode === 'KRW' ? 0 : 2,
+
+    return new Intl.NumberFormat("en-US", {
+      style: "decimal",
+      minimumFractionDigits:
+        currencyCode === "JPY" || currencyCode === "KRW" ? 0 : 2,
+      maximumFractionDigits:
+        currencyCode === "JPY" || currencyCode === "KRW" ? 0 : 2,
     }).format(amount);
   };
 
@@ -164,14 +172,14 @@ export function CurrencyConverter({
 
   if (compact) {
     return (
-      <Card className={cn('border-dashed', className)}>
+      <Card className={cn("border-dashed", className)}>
         <CardContent className="p-4">
           <div className="space-y-3">
             <div className="flex items-center gap-2">
               <Calculator className="h-4 w-4 text-muted-foreground" />
               <span className="text-sm font-medium">Quick Converter</span>
             </div>
-            
+
             <div className="grid grid-cols-2 gap-2">
               <div>
                 <Input
@@ -210,7 +218,9 @@ export function CurrencyConverter({
             <div className="grid grid-cols-2 gap-2">
               <div className="text-center">
                 {result && (
-                  <div className={cn('text-lg font-bold', loading && 'opacity-50')}>
+                  <div
+                    className={cn("text-lg font-bold", loading && "opacity-50")}
+                  >
                     {formatCurrency(result.toAmount, toCurrency)}
                   </div>
                 )}
@@ -236,7 +246,8 @@ export function CurrencyConverter({
 
             {result && (
               <div className="text-xs text-muted-foreground text-center">
-                Rate: 1 {fromCurrency} = {formatCurrency(result.rate, toCurrency)} {toCurrency}
+                Rate: 1 {fromCurrency} ={" "}
+                {formatCurrency(result.rate, toCurrency)} {toCurrency}
               </div>
             )}
           </div>
@@ -271,7 +282,7 @@ export function CurrencyConverter({
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="Enter amount"
-                className={cn('text-lg', loading && 'opacity-50')}
+                className={cn("text-lg", loading && "opacity-50")}
               />
             </div>
             <Select value={fromCurrency} onValueChange={setFromCurrency}>
@@ -285,7 +296,9 @@ export function CurrencyConverter({
                       <span>{currency.flag}</span>
                       <div>
                         <div className="font-medium">{currency.code}</div>
-                        <div className="text-xs text-muted-foreground">{currency.name}</div>
+                        <div className="text-xs text-muted-foreground">
+                          {currency.name}
+                        </div>
                       </div>
                     </div>
                   </SelectItem>
@@ -297,9 +310,9 @@ export function CurrencyConverter({
 
         {/* Swap Button */}
         <div className="flex justify-center">
-          <Button 
-            variant="outline" 
-            size="sm" 
+          <Button
+            variant="outline"
+            size="sm"
             onClick={swapCurrencies}
             className="rounded-full p-2"
           >
@@ -312,11 +325,13 @@ export function CurrencyConverter({
           <Label htmlFor="to-amount">To</Label>
           <div className="flex gap-2">
             <div className="flex-1">
-              <div className={cn(
-                'h-10 px-3 py-2 bg-muted rounded-md flex items-center text-lg font-medium',
-                loading && 'opacity-50'
-              )}>
-                {result ? formatCurrency(result.toAmount, toCurrency) : '0.00'}
+              <div
+                className={cn(
+                  "h-10 px-3 py-2 bg-muted rounded-md flex items-center text-lg font-medium",
+                  loading && "opacity-50",
+                )}
+              >
+                {result ? formatCurrency(result.toAmount, toCurrency) : "0.00"}
                 {loading && <RefreshCw className="ml-2 h-4 w-4 animate-spin" />}
               </div>
             </div>
@@ -331,7 +346,9 @@ export function CurrencyConverter({
                       <span>{currency.flag}</span>
                       <div>
                         <div className="font-medium">{currency.code}</div>
-                        <div className="text-xs text-muted-foreground">{currency.name}</div>
+                        <div className="text-xs text-muted-foreground">
+                          {currency.name}
+                        </div>
                       </div>
                     </div>
                   </SelectItem>
@@ -345,15 +362,20 @@ export function CurrencyConverter({
         {result && (
           <div className="space-y-3 pt-4 border-t">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-muted-foreground">Exchange Rate</span>
+              <span className="text-sm text-muted-foreground">
+                Exchange Rate
+              </span>
               <div className="flex items-center gap-2">
                 <span className="text-sm font-medium">
-                  1 {fromCurrency} = {formatCurrency(result.rate, toCurrency)} {toCurrency}
+                  1 {fromCurrency} = {formatCurrency(result.rate, toCurrency)}{" "}
+                  {toCurrency}
                 </span>
-                <div className={cn(
-                  'flex items-center gap-1 text-xs',
-                  rateChange.isPositive ? 'text-green-600' : 'text-red-600'
-                )}>
+                <div
+                  className={cn(
+                    "flex items-center gap-1 text-xs",
+                    rateChange.isPositive ? "text-green-600" : "text-red-600",
+                  )}
+                >
                   {rateChange.isPositive ? (
                     <TrendingUp className="h-3 w-3" />
                   ) : (
@@ -382,8 +404,8 @@ export function CurrencyConverter({
                   Bank Rate Disclaimer
                 </p>
                 <p className="text-orange-700 dark:text-orange-300 mt-1">
-                  Final exchange rate may vary based on your bank's conversion rates and fees. 
-                  This rate is for reference only.
+                  Final exchange rate may vary based on your bank's conversion
+                  rates and fees. This rate is for reference only.
                 </p>
               </div>
             </div>
@@ -420,11 +442,11 @@ interface CurrencySelectorProps {
   showFlag?: boolean;
 }
 
-export function CurrencySelector({ 
-  value, 
-  onValueChange, 
+export function CurrencySelector({
+  value,
+  onValueChange,
   className,
-  showFlag = true 
+  showFlag = true,
 }: CurrencySelectorProps) {
   return (
     <Select value={value} onValueChange={onValueChange}>
@@ -455,21 +477,22 @@ interface PriceDisplayProps {
   className?: string;
 }
 
-export function PriceDisplay({ 
-  amount, 
-  currency, 
+export function PriceDisplay({
+  amount,
+  currency,
   showConverter = true,
-  userCurrency = 'USD',
-  className 
+  userCurrency = "USD",
+  className,
 }: PriceDisplayProps) {
   const [showConversion, setShowConversion] = useState(false);
 
   const formatPrice = (value: number, currencyCode: string) => {
-    const currencyInfo = CURRENCIES.find(c => c.code === currencyCode);
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
+    const currencyInfo = CURRENCIES.find((c) => c.code === currencyCode);
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
       currency: currencyCode,
-      minimumFractionDigits: currencyCode === 'JPY' || currencyCode === 'KRW' ? 0 : 2,
+      minimumFractionDigits:
+        currencyCode === "JPY" || currencyCode === "KRW" ? 0 : 2,
     }).format(value);
   };
 
@@ -482,15 +505,17 @@ export function PriceDisplay({
   const convertedAmount = convertPrice(amount, currency, userCurrency);
 
   return (
-    <div className={cn('inline-flex items-center gap-2', className)}>
+    <div className={cn("inline-flex items-center gap-2", className)}>
       <span className="font-semibold">{formatPrice(amount, currency)}</span>
-      
+
       {showConverter && currency !== userCurrency && (
         <ContextualTooltip
           content={
             <div className="space-y-1">
               <div>Converted to {userCurrency}:</div>
-              <div className="font-medium">{formatPrice(convertedAmount, userCurrency)}</div>
+              <div className="font-medium">
+                {formatPrice(convertedAmount, userCurrency)}
+              </div>
               <div className="text-xs text-muted-foreground">
                 Rate may vary at checkout
               </div>

@@ -47,28 +47,32 @@ export default function Index() {
       title: "Secure Transactions",
       description:
         "Multi-step payment system with escrow protection and KYC verification",
-      tooltip: "Your payments are protected with our 3-step escrow system: 10% advance, 50% on shipment, 40% on delivery.",
+      tooltip:
+        "Your payments are protected with our 3-step escrow system: 10% advance, 50% on shipment, 40% on delivery.",
     },
     {
       icon: <Truck className="h-6 w-6" />,
       title: "Order Tracking",
       description:
         "Real-time tracking from order placement to delivery with status updates",
-      tooltip: "Track your orders in real-time with automatic notifications at every milestone.",
+      tooltip:
+        "Track your orders in real-time with automatic notifications at every milestone.",
     },
     {
       icon: <FileCheck className="h-6 w-6" />,
       title: "Compliance Ready",
       description:
         "Built-in compliance tools for international trade regulations",
-      tooltip: "Automatic compliance checking for customs, documentation, and regulatory requirements.",
+      tooltip:
+        "Automatic compliance checking for customs, documentation, and regulatory requirements.",
     },
     {
       icon: <CreditCard className="h-6 w-6" />,
       title: "Flexible Payments",
       description:
         "Multiple payment options with installment support and currency conversion",
-      tooltip: "Support for major currencies with real-time conversion and multiple payment methods.",
+      tooltip:
+        "Support for major currencies with real-time conversion and multiple payment methods.",
     },
   ];
 
@@ -158,7 +162,11 @@ export default function Index() {
                 </p>
               </div>
             </div>
-            <nav className="hidden md:flex items-center space-x-8" role="navigation" aria-label="Primary navigation">
+            <nav
+              className="hidden md:flex items-center space-x-8"
+              role="navigation"
+              aria-label="Primary navigation"
+            >
               <a
                 href="#features"
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -182,12 +190,23 @@ export default function Index() {
               </a>
               <ThemeToggle />
               <Link to="/login">
-                <Button variant="outline" size="sm" className="border-2 border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground font-medium" aria-label="Sign in to your account">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-2 border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground font-medium"
+                  aria-label="Sign in to your account"
+                >
                   Sign In
                 </Button>
               </Link>
               <Link to="/register">
-                <Button size="sm" className="bg-primary hover:bg-primary/90" aria-label="Create a new account">Get Started</Button>
+                <Button
+                  size="sm"
+                  className="bg-primary hover:bg-primary/90"
+                  aria-label="Create a new account"
+                >
+                  Get Started
+                </Button>
               </Link>
             </nav>
           </div>
@@ -229,7 +248,11 @@ export default function Index() {
               international trade.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12" role="group" aria-label="Get started options">
+            <div
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
+              role="group"
+              aria-label="Get started options"
+            >
               <Link to="/register?role=importer">
                 <Button
                   size="lg"
@@ -238,7 +261,10 @@ export default function Index() {
                 >
                   <ShoppingCart className="mr-2 h-5 w-5" aria-hidden="true" />
                   Start Importing
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+                  <ArrowRight
+                    className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform"
+                    aria-hidden="true"
+                  />
                 </Button>
               </Link>
 
@@ -251,7 +277,10 @@ export default function Index() {
                 >
                   <Upload className="mr-2 h-5 w-5" aria-hidden="true" />
                   Start Exporting
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+                  <ArrowRight
+                    className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform"
+                    aria-hidden="true"
+                  />
                 </Button>
               </Link>
             </div>
@@ -265,9 +294,20 @@ export default function Index() {
               {platformStats.map((stat, index) => {
                 const Icon = stat.icon;
                 return (
-                  <div key={index} className="text-center" role="img" aria-label={`${stat.label}: ${stat.value}`}>
-                    <Icon className="h-8 w-8 text-primary mx-auto mb-2" aria-hidden="true" />
-                    <div className="text-2xl font-bold text-foreground" aria-label={stat.value}>
+                  <div
+                    key={index}
+                    className="text-center"
+                    role="img"
+                    aria-label={`${stat.label}: ${stat.value}`}
+                  >
+                    <Icon
+                      className="h-8 w-8 text-primary mx-auto mb-2"
+                      aria-hidden="true"
+                    />
+                    <div
+                      className="text-2xl font-bold text-foreground"
+                      aria-label={stat.value}
+                    >
                       {stat.value}
                     </div>
                     <div className="text-sm text-muted-foreground">
@@ -289,7 +329,10 @@ export default function Index() {
       >
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 id="features-heading" className="text-3xl font-bold text-foreground mb-4">
+            <h2
+              id="features-heading"
+              className="text-3xl font-bold text-foreground mb-4"
+            >
               Built for Modern Global Trade
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">

@@ -98,8 +98,14 @@ const App = () => {
                   <Route path="/product/:id" element={<ProductDetail />} />
                   <Route path="/disputes" element={<DisputeResolution />} />
                   <Route path="/webhooks" element={<Webhooks />} />
-                  <Route path="/dashboard" element={<Dashboard userRole="importer" />} />
-                  <Route path="/notifications" element={<NotificationSettings />} />
+                  <Route
+                    path="/dashboard"
+                    element={<Dashboard userRole="importer" />}
+                  />
+                  <Route
+                    path="/notifications"
+                    element={<NotificationSettings />}
+                  />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
