@@ -257,13 +257,17 @@ export default function Index() {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div
+              className="grid grid-cols-2 md:grid-cols-4 gap-8"
+              role="region"
+              aria-label="Platform statistics"
+            >
               {platformStats.map((stat, index) => {
                 const Icon = stat.icon;
                 return (
-                  <div key={index} className="text-center">
-                    <Icon className="h-8 w-8 text-primary mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-foreground">
+                  <div key={index} className="text-center" role="img" aria-label={`${stat.label}: ${stat.value}`}>
+                    <Icon className="h-8 w-8 text-primary mx-auto mb-2" aria-hidden="true" />
+                    <div className="text-2xl font-bold text-foreground" aria-label={stat.value}>
                       {stat.value}
                     </div>
                     <div className="text-sm text-muted-foreground">
