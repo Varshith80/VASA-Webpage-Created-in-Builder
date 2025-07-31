@@ -47,24 +47,28 @@ export default function Index() {
       title: "Secure Transactions",
       description:
         "Multi-step payment system with escrow protection and KYC verification",
+      tooltip: "Your payments are protected with our 3-step escrow system: 10% advance, 50% on shipment, 40% on delivery.",
     },
     {
       icon: <Truck className="h-6 w-6" />,
       title: "Order Tracking",
       description:
         "Real-time tracking from order placement to delivery with status updates",
+      tooltip: "Track your orders in real-time with automatic notifications at every milestone.",
     },
     {
       icon: <FileCheck className="h-6 w-6" />,
       title: "Compliance Ready",
       description:
         "Built-in compliance tools for international trade regulations",
+      tooltip: "Automatic compliance checking for customs, documentation, and regulatory requirements.",
     },
     {
       icon: <CreditCard className="h-6 w-6" />,
       title: "Flexible Payments",
       description:
         "Multiple payment options with installment support and currency conversion",
+      tooltip: "Support for major currencies with real-time conversion and multiple payment methods.",
     },
   ];
 
