@@ -158,33 +158,36 @@ export default function Index() {
                 </p>
               </div>
             </div>
-            <nav className="hidden md:flex items-center space-x-8">
+            <nav className="hidden md:flex items-center space-x-8" role="navigation" aria-label="Primary navigation">
               <a
                 href="#features"
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                aria-describedby="features-section"
               >
                 Features
               </a>
               <a
                 href="#how-it-works"
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                aria-describedby="how-it-works-section"
               >
                 How It Works
               </a>
               <a
                 href="#testimonials"
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                aria-describedby="testimonials-section"
               >
                 Reviews
               </a>
               <ThemeToggle />
               <Link to="/login">
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" aria-label="Sign in to your account">
                   Sign In
                 </Button>
               </Link>
               <Link to="/register">
-                <Button size="sm">Get Started</Button>
+                <Button size="sm" aria-label="Create a new account">Get Started</Button>
               </Link>
             </nav>
           </div>
