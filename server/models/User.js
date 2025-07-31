@@ -253,4 +253,4 @@ userSchema.statics.findByLicenseNumber = function(licenseNumber) {
   return this.findOne({ licenseNumber: licenseNumber.toUpperCase() });
 };
 
-module.exports = mongoose.model('User', userSchema);
+export default mongoose.model('User', userSchema);
