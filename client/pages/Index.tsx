@@ -23,7 +23,9 @@ import {
   MapPin,
   Play,
   ChevronRight,
+  Award,
 } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function Index() {
   const [selectedTab, setSelectedTab] = useState("overview");
