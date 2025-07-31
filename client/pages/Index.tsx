@@ -282,6 +282,9 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Trust Section */}
+      <PlatformTrustSection />
+
       {/* How It Works Section */}
       <section id="how-it-works" className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
