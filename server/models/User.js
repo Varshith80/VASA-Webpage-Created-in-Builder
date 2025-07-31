@@ -41,9 +41,28 @@ const userSchema = new mongoose.Schema(
     // Role and Status
     role: {
       type: String,
-      enum: ["exporter", "importer", "admin"],
+      enum: ["exporter", "importer", "admin", "super_admin", "support", "finance"],
       required: true,
     },
+    permissions: [{
+      type: String,
+      enum: [
+        // User management
+        "users.view", "users.create", "users.edit", "users.delete", "users.suspend",
+        // Product management
+        "products.view", "products.create", "products.edit", "products.delete", "products.approve",
+        // Order management
+        "orders.view", "orders.create", "orders.edit", "orders.cancel", "orders.process",
+        // Finance
+        "finance.view", "finance.process_payments", "finance.refunds", "finance.reports",
+        // System
+        "system.settings", "system.logs", "system.backup", "system.maintenance",
+        // Support
+        "support.tickets", "support.disputes", "support.messages",
+        // Analytics
+        "analytics.view", "analytics.export"
+      ]
+    }],
     status: {
       type: String,
       enum: ["pending", "verified", "suspended", "rejected"],
@@ -165,10 +184,49 @@ const userSchema = new mongoose.Schema(
     // Security
     emailVerified: { type: Boolean, default: false },
     phoneVerified: { type: Boolean, default: false },
-    twoFactorEnabled: { type: Boolean, default: false },
+
+    // Multi-Factor Authentication
+    mfa: {
+      enabled: { type: Boolean, default: false },
+      secret: String, // Base32 encoded secret for TOTP
+      backupCodes: [String], // Array of backup codes
+      lastUsedBackupCode: String,
+      preferredMethod: {
+        type: String,
+        enum: ["authenticator", "sms", "email"],
+        default: "authenticator"
+      },
+      setupCompleted: { type: Boolean, default: false },
+      tempSecret: String, // Temporary secret during setup
+      smsCode: {
+        code: String,
+        generatedAt: Date,
+        attempts: { type: Number, default: 0 }
+      },
+      emailCode: {
+        code: String,
+        generatedAt: Date,
+        attempts: { type: Number, default: 0 }
+      }
+    },
+
+    // Enhanced Security
     lastLogin: Date,
     loginAttempts: { type: Number, default: 0 },
     lockUntil: Date,
+    suspiciousActivityDetected: { type: Boolean, default: false },
+    trustedDevices: [{
+      deviceId: String,
+      deviceName: String,
+      userAgent: String,
+      ipAddress: String,
+      addedAt: { type: Date, default: Date.now },
+      lastUsed: Date
+    }],
+
+    // Activity Tracking
+    lastActivity: Date,
+    sessionIds: [String],
 
     // Timestamps
     registrationDate: { type: Date, default: Date.now },
@@ -255,14 +313,99 @@ userSchema.methods.getPublicProfile = function () {
   delete userObject.kycDocuments;
   delete userObject.loginAttempts;
   delete userObject.lockUntil;
-  delete userObject.twoFactorEnabled;
+  delete userObject.mfa;
+  delete userObject.trustedDevices;
+  delete userObject.sessionIds;
+  delete userObject.suspiciousActivityDetected;
 
   return userObject;
+};
+
+// Method to check if user has permission
+userSchema.methods.hasPermission = function (permission) {
+  // Super admin has all permissions
+  if (this.role === 'super_admin') {
+    return true;
+  }
+
+  // Check if user has specific permission
+  return this.permissions && this.permissions.includes(permission);
+};
+
+// Method to add trusted device
+userSchema.methods.addTrustedDevice = function (deviceInfo) {
+  const deviceExists = this.trustedDevices.find(d => d.deviceId === deviceInfo.deviceId);
+
+  if (!deviceExists) {
+    this.trustedDevices.push({
+      deviceId: deviceInfo.deviceId,
+      deviceName: deviceInfo.deviceName || 'Unknown Device',
+      userAgent: deviceInfo.userAgent,
+      ipAddress: deviceInfo.ipAddress,
+      lastUsed: new Date()
+    });
+  } else {
+    deviceExists.lastUsed = new Date();
+  }
+
+  return this.save();
+};
+
+// Method to check if device is trusted
+userSchema.methods.isDeviceTrusted = function (deviceId) {
+  return this.trustedDevices.some(d => d.deviceId === deviceId);
+};
+
+// Static method to get role permissions
+userSchema.statics.getRolePermissions = function (role) {
+  const rolePermissions = {
+    exporter: [
+      'products.view', 'products.create', 'products.edit',
+      'orders.view', 'orders.process',
+      'analytics.view'
+    ],
+    importer: [
+      'products.view',
+      'orders.view', 'orders.create',
+      'analytics.view'
+    ],
+    support: [
+      'users.view', 'users.edit',
+      'products.view', 'products.edit',
+      'orders.view', 'orders.edit',
+      'support.tickets', 'support.disputes', 'support.messages'
+    ],
+    finance: [
+      'orders.view',
+      'finance.view', 'finance.process_payments', 'finance.refunds', 'finance.reports',
+      'analytics.view', 'analytics.export'
+    ],
+    admin: [
+      'users.view', 'users.create', 'users.edit', 'users.suspend',
+      'products.view', 'products.create', 'products.edit', 'products.delete', 'products.approve',
+      'orders.view', 'orders.create', 'orders.edit', 'orders.cancel', 'orders.process',
+      'finance.view', 'finance.process_payments', 'finance.refunds', 'finance.reports',
+      'support.tickets', 'support.disputes', 'support.messages',
+      'analytics.view', 'analytics.export',
+      'system.logs'
+    ],
+    super_admin: ['*'] // All permissions
+  };
+
+  return rolePermissions[role] || [];
 };
 
 // Static method to find by license number
 userSchema.statics.findByLicenseNumber = function (licenseNumber) {
   return this.findOne({ licenseNumber: licenseNumber.toUpperCase() });
 };
+
+// Auto-assign role permissions on user save
+userSchema.pre('save', function(next) {
+  if (this.isModified('role') || this.isNew) {
+    this.permissions = this.constructor.getRolePermissions(this.role);
+  }
+  next();
+});
 
 export default mongoose.model("User", userSchema);
