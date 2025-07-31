@@ -16,10 +16,14 @@ export function ThemeToggle({ className }: { className?: string }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button 
-          variant="ghost" 
-          size="sm" 
-          className={cn("h-9 w-9 px-0", className)}
+        <Button
+          variant="outline"
+          size="sm"
+          className={cn(
+            "h-9 w-9 px-0 border-border/50 hover:border-border hover:bg-accent",
+            "dark:border-border dark:hover:bg-accent dark:hover:text-accent-foreground",
+            className
+          )}
           aria-label="Toggle theme"
         >
           {actualTheme === 'dark' ? (
@@ -66,10 +70,14 @@ export function SimpleThemeToggle({ className }: { className?: string }) {
 
   return (
     <Button
-      variant="ghost"
+      variant="outline"
       size="sm"
       onClick={toggleTheme}
-      className={cn("h-9 w-9 px-0", className)}
+      className={cn(
+        "h-9 w-9 px-0 border-border/50 hover:border-border hover:bg-accent",
+        "dark:border-border dark:hover:bg-accent dark:hover:text-accent-foreground",
+        className
+      )}
       aria-label={`Switch to ${actualTheme === 'dark' ? 'light' : 'dark'} mode`}
     >
       {actualTheme === 'dark' ? (
