@@ -126,6 +126,7 @@ app.get("/api", (req, res) => {
       users: "/api/users",
       products: "/api/products",
       orders: "/api/orders",
+      webhooks: "/api/webhooks",
       upload: "/api/upload",
       admin: "/api/admin",
       health: "/api/health",
