@@ -278,7 +278,16 @@ export default function Index() {
               >
                 <CardHeader>
                   <div className="text-primary mb-3">{feature.icon}</div>
-                  <CardTitle className="text-lg">{feature.title}</CardTitle>
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    {feature.title}
+                    <ContextualTooltip
+                      content={feature.tooltip}
+                      type="info"
+                      showIcon
+                    >
+                      <span></span>
+                    </ContextualTooltip>
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground text-sm">
