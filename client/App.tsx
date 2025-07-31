@@ -43,13 +43,23 @@ const App = () => (
   </QueryClientProvider>
 );
 
-// Ensure createRoot is only called once
+// Improved root management for HMR compatibility
 const container = document.getElementById("root")!;
-let root = (container as any)._reactRoot;
 
-if (!root) {
-  root = createRoot(container);
-  (container as any)._reactRoot = root;
+// Check if we're in development mode and handle HMR properly
+if (import.meta.hot) {
+  // In development with HMR, always create a fresh root
+  const root = createRoot(container);
+  root.render(<App />);
+
+  // Accept HMR updates
+  import.meta.hot.accept();
+} else {
+  // In production, use the singleton pattern
+  let root = (container as any)._reactRoot;
+  if (!root) {
+    root = createRoot(container);
+    (container as any)._reactRoot = root;
+  }
+  root.render(<App />);
 }
-
-root.render(<App />);
