@@ -1,0 +1,134 @@
+{
+  "name": "VASA - Global Export-Import Trade Platform",
+  "short_name": "VASA Trade",
+  "description": "Professional export-import platform connecting global traders with secure transactions and compliance tools.",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#1d4ed8",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["business", "productivity", "finance"],
+  "icons": [
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Search Products",
+      "short_name": "Search",
+      "description": "Search for products and suppliers",
+      "url": "/search",
+      "icons": [{ "src": "/icons/search-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "My Orders",
+      "short_name": "Orders",
+      "description": "View and track your orders",
+      "url": "/orders",
+      "icons": [{ "src": "/icons/orders-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Messages",
+      "short_name": "Chat",
+      "description": "Chat with suppliers and customers",
+      "url": "/messages",
+      "icons": [{ "src": "/icons/messages-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Compliance Check",
+      "short_name": "Compliance",
+      "description": "Check trade compliance requirements",
+      "url": "/compliance",
+      "icons": [{ "src": "/icons/compliance-96x96.png", "sizes": "96x96" }]
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+vasa",
+      "url": "/handle?protocol=%s"
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "files",
+          "accept": ["image/*", ".pdf", ".doc", ".docx"]
+        }
+      ]
+    }
+  },
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.vasa.trade",
+      "id": "com.vasa.trade"
+    },
+    {
+      "platform": "itunes",
+      "url": "https://apps.apple.com/app/vasa-trade/id1234567890",
+      "id": "id1234567890"
+    }
+  ],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": ["navigate-existing", "auto"]
+  }
+}
