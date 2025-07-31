@@ -20,29 +20,50 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-// Error fallback component
-const ErrorFallback = ({ error, resetErrorBoundary }: any) => (
-  <div className="min-h-screen flex items-center justify-center bg-background p-4">
-    <div className="text-center max-w-md">
-      <h2 className="text-2xl font-bold text-foreground mb-4">Something went wrong</h2>
-      <p className="text-muted-foreground mb-4">
-        {import.meta.env.DEV ? error.message : "An unexpected error occurred"}
-      </p>
-      <button
-        onClick={resetErrorBoundary}
-        className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90"
-      >
-        Try again
-      </button>
-    </div>
-  </div>
-);
+// Simple Error Boundary for HMR compatibility
+class ErrorBoundary extends Component<
+  { children: ReactNode },
+  { hasError: boolean; error?: Error }
+> {
+  constructor(props: { children: ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error('App Error Boundary:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-background p-4">
+          <div className="text-center max-w-md">
+            <h2 className="text-2xl font-bold text-foreground mb-4">Something went wrong</h2>
+            <p className="text-muted-foreground mb-4">
+              {import.meta.env.DEV ? this.state.error?.message : "An unexpected error occurred"}
+            </p>
+            <button
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90"
+            >
+              Reload Page
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
 
 const App = () => (
-  <ErrorBoundary
-    FallbackComponent={ErrorFallback}
-    onError={(error) => console.error('App Error:', error)}
-  >
+  <ErrorBoundary>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
