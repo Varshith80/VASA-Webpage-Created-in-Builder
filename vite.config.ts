@@ -46,16 +46,18 @@ function expressPlugin(): Plugin {
       try {
         const app = createServer();
 
-        // Add Express app as middleware to Vite dev server
-        server.middlewares.use("/api", app);
-
-        // Handle any middleware errors gracefully
-        server.middlewares.use((err: any, req: any, res: any, next: any) => {
-          console.error("Express middleware error:", err);
-          next();
+        // Add Express app as middleware to Vite dev server BEFORE Vite's internal middleware
+        server.middlewares.use((req, res, next) => {
+          if (req.url?.startsWith('/api')) {
+            app(req, res, next);
+          } else {
+            next();
+          }
         });
+
+        console.log("✅ Express middleware configured for /api routes");
       } catch (error) {
-        console.warn("Failed to setup express middleware:", error);
+        console.error("❌ Failed to setup express middleware:", error);
       }
     },
   };
