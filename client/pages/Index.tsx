@@ -212,7 +212,11 @@ export default function Index() {
               <TrustBadge variant="established" size="sm" />
             </div>
 
-            <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
+            <h1
+              id="hero-heading"
+              className="text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight"
+              aria-label="VASA: The Future of Global Trade"
+            >
               The Future of
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-700">
                 Global Trade
