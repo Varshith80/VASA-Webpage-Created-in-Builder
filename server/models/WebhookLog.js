@@ -295,11 +295,11 @@ webhookLogSchema.statics.getDeliveryStats = function (webhookId, timeframe = 24)
 // Static method to get error breakdown
 webhookLogSchema.statics.getErrorBreakdown = function (webhookId, timeframe = 24) {
   const since = new Date(Date.now() - timeframe * 60 * 60 * 1000);
-  
+
   return this.aggregate([
     {
       $match: {
-        webhookId: mongoose.Types.ObjectId(webhookId),
+        webhookId: new mongoose.Types.ObjectId(webhookId),
         createdAt: { $gte: since },
         status: { $in: ["failed", "abandoned"] },
       },
