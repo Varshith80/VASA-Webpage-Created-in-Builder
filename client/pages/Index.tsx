@@ -165,6 +165,7 @@ export default function Index() {
               >
                 Reviews
               </a>
+              <ThemeToggle />
               <Link to="/login">
                 <Button variant="outline" size="sm">
                   Sign In
