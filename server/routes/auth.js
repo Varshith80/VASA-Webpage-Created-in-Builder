@@ -11,6 +11,7 @@ import {
   logAuthEvent,
   authenticate
 } from '../middleware/auth.js';
+import { sendEmail } from '../utils/email.js';
 
 const router = express.Router();
 
