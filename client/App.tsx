@@ -72,38 +72,49 @@ class ErrorBoundary extends Component<
   }
 }
 
-const App = () => (
-  <ErrorBoundary>
-    <ThemeProvider defaultTheme="system" storageKey="vasa-theme">
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/importer" element={<Importer />} />
-              <Route path="/exporter" element={<Exporter />} />
-              <Route path="/orders" element={<Orders />} />
-              <Route path="/registration" element={<Registration />} />
-              <Route path="/messages" element={<Messages />} />
-              <Route path="/product/:id" element={<ProductDetail />} />
-              <Route path="/disputes" element={<DisputeResolution />} />
-            <Route path="/webhooks" element={<Webhooks />} />
-            <Route path="/dashboard" element={<Dashboard userRole="importer" />} />
-            <Route path="/notifications" element={<NotificationSettings />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-            {/* Global Bug Report Widget */}
-            <BugReportButton className="bg-red-600 hover:bg-red-700 text-white shadow-lg hover:shadow-xl" />
-          </BrowserRouter>
-        </TooltipProvider>
-      </QueryClientProvider>
-    </ThemeProvider>
-  </ErrorBoundary>
-);
+const App = () => {
+  useEffect(() => {
+    // Initialize accessibility features
+    accessibility.init();
+  }, []);
+
+  return (
+    <ErrorBoundary>
+      <ThemeProvider defaultTheme="system" storageKey="vasa-theme">
+        <QueryClientProvider client={queryClient}>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <main id="main-content" role="main" tabIndex={-1}>
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/importer" element={<Importer />} />
+                  <Route path="/exporter" element={<Exporter />} />
+                  <Route path="/orders" element={<Orders />} />
+                  <Route path="/registration" element={<Registration />} />
+                  <Route path="/messages" element={<Messages />} />
+                  <Route path="/product/:id" element={<ProductDetail />} />
+                  <Route path="/disputes" element={<DisputeResolution />} />
+                  <Route path="/webhooks" element={<Webhooks />} />
+                  <Route path="/dashboard" element={<Dashboard userRole="importer" />} />
+                  <Route path="/notifications" element={<NotificationSettings />} />
+                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </main>
+              {/* Global Bug Report Widget */}
+              <aside aria-label="Bug reporting">
+                <BugReportButton className="bg-red-600 hover:bg-red-700 text-white shadow-lg hover:shadow-xl" />
+              </aside>
+            </BrowserRouter>
+          </TooltipProvider>
+        </QueryClientProvider>
+      </ThemeProvider>
+    </ErrorBoundary>
+  );
+};
 
 // Improved root management for HMR compatibility
 const container = document.getElementById("root")!;
