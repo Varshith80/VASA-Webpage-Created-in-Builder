@@ -26,6 +26,10 @@ import {
   Award,
 } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { PlatformTrustSection, TrustBadge } from "@/components/TrustBadges";
+import { OnboardingTour } from "@/components/OnboardingTour";
+import { CurrencyConverter } from "@/components/CurrencyConverter";
+import { ContextualTooltip, QuickHelp } from "@/components/ContextualTooltip";
 
 export default function Index() {
   const [selectedTab, setSelectedTab] = useState("overview");
