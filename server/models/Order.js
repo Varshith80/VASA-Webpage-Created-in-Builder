@@ -512,7 +512,7 @@ orderSchema.methods.updateShippingStatus = async function (
 };
 
 // Method to cancel order
-orderSchema.methods.cancelOrder = function (reason, requestedBy) {
+orderSchema.methods.cancelOrder = async function (reason, requestedBy) {
   if (!this.canCancel) {
     throw new Error("Order cannot be cancelled at this time");
   }
@@ -536,7 +536,28 @@ orderSchema.methods.cancelOrder = function (reason, requestedBy) {
     requestedBy,
   );
 
-  return this.save();
+  const result = await this.save();
+
+  // Trigger webhook events
+  try {
+    // Populate required fields for webhook
+    await this.populate([
+      { path: 'buyer', select: 'firstName lastName email companyName role address' },
+      { path: 'seller', select: 'firstName lastName email companyName role address' },
+      { path: 'product', select: 'title category subcategory pricing inventory' },
+      { path: 'cancellation.requestedBy', select: 'firstName lastName email companyName role' }
+    ]);
+
+    await WebhookEvents.emitOrderCancelled(
+      this,
+      this.cancellation.requestedBy,
+      reason
+    );
+  } catch (webhookError) {
+    console.error("Webhook error in cancelOrder:", webhookError);
+  }
+
+  return result;
 };
 
 // Static method to find orders by user
