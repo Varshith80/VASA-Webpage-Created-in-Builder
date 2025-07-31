@@ -40,7 +40,7 @@ const createServer = () => {
         "🚧 Invoice Generation",
         "🚧 Analytics Dashboard",
         "🚧 PWA Support",
-        "🚧 Webhook Integrations"
+        "✅ Webhook Integrations"
       ],
       version: "2.0.0",
       buildDate: new Date().toISOString()
