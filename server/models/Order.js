@@ -358,6 +358,35 @@ orderSchema.pre("save", async function (next) {
   next();
 });
 
+// Post-save middleware to trigger webhook events
+orderSchema.post("save", async function (doc, next) {
+  try {
+    // Only trigger on new order creation
+    if (this.isNew) {
+      // Populate required fields for webhook
+      await doc.populate([
+        { path: 'buyer', select: 'firstName lastName email companyName role address' },
+        { path: 'seller', select: 'firstName lastName email companyName role address' },
+        { path: 'product', select: 'title category subcategory pricing inventory' }
+      ]);
+
+      // Emit order created event
+      await WebhookEvents.emitOrderCreated(doc);
+
+      // Emit payment pending event for advance payment
+      await WebhookEvents.emitPaymentPending(
+        doc,
+        "advance",
+        doc.paymentPlan.advance.dueDate
+      );
+    }
+  } catch (error) {
+    console.error("Webhook error in order post-save:", error);
+  }
+
+  next();
+});
+
 // Method to add timeline event
 orderSchema.methods.addTimelineEvent = function (
   event,
