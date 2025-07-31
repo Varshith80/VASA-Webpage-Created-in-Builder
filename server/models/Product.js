@@ -338,6 +338,39 @@ productSchema.pre("save", function (next) {
   next();
 });
 
+// Pre-remove middleware to trigger webhook events
+productSchema.pre("remove", async function (next) {
+  try {
+    // Populate seller info for webhook
+    await this.populate({ path: 'seller', select: 'firstName lastName email companyName role address' });
+
+    // Store product data for webhook since it will be deleted
+    this._originalProduct = this.toObject();
+  } catch (error) {
+    console.error("Webhook error in product pre-remove:", error);
+  }
+
+  next();
+});
+
+// Post-remove middleware to trigger webhook events
+productSchema.post("remove", async function (doc, next) {
+  try {
+    if (this._originalProduct) {
+      // Emit product deleted event
+      await WebhookEvents.emitProductDeleted(
+        this._originalProduct,
+        null, // deletedBy would need to be passed from the deletion context
+        "Product removed"
+      );
+    }
+  } catch (error) {
+    console.error("Webhook error in product post-remove:", error);
+  }
+
+  next();
+});
+
 // Post-save middleware to trigger webhook events
 productSchema.post("save", async function (doc, next) {
   try {
