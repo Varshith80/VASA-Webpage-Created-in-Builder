@@ -440,11 +440,12 @@ orderSchema.methods.processPayment = async function (paymentType, paymentId, amo
 };
 
 // Method to update shipping status
-orderSchema.methods.updateShippingStatus = function (
+orderSchema.methods.updateShippingStatus = async function (
   status,
   trackingNumber,
   estimatedDelivery,
 ) {
+  const previousStatus = this.status;
   this.status = status;
 
   if (trackingNumber) {
@@ -472,7 +473,42 @@ orderSchema.methods.updateShippingStatus = function (
     { trackingNumber, estimatedDelivery },
   );
 
-  return this.save();
+  const result = await this.save();
+
+  // Trigger webhook events
+  try {
+    // Populate required fields for webhook
+    await this.populate([
+      { path: 'buyer', select: 'firstName lastName email companyName role address' },
+      { path: 'seller', select: 'firstName lastName email companyName role address' },
+      { path: 'product', select: 'title category subcategory pricing inventory' }
+    ]);
+
+    // Emit specific shipping events based on status
+    switch (status) {
+      case "ready_to_ship":
+        await WebhookEvents.emitShippingReadyToShip(this);
+        break;
+      case "shipped":
+        await WebhookEvents.emitShippingShipped(this, new Date());
+        break;
+      case "in_transit":
+        await WebhookEvents.emitShippingInTransit(this);
+        break;
+      case "delivered":
+        await WebhookEvents.emitShippingDelivered(this, this.shipping.actualDelivery);
+        // Also emit payment pending for delivery payment
+        await WebhookEvents.emitPaymentPending(this, "delivery", this.paymentPlan.delivery.dueDate);
+        break;
+    }
+
+    // Emit order updated event
+    await WebhookEvents.emitOrderUpdated(this, previousStatus, ['status', 'shipping']);
+  } catch (webhookError) {
+    console.error("Webhook error in updateShippingStatus:", webhookError);
+  }
+
+  return result;
 };
 
 // Method to cancel order
