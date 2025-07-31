@@ -17,6 +17,7 @@ import Messages from "./pages/Messages";
 import ProductDetail from "./pages/ProductDetail";
 import DisputeResolution from "./pages/DisputeResolution";
 import NotFound from "./pages/NotFound";
+import { BugReportButton } from "./components/BugReportWidget";
 
 const queryClient = new QueryClient();
 
@@ -86,6 +87,8 @@ const App = () => (
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          {/* Global Bug Report Widget */}
+          <BugReportButton className="bg-red-600 hover:bg-red-700 text-white shadow-lg hover:shadow-xl" />
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
