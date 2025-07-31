@@ -30,6 +30,7 @@
     "express-rate-limit": "^8.0.1",
     "express-slow-down": "^2.1.0",
     "helmet": "^8.1.0",
+    "html2canvas": "^1.4.1",
     "qrcode": "^1.5.4",
     "speakeasy": "^2.0.0",
     "uuid": "^11.1.0",
