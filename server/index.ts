@@ -221,4 +221,9 @@ process.on('unhandledRejection', (reason, promise) => {
   gracefulShutdown('UNHANDLED_REJECTION');
 });
 
+// Export createServer function for vite dev server
+export const createServer = () => {
+  return app;
+};
+
 export default app;
