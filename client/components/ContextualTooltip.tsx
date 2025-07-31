@@ -78,7 +78,7 @@ export function ContextualTooltip({
 }
 
 // Pre-built tooltip content for common use cases
-export const TooltipContent = {
+export const TooltipContentTemplates = {
   // Payment-related tooltips
   paymentMilestones: (
     <div className="space-y-2">
