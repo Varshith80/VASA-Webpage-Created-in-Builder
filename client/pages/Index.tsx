@@ -187,10 +187,15 @@ export default function Index() {
       <section className="py-20 bg-gradient-to-b from-background to-muted/50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <Badge variant="secondary" className="mb-6">
-              <Star className="h-3 w-3 mr-1 fill-current" />
-              Trusted by 50,000+ global traders
-            </Badge>
+            <div className="flex flex-wrap items-center justify-center gap-2 mb-6">
+              <Badge variant="secondary">
+                <Star className="h-3 w-3 mr-1 fill-current" />
+                Trusted by 50,000+ global traders
+              </Badge>
+              <TrustBadge variant="verified" size="sm" />
+              <TrustBadge variant="global" size="sm" />
+              <TrustBadge variant="established" size="sm" />
+            </div>
 
             <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
               The Future of
