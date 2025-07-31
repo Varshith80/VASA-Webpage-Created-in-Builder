@@ -338,6 +338,24 @@ productSchema.pre("save", function (next) {
   next();
 });
 
+// Post-save middleware to trigger webhook events
+productSchema.post("save", async function (doc, next) {
+  try {
+    // Only trigger on new product creation
+    if (this.isNew) {
+      // Populate seller info for webhook
+      await doc.populate({ path: 'seller', select: 'firstName lastName email companyName role address' });
+
+      // Emit product created event
+      await WebhookEvents.emitProductCreated(doc);
+    }
+  } catch (error) {
+    console.error("Webhook error in product post-save:", error);
+  }
+
+  next();
+});
+
 // Method to increment view count
 productSchema.methods.incrementViews = function () {
   this.views += 1;
