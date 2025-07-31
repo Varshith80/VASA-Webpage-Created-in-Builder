@@ -376,12 +376,13 @@ orderSchema.methods.addTimelineEvent = function (
 };
 
 // Method to process payment
-orderSchema.methods.processPayment = function (paymentType, paymentId, amount) {
+orderSchema.methods.processPayment = async function (paymentType, paymentId, amount) {
   const payment = this.paymentPlan[paymentType];
   if (!payment) {
     throw new Error("Invalid payment type");
   }
 
+  const previousStatus = this.status;
   payment.status = "paid";
   payment.paidDate = new Date();
   payment.paymentId = paymentId;
@@ -405,7 +406,37 @@ orderSchema.methods.processPayment = function (paymentType, paymentId, amount) {
     { paymentId, amount },
   );
 
-  return this.save();
+  const result = await this.save();
+
+  // Trigger webhook events
+  try {
+    // Populate required fields for webhook
+    await this.populate([
+      { path: 'buyer', select: 'firstName lastName email companyName role address' },
+      { path: 'seller', select: 'firstName lastName email companyName role address' },
+      { path: 'product', select: 'title category subcategory pricing inventory' }
+    ]);
+
+    // Emit payment completed event
+    await WebhookEvents.emitPaymentCompleted(this, paymentType, {
+      transactionId: paymentId,
+      amount
+    });
+
+    // Emit order updated event if status changed
+    if (previousStatus !== this.status) {
+      await WebhookEvents.emitOrderUpdated(this, previousStatus, ['status', 'payment']);
+    }
+
+    // Emit order completed event if fully paid
+    if (this.status === "completed") {
+      await WebhookEvents.emitOrderCompleted(this);
+    }
+  } catch (webhookError) {
+    console.error("Webhook error in processPayment:", webhookError);
+  }
+
+  return result;
 };
 
 // Method to update shipping status
