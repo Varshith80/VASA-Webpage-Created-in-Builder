@@ -138,6 +138,9 @@ const webhookLogSchema = new mongoose.Schema(
   }
 );
 
+// Apply pagination plugin
+webhookLogSchema.plugin(mongoosePaginate);
+
 // Indexes for performance and querying
 webhookLogSchema.index({ webhookId: 1, createdAt: -1 });
 webhookLogSchema.index({ userId: 1, createdAt: -1 });
