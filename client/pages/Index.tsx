@@ -182,7 +182,7 @@ export default function Index() {
               </a>
               <ThemeToggle />
               <Link to="/login">
-                <Button variant="outline" size="sm" className="border-border hover:bg-accent" aria-label="Sign in to your account">
+                <Button variant="outline" size="sm" className="border-2 border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground font-medium" aria-label="Sign in to your account">
                   Sign In
                 </Button>
               </Link>
