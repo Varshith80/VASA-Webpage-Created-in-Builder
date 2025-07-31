@@ -375,7 +375,7 @@ webhookSchema.statics.findActiveForEvent = function (eventType, userId = null) {
 // Static method to get webhook statistics
 webhookSchema.statics.getStats = function (userId) {
   return this.aggregate([
-    { $match: { userId: mongoose.Types.ObjectId(userId) } },
+    { $match: { userId: new mongoose.Types.ObjectId(userId) } },
     {
       $group: {
         _id: null,
