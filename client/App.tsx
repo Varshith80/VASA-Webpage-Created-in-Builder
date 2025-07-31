@@ -35,7 +35,7 @@ class ErrorBoundary extends Component<
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('App Error Boundary:', error, errorInfo);
+    console.error("App Error Boundary:", error, errorInfo);
   }
 
   render() {
@@ -43,9 +43,13 @@ class ErrorBoundary extends Component<
       return (
         <div className="min-h-screen flex items-center justify-center bg-background p-4">
           <div className="text-center max-w-md">
-            <h2 className="text-2xl font-bold text-foreground mb-4">Something went wrong</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              Something went wrong
+            </h2>
             <p className="text-muted-foreground mb-4">
-              {import.meta.env.DEV ? this.state.error?.message : "An unexpected error occurred"}
+              {import.meta.env.DEV
+                ? this.state.error?.message
+                : "An unexpected error occurred"}
             </p>
             <button
               onClick={() => window.location.reload()}
