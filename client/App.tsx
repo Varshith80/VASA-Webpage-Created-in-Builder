@@ -71,30 +71,32 @@ class ErrorBoundary extends Component<
 
 const App = () => (
   <ErrorBoundary>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/importer" element={<Importer />} />
-            <Route path="/exporter" element={<Exporter />} />
-            <Route path="/orders" element={<Orders />} />
-            <Route path="/registration" element={<Registration />} />
-            <Route path="/messages" element={<Messages />} />
-            <Route path="/product/:id" element={<ProductDetail />} />
-            <Route path="/disputes" element={<DisputeResolution />} />
-            <Route path="/webhooks" element={<Webhooks />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          {/* Global Bug Report Widget */}
-          <BugReportButton className="bg-red-600 hover:bg-red-700 text-white shadow-lg hover:shadow-xl" />
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <ThemeProvider defaultTheme="system" storageKey="vasa-theme">
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/importer" element={<Importer />} />
+              <Route path="/exporter" element={<Exporter />} />
+              <Route path="/orders" element={<Orders />} />
+              <Route path="/registration" element={<Registration />} />
+              <Route path="/messages" element={<Messages />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
+              <Route path="/disputes" element={<DisputeResolution />} />
+              <Route path="/webhooks" element={<Webhooks />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            {/* Global Bug Report Widget */}
+            <BugReportButton className="bg-red-600 hover:bg-red-700 text-white shadow-lg hover:shadow-xl" />
+          </BrowserRouter>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
   </ErrorBoundary>
 );
 
