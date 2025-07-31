@@ -3,574 +3,383 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Building2,
-  TrendingUp,
+import { 
+  ShoppingCart,
+  Upload,
+  ArrowRight,
   Shield,
   Globe,
+  TrendingUp,
   CheckCircle,
-  BarChart3,
+  Star,
   Users,
-  Award,
-  ArrowRight,
+  Package,
+  CreditCard,
+  Truck,
+  BarChart3,
+  FileCheck,
   Phone,
   Mail,
   MapPin,
-  ShoppingCart,
-  Upload,
-  FileCheck,
-  DollarSign,
-  Truck,
-  MessageSquare,
-  Star,
-  Lock,
-  CreditCard,
-  Headphones,
+  Play,
+  ChevronRight
 } from "lucide-react";
 
 export default function Index() {
-  const [selectedRole, setSelectedRole] = useState<
-    "importer" | "exporter" | null
-  >(null);
+  const [selectedTab, setSelectedTab] = useState("overview");
 
-  const commodityCategories = [
-    { name: "Cotton", category: "Textiles", volume: "2.5M tons/year" },
-    { name: "Silk", category: "Textiles", volume: "180K tons/year" },
-    { name: "Polyester", category: "Textiles", volume: "15M tons/year" },
-    { name: "Wool", category: "Textiles", volume: "1.2M tons/year" },
-    { name: "Cardamom", category: "Spices", volume: "35K tons/year" },
-    { name: "Black Pepper", category: "Spices", volume: "450K tons/year" },
-    { name: "Turmeric", category: "Spices", volume: "1.1M tons/year" },
-    { name: "Cinnamon", category: "Spices", volume: "220K tons/year" },
+  const platformStats = [
+    { label: "Active Traders", value: "50,000+", icon: Users },
+    { label: "Countries", value: "180+", icon: Globe },
+    { label: "Trade Volume", value: "$5.2B", icon: TrendingUp },
+    { label: "Success Rate", value: "99.8%", icon: CheckCircle }
   ];
 
-  const platformFeatures = [
+  const coreFeatures = [
     {
       icon: <Shield className="h-6 w-6" />,
-      title: "Government Verified",
-      description: "Full KYC with business license and tax ID verification",
-    },
-    {
-      icon: <Globe className="h-6 w-6" />,
-      title: "Global Network",
-      description: "Connect with verified traders across 120+ countries",
-    },
-    {
-      icon: <DollarSign className="h-6 w-6" />,
-      title: "Secure Escrow",
-      description: "Multi-currency payments with 3-step escrow protection",
+      title: "Secure Transactions",
+      description: "Multi-step payment system with escrow protection and KYC verification"
     },
     {
       icon: <Truck className="h-6 w-6" />,
-      title: "Logistics Tracking",
-      description:
-        "Real-time shipment tracking with integrated logistics partners",
+      title: "Order Tracking",
+      description: "Real-time tracking from order placement to delivery with status updates"
     },
     {
-      icon: <MessageSquare className="h-6 w-6" />,
-      title: "Secure Communication",
-      description: "In-platform messaging with document sharing capabilities",
+      icon: <FileCheck className="h-6 w-6" />,
+      title: "Compliance Ready",
+      description: "Built-in compliance tools for international trade regulations"
     },
     {
-      icon: <Award className="h-6 w-6" />,
-      title: "Trust & Reviews",
-      description: "Transaction-based ratings and verified trader badges",
+      icon: <CreditCard className="h-6 w-6" />,
+      title: "Flexible Payments",
+      description: "Multiple payment options with installment support and currency conversion"
+    }
+  ];
+
+  const buyerFlow = [
+    { step: "1", title: "Browse Products", description: "Explore verified products from certified exporters" },
+    { step: "2", title: "Place Order", description: "Pay 10% upfront to secure your order" },
+    { step: "3", title: "Track Shipment", description: "Pay 50% when shipped, track in real-time" },
+    { step: "4", title: "Receive & Pay", description: "Final 40% payment upon delivery confirmation" }
+  ];
+
+  const sellerFlow = [
+    { step: "1", title: "Register & Verify", description: "Complete KYC with trade license verification" },
+    { step: "2", title: "List Products", description: "Add products with detailed specs and pricing" },
+    { step: "3", title: "Receive Orders", description: "Get notified of new orders with advance payment" },
+    { step: "4", title: "Ship & Earn", description: "Ship products and receive payments in installments" }
+  ];
+
+  const testimonials = [
+    {
+      name: "Rajesh Kumar",
+      company: "Global Cotton Exports",
+      role: "Exporter",
+      content: "VASA has transformed our export business. The payment security and buyer verification give us confidence in every transaction.",
+      rating: 5
     },
+    {
+      name: "Sarah Chen",
+      company: "Pacific Trading Co.",
+      role: "Importer", 
+      content: "The step-by-step payment system and order tracking make international sourcing so much easier and safer.",
+      rating: 5
+    }
   ];
-
-  const trustIndicators = [
-    { label: "Verified Businesses", value: "25,000+" },
-    { label: "Countries Active", value: "120+" },
-    { label: "Annual Trade Volume", value: "$2.5B+" },
-    { label: "Success Rate", value: "99.7%" },
-  ];
-
-  const importerBenefits = [
-    "Access to verified suppliers worldwide",
-    "Quality certificates and batch documentation",
-    "Bulk order discounts and competitive pricing",
-    "Secure escrow payment protection",
-    "Real-time shipment tracking",
-    "24/7 dispute resolution support",
-  ];
-
-  const exporterBenefits = [
-    "Reach global importers instantly",
-    "Showcase quality certifications",
-    "Secure payment guarantee",
-    "Professional business profiles",
-    "Market analytics and insights",
-    "Dedicated account management",
-  ];
-
-  const handleRoleSelection = (role: "importer" | "exporter") => {
-    setSelectedRole(role);
-  };
-
-  const resetRoleSelection = () => {
-    setSelectedRole(null);
-  };
 
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="corporate-header">
+      <header className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-primary flex items-center justify-center">
-                <Building2 className="h-5 w-5 text-primary-foreground" />
+              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-lg">V</span>
               </div>
               <div>
-                <h1 className="text-xl font-semibold text-foreground">
-                  TradeBridge
-                </h1>
-                <p className="text-xs text-muted-foreground">
-                  Global Commodity Exchange
-                </p>
+                <h1 className="text-2xl font-bold text-foreground">VASA</h1>
+                <p className="text-xs text-muted-foreground">Global Trade Platform</p>
               </div>
             </div>
             <nav className="hidden md:flex items-center space-x-8">
-              <a
-                href="#features"
-                className="text-sm text-muted-foreground hover:text-foreground corporate-transition"
-              >
+              <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Features
               </a>
-              <a
-                href="#commodities"
-                className="text-sm text-muted-foreground hover:text-foreground corporate-transition"
-              >
-                Commodities
+              <a href="#how-it-works" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                How It Works
               </a>
-              <a
-                href="#trust"
-                className="text-sm text-muted-foreground hover:text-foreground corporate-transition"
-              >
-                Trust & Security
+              <a href="#testimonials" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                Reviews
               </a>
-              <a
-                href="#contact"
-                className="text-sm text-muted-foreground hover:text-foreground corporate-transition"
-              >
-                Contact
-              </a>
+              <Link to="/login">
+                <Button variant="outline" size="sm">Sign In</Button>
+              </Link>
+              <Link to="/register">
+                <Button size="sm">Get Started</Button>
+              </Link>
             </nav>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <main className="container mx-auto px-4 py-16">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="mb-8">
-            <Badge variant="secondary" className="mb-4">
-              <CheckCircle className="h-3 w-3 mr-1" />
-              Trusted by 25,000+ Global Businesses
+      <section className="py-20 bg-gradient-to-b from-background to-muted/50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <Badge variant="secondary" className="mb-6">
+              <Star className="h-3 w-3 mr-1 fill-current" />
+              Trusted by 50,000+ global traders
             </Badge>
-            <h2 className="text-4xl md:text-5xl font-semibold text-foreground mb-6 leading-tight">
-              Professional Import/Export Platform for
-              <span className="block text-primary">
-                Textiles & Spices Trading
+            
+            <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
+              The Future of
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-700">
+                Global Trade
               </span>
+            </h1>
+            
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
+              VASA connects exporters and importers worldwide with secure payments, 
+              real-time tracking, and compliance tools for seamless international trade.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+              <Link to="/register?role=importer">
+                <Button size="lg" className="px-8 py-4 text-lg group">
+                  <ShoppingCart className="mr-2 h-5 w-5" />
+                  Start Importing
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+              
+              <Link to="/register?role=exporter">
+                <Button size="lg" variant="outline" className="px-8 py-4 text-lg group">
+                  <Upload className="mr-2 h-5 w-5" />
+                  Start Exporting
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {platformStats.map((stat, index) => {
+                const Icon = stat.icon;
+                return (
+                  <div key={index} className="text-center">
+                    <Icon className="h-8 w-8 text-primary mx-auto mb-2" />
+                    <div className="text-2xl font-bold text-foreground">{stat.value}</div>
+                    <div className="text-sm text-muted-foreground">{stat.label}</div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section id="features" className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-foreground mb-4">
+              Built for Modern Global Trade
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              Government-verified platform connecting importers and exporters
-              worldwide. Secure transactions, quality assurance, and
-              comprehensive business tools.
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Everything you need to trade internationally with confidence and security
             </p>
           </div>
 
-          {/* Role Selection */}
-          {!selectedRole ? (
-            <div className="mb-16">
-              <h3 className="text-xl font-medium text-foreground mb-6">
-                Choose Your Trading Role
-              </h3>
-              <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-                <Card
-                  className="card-corporate cursor-pointer hover:shadow-corporate-lg corporate-transition"
-                  onClick={() => handleRoleSelection("importer")}
-                >
-                  <CardHeader className="text-center pb-3">
-                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <ShoppingCart className="h-8 w-8 text-primary" />
-                    </div>
-                    <CardTitle className="text-xl">I am an Importer</CardTitle>
-                    <p className="text-muted-foreground text-sm">
-                      Looking to source quality materials and products
-                    </p>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <div className="space-y-2 text-sm text-left">
-                      {importerBenefits.slice(0, 3).map((benefit, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center space-x-2"
-                        >
-                          <CheckCircle className="h-3 w-3 text-success flex-shrink-0" />
-                          <span className="text-muted-foreground">
-                            {benefit}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                    <Button className="btn-corporate w-full mt-4">
-                      Start as Importer
-                    </Button>
-                  </CardContent>
-                </Card>
-
-                <Card
-                  className="card-corporate cursor-pointer hover:shadow-corporate-lg corporate-transition"
-                  onClick={() => handleRoleSelection("exporter")}
-                >
-                  <CardHeader className="text-center pb-3">
-                    <div className="w-16 h-16 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Upload className="h-8 w-8 text-success" />
-                    </div>
-                    <CardTitle className="text-xl">I am an Exporter</CardTitle>
-                    <p className="text-muted-foreground text-sm">
-                      Ready to sell products to global importers
-                    </p>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <div className="space-y-2 text-sm text-left">
-                      {exporterBenefits.slice(0, 3).map((benefit, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center space-x-2"
-                        >
-                          <CheckCircle className="h-3 w-3 text-success flex-shrink-0" />
-                          <span className="text-muted-foreground">
-                            {benefit}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                    <Button className="btn-corporate w-full mt-4">
-                      Start as Exporter
-                    </Button>
-                  </CardContent>
-                </Card>
-              </div>
-
-              <p className="text-muted-foreground text-sm mt-6">
-                Already have an account?
-                <Link
-                  to="/signin"
-                  className="text-primary hover:underline ml-1"
-                >
-                  Sign in here
-                </Link>
-              </p>
-            </div>
-          ) : (
-            /* Selected Role Details */
-            <div className="mb-16">
-              <div className="flex items-center justify-center space-x-4 mb-6">
-                <Button
-                  variant="ghost"
-                  onClick={resetRoleSelection}
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  ← Back to role selection
-                </Button>
-              </div>
-
-              <Card className="card-corporate max-w-2xl mx-auto">
-                <CardHeader className="text-center">
-                  <div
-                    className={`w-20 h-20 ${selectedRole === "importer" ? "bg-primary/10" : "bg-success/10"} rounded-full flex items-center justify-center mx-auto mb-4`}
-                  >
-                    {selectedRole === "importer" ? (
-                      <ShoppingCart className="h-10 w-10 text-primary" />
-                    ) : (
-                      <Upload className="h-10 w-10 text-success" />
-                    )}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {coreFeatures.map((feature, index) => (
+              <Card key={index} className="border border-border hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="text-primary mb-3">
+                    {feature.icon}
                   </div>
-                  <CardTitle className="text-2xl capitalize">
-                    {selectedRole} Registration
-                  </CardTitle>
-                  <p className="text-muted-foreground">
-                    Complete verification to access our global trading platform
-                  </p>
+                  <CardTitle className="text-lg">{feature.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-4 mb-6">
-                    <h4 className="font-medium text-foreground">
-                      Your Benefits Include:
-                    </h4>
-                    <div className="grid grid-cols-1 gap-2">
-                      {(selectedRole === "importer"
-                        ? importerBenefits
-                        : exporterBenefits
-                      ).map((benefit, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center space-x-2"
-                        >
-                          <CheckCircle className="h-4 w-4 text-success flex-shrink-0" />
-                          <span className="text-muted-foreground text-sm">
-                            {benefit}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="bg-muted p-4 mb-6">
-                    <h4 className="font-medium text-foreground mb-2">
-                      Required Documentation:
-                    </h4>
-                    <div className="grid grid-cols-2 gap-2 text-sm text-muted-foreground">
-                      <div className="flex items-center space-x-1">
-                        <FileCheck className="h-3 w-3" />
-                        <span>Business License</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <FileCheck className="h-3 w-3" />
-                        <span>Tax ID/GST Certificate</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <FileCheck className="h-3 w-3" />
-                        <span>Identity Verification</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <FileCheck className="h-3 w-3" />
-                        <span>Bank Statement</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-3">
-                    <Link to={`/${selectedRole}`}>
-                      <Button className="btn-corporate w-full" size="lg">
-                        <Lock className="mr-2 h-5 w-5" />
-                        Start Secure Registration
-                      </Button>
-                    </Link>
-                    <p className="text-xs text-muted-foreground text-center">
-                      Registration takes 5-10 minutes. Verification typically
-                      completed within 24 hours.
-                    </p>
-                  </div>
+                  <p className="text-muted-foreground text-sm">{feature.description}</p>
                 </CardContent>
               </Card>
-            </div>
-          )}
-
-          {/* Trust Indicators */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
-            {trustIndicators.map((indicator, index) => (
-              <div key={index} className="text-center">
-                <div className="text-2xl font-semibold text-primary mb-1">
-                  {indicator.value}
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  {indicator.label}
-                </div>
-              </div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* Commodities Section */}
-        <section id="commodities" className="mb-16">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-semibold text-foreground mb-4">
-              Global Commodity Trading
-            </h3>
+      {/* How It Works Section */}
+      <section id="how-it-works" className="py-20 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-foreground mb-4">
+              How VASA Works
+            </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Trade in key commodities with verified quality and global market
-              reach
+              Simple, secure, and transparent process for both buyers and sellers
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
-            {commodityCategories.map((commodity, index) => (
-              <div
-                key={index}
-                className="card-corporate p-4 hover:shadow-corporate-lg corporate-transition"
-              >
-                <div className="text-center">
-                  <h4 className="font-medium text-foreground mb-1">
-                    {commodity.name}
-                  </h4>
-                  <p className="text-xs text-muted-foreground mb-2">
-                    {commodity.category}
-                  </p>
-                  <div className="text-xs text-primary font-medium">
-                    {commodity.volume}
+
+          <div className="max-w-6xl mx-auto">
+            <div className="mb-8">
+              <div className="flex justify-center space-x-8">
+                <button
+                  onClick={() => setSelectedTab("buyer")}
+                  className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+                    selectedTab === "buyer" 
+                      ? "bg-primary text-primary-foreground" 
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  For Importers
+                </button>
+                <button
+                  onClick={() => setSelectedTab("seller")}
+                  className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+                    selectedTab === "seller" 
+                      ? "bg-primary text-primary-foreground" 
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  For Exporters
+                </button>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-4 gap-6">
+              {(selectedTab === "buyer" ? buyerFlow : sellerFlow).map((step, index) => (
+                <div key={index} className="text-center">
+                  <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-lg mx-auto mb-4">
+                    {step.step}
                   </div>
+                  <h3 className="font-semibold text-foreground mb-2">{step.title}</h3>
+                  <p className="text-sm text-muted-foreground">{step.description}</p>
+                  {index < 3 && (
+                    <ChevronRight className="h-4 w-4 text-muted-foreground mx-auto mt-4 hidden md:block" />
+                  )}
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Features Section */}
-        <section id="features" className="mb-16">
-          <div className="text-center mb-12">
-            <h3 className="text-2xl font-semibold text-foreground mb-4">
-              Enterprise Trading Platform
-            </h3>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Comprehensive tools and security for professional international
-              trade
+      {/* Testimonials */}
+      <section id="testimonials" className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-foreground mb-4">
+              Trusted by Global Traders
+            </h2>
+            <p className="text-muted-foreground">
+              See what our community says about VASA
             </p>
           </div>
-          <div className="grid-corporate-2 lg:grid-cols-3">
-            {platformFeatures.map((feature, index) => (
-              <div key={index} className="card-corporate p-6">
-                <div className="text-primary mb-4">{feature.icon}</div>
-                <h4 className="text-lg font-medium text-foreground mb-2">
-                  {feature.title}
-                </h4>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {feature.description}
-                </p>
-              </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {testimonials.map((testimonial, index) => (
+              <Card key={index} className="border border-border">
+                <CardHeader>
+                  <div className="flex items-center space-x-1 mb-2">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="h-4 w-4 fill-current text-yellow-500" />
+                    ))}
+                  </div>
+                  <CardTitle className="text-lg">{testimonial.name}</CardTitle>
+                  <p className="text-sm text-muted-foreground">
+                    {testimonial.role} • {testimonial.company}
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground italic">"{testimonial.content}"</p>
+                </CardContent>
+              </Card>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Security & Trust Section */}
-        <section id="trust" className="mb-16">
-          <div className="card-corporate p-8">
-            <div className="text-center mb-8">
-              <h3 className="text-2xl font-semibold text-foreground mb-4">
-                Government-Level Security & Verification
-              </h3>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                Every trader undergoes comprehensive verification with
-                government-issued documents
-              </p>
-            </div>
-            <div className="grid-corporate-3">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Shield className="h-8 w-8 text-primary" />
-                </div>
-                <h4 className="font-medium text-foreground mb-2">
-                  Complete KYC Verification
-                </h4>
-                <p className="text-sm text-muted-foreground">
-                  Business license, tax ID, and identity verification with
-                  government databases
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CreditCard className="h-8 w-8 text-success" />
-                </div>
-                <h4 className="font-medium text-foreground mb-2">
-                  Secure Escrow Payments
-                </h4>
-                <p className="text-sm text-muted-foreground">
-                  Multi-currency payments with 3-step escrow protection and
-                  dispute resolution
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-warning/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Headphones className="h-8 w-8 text-warning" />
-                </div>
-                <h4 className="font-medium text-foreground mb-2">
-                  24/7 Support & Mediation
-                </h4>
-                <p className="text-sm text-muted-foreground">
-                  Professional dispute resolution with clear timelines and
-                  escalation paths
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Contact Section */}
-        <section id="contact">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-semibold text-foreground mb-4">
-              Ready to Start Trading Globally?
-            </h3>
-            <p className="text-muted-foreground mb-8">
-              Join thousands of verified businesses already trading on our
-              platform
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button
-                className="btn-corporate px-6 py-3 min-h-[44px]"
-                onClick={() => setSelectedRole(null)}
-              >
-                Choose Your Role
+      {/* CTA Section */}
+      <section className="py-20 bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-4">
+            Ready to Transform Your Global Trade?
+          </h2>
+          <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
+            Join thousands of successful traders using VASA for secure, 
+            efficient international commerce.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/register">
+              <Button size="lg" variant="secondary" className="px-8 py-4 text-lg">
+                Start Free Trial
               </Button>
-              <Button
-                variant="outline"
-                className="btn-secondary-corporate px-6 py-3 min-h-[44px]"
-              >
-                <Phone className="mr-2 h-4 w-4" />
-                Schedule Demo
-              </Button>
-            </div>
+            </Link>
+            <Button size="lg" variant="outline" className="px-8 py-4 text-lg border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
+              <Play className="mr-2 h-5 w-5" />
+              Watch Demo
+            </Button>
           </div>
-
-          <div className="grid-corporate-3 max-w-2xl mx-auto">
-            <div className="text-center">
-              <Phone className="h-5 w-5 text-primary mx-auto mb-2" />
-              <p className="text-sm text-muted-foreground">+1 (555) 123-4567</p>
-            </div>
-            <div className="text-center">
-              <Mail className="h-5 w-5 text-primary mx-auto mb-2" />
-              <p className="text-sm text-muted-foreground">
-                support@tradebridge.com
-              </p>
-            </div>
-            <div className="text-center">
-              <MapPin className="h-5 w-5 text-primary mx-auto mb-2" />
-              <p className="text-sm text-muted-foreground">Global Operations</p>
-            </div>
-          </div>
-        </section>
-      </main>
+        </div>
+      </section>
 
       {/* Footer */}
-      <footer className="border-t border-border bg-muted/30 py-8 mt-16">
+      <footer className="border-t border-border bg-muted/30 py-12">
         <div className="container mx-auto px-4">
-          <div className="text-center">
-            <div className="flex items-center justify-center space-x-2 mb-4">
-              <Building2 className="h-5 w-5 text-primary" />
-              <span className="font-medium text-foreground">TradeBridge</span>
+          <div className="grid md:grid-cols-4 gap-8">
+            <div>
+              <div className="flex items-center space-x-2 mb-4">
+                <div className="w-6 h-6 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">V</span>
+                </div>
+                <span className="font-bold text-foreground">VASA</span>
+              </div>
+              <p className="text-sm text-muted-foreground mb-4">
+                The global platform for secure export-import trade with advanced compliance and payment solutions.
+              </p>
+              <div className="flex space-x-4">
+                <Phone className="h-4 w-4 text-muted-foreground" />
+                <Mail className="h-4 w-4 text-muted-foreground" />
+                <MapPin className="h-4 w-4 text-muted-foreground" />
+              </div>
             </div>
-            <p className="text-sm text-muted-foreground">
-              Government-verified import/export platform for global commodity
-              trading
-            </p>
-            <div className="mt-4 flex justify-center space-x-6 text-xs text-muted-foreground">
-              <a
-                href="#"
-                className="hover:text-foreground corporate-transition"
-              >
-                Privacy Policy
-              </a>
-              <a
-                href="#"
-                className="hover:text-foreground corporate-transition"
-              >
-                Terms of Service
-              </a>
-              <a
-                href="#"
-                className="hover:text-foreground corporate-transition"
-              >
-                Compliance
-              </a>
-              <a
-                href="#"
-                className="hover:text-foreground corporate-transition"
-              >
-                Support
-              </a>
+            
+            <div>
+              <h3 className="font-semibold text-foreground mb-4">For Traders</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li><Link to="/browse" className="hover:text-foreground transition-colors">Browse Products</Link></li>
+                <li><Link to="/register" className="hover:text-foreground transition-colors">Start Importing</Link></li>
+                <li><Link to="/register" className="hover:text-foreground transition-colors">Start Exporting</Link></li>
+                <li><Link to="/help" className="hover:text-foreground transition-colors">Trading Guide</Link></li>
+              </ul>
             </div>
+            
+            <div>
+              <h3 className="font-semibold text-foreground mb-4">Resources</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li><Link to="/knowledge-base" className="hover:text-foreground transition-colors">Knowledge Base</Link></li>
+                <li><Link to="/compliance" className="hover:text-foreground transition-colors">Compliance Guide</Link></li>
+                <li><Link to="/api" className="hover:text-foreground transition-colors">API Documentation</Link></li>
+                <li><Link to="/support" className="hover:text-foreground transition-colors">Support Center</Link></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold text-foreground mb-4">Company</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li><Link to="/about" className="hover:text-foreground transition-colors">About Us</Link></li>
+                <li><Link to="/careers" className="hover:text-foreground transition-colors">Careers</Link></li>
+                <li><Link to="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link></li>
+                <li><Link to="/terms" className="hover:text-foreground transition-colors">Terms of Service</Link></li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="border-t border-border mt-8 pt-8 text-center text-sm text-muted-foreground">
+            <p>&copy; 2024 VASA Global Trade Platform. All rights reserved.</p>
           </div>
         </div>
       </footer>
