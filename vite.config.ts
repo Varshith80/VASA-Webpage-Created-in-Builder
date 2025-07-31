@@ -43,10 +43,20 @@ function expressPlugin(): Plugin {
     name: "express-plugin",
     apply: "serve", // Only apply during development (serve mode)
     configureServer(server) {
-      const app = createServer();
+      try {
+        const app = createServer();
 
-      // Add Express app as middleware to Vite dev server
-      server.middlewares.use(app);
+        // Add Express app as middleware to Vite dev server
+        server.middlewares.use('/api', app);
+
+        // Handle any middleware errors gracefully
+        server.middlewares.use((err: any, req: any, res: any, next: any) => {
+          console.error('Express middleware error:', err);
+          next();
+        });
+      } catch (error) {
+        console.warn('Failed to setup express middleware:', error);
+      }
     },
   };
 }
