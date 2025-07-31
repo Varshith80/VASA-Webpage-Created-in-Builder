@@ -99,8 +99,10 @@ connectDB();
 
 // API Routes
 import authRoutes from "./routes/auth.js";
+import webhookRoutes from "./routes/webhooks.js";
 
 app.use("/api/auth", authRoutes);
+app.use("/api/webhooks", webhookRoutes);
 
 // Health check endpoint
 app.get("/api/health", (req, res) => {
