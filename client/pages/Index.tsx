@@ -233,7 +233,7 @@ export default function Index() {
               <Link to="/register?role=importer">
                 <Button
                   size="lg"
-                  className="px-8 py-4 text-lg group"
+                  className="px-8 py-4 text-lg group bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all"
                   aria-label="Register as an importer to start buying products globally"
                 >
                   <ShoppingCart className="mr-2 h-5 w-5" aria-hidden="true" />
