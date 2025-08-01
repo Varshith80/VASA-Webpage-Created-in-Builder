@@ -804,7 +804,23 @@ export default function Exporter() {
                         <p className="text-xs text-muted-foreground">
                           PDF up to 10MB
                         </p>
+                        <Input
+                          type="file"
+                          accept=".pdf"
+                          className="mt-2"
+                          onChange={(e) =>
+                            setKycDocuments({
+                              ...kycDocuments,
+                              bankStatement: e.target.files?.[0] || null,
+                            })
+                          }
+                        />
                       </div>
+                      {kycDocuments.bankStatement && (
+                        <p className="text-sm text-success">
+                          ✓ {kycDocuments.bankStatement.name}
+                        </p>
+                      )}
                     </div>
 
                     {/* Identity Proof */}
@@ -820,7 +836,23 @@ export default function Exporter() {
                         <p className="text-xs text-muted-foreground">
                           PDF, JPG, PNG up to 10MB
                         </p>
+                        <Input
+                          type="file"
+                          accept=".pdf,.jpg,.jpeg,.png"
+                          className="mt-2"
+                          onChange={(e) =>
+                            setKycDocuments({
+                              ...kycDocuments,
+                              identityProof: e.target.files?.[0] || null,
+                            })
+                          }
+                        />
                       </div>
+                      {kycDocuments.identityProof && (
+                        <p className="text-sm text-success">
+                          ✓ {kycDocuments.identityProof.name}
+                        </p>
+                      )}
                     </div>
                   </div>
 
