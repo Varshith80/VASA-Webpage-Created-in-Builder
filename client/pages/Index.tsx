@@ -195,7 +195,7 @@ export default function Index() {
               >
                 Reviews
               </a>
-              <ThemeToggle />
+
 
               {/* Cart Dropdown */}
               <DropdownMenu>
