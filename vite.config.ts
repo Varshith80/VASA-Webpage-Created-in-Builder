@@ -21,10 +21,7 @@ export default defineConfig(({ mode }) => ({
     outDir: "dist/spa",
   },
   plugins: [
-    react({
-      // Improve HMR for React components
-      fastRefresh: true,
-    }),
+    react(),
     expressPlugin(),
   ],
   resolve: {
