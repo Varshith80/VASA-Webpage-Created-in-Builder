@@ -385,7 +385,6 @@ export default function NotificationSettings() {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <ThemeToggle />
               <Button onClick={handleSaveSettings}>Save Changes</Button>
             </div>
           </div>
