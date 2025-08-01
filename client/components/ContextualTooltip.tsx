@@ -29,11 +29,11 @@ export function ContextualTooltip({
   delayDuration = 300,
 }: ContextualTooltipProps) {
   const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-    info: Info,
-    help: HelpCircle,
-    warning: AlertCircle,
-    success: CheckCircle,
-    security: Shield,
+    info: LucideIcons.Info,
+    help: LucideIcons.HelpCircle,
+    warning: LucideIcons.AlertCircle,
+    success: LucideIcons.CheckCircle,
+    security: LucideIcons.Shield,
   };
 
   const colorMap = {
