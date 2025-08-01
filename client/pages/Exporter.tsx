@@ -45,6 +45,8 @@ export default function Exporter() {
   const [verificationStatus, setVerificationStatus] = useState<
     "pending" | "verified" | "rejected"
   >("pending");
+  const [isUploadingKYC, setIsUploadingKYC] = useState(false);
+  const [isUploadingMaterial, setIsUploadingMaterial] = useState(false);
 
   // Registration form state
   const [registrationData, setRegistrationData] = useState({
