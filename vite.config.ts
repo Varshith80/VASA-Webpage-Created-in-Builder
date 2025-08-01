@@ -20,10 +20,7 @@ export default defineConfig(({ mode }) => ({
   build: {
     outDir: "dist/spa",
   },
-  plugins: [
-    react(),
-    expressPlugin(),
-  ],
+  plugins: [react(), expressPlugin()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./client"),
@@ -45,7 +42,7 @@ function expressPlugin(): Plugin {
 
         // Add Express app as middleware to Vite dev server BEFORE Vite's internal middleware
         server.middlewares.use((req: any, res: any, next: any) => {
-          if (req.url?.startsWith('/api')) {
+          if (req.url?.startsWith("/api")) {
             app(req, res, next);
           } else {
             next();

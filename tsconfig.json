@@ -6,7 +6,6 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
-    
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
@@ -17,7 +16,6 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
 
-    
     "strict": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
@@ -26,7 +24,6 @@
     "strictNullChecks": false,
     "noEmitOnError": false,
 
-    
     "baseUrl": ".",
     "paths": {
       "@/*": ["./client/*"],
