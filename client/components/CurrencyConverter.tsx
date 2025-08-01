@@ -262,12 +262,12 @@ export function CurrencyConverter({
         <CardTitle className="flex items-center gap-2">
           <DollarSign className="h-5 w-5" />
           Currency Converter
-          <ContextualTooltip
+{/* <ContextualTooltip
             content="Live exchange rates updated every minute. Bank rates may vary slightly."
             type="info"
           >
             <span></span>
-          </ContextualTooltip>
+          </ContextualTooltip> */}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
