@@ -36,7 +36,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { PlatformTrustSection, TrustBadge } from "@/components/TrustBadges";
 import { OnboardingTour } from "@/components/OnboardingTour";
 import { CurrencyConverter } from "@/components/CurrencyConverter";
-import { ContextualTooltip, QuickHelp } from "@/components/ContextualTooltip";
+
 import { useCart } from "@/contexts/CartContext";
 
 export default function Index() {
