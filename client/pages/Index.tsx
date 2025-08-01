@@ -38,6 +38,7 @@ import { OnboardingTour } from "@/components/OnboardingTour";
 import { CurrencyConverter } from "@/components/CurrencyConverter";
 
 import { useCart } from "@/contexts/CartContext";
+import { DebugTest } from "@/components/DebugTest";
 
 export default function Index() {
   const [selectedTab, setSelectedTab] = useState("overview");
