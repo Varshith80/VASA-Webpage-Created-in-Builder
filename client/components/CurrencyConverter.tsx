@@ -46,7 +46,7 @@ const CURRENCIES = [
   { code: "ZAR", name: "South African Rand", symbol: "R", flag: "🇿🇦" },
   { code: "KRW", name: "South Korean Won", symbol: "₩", flag: "🇰🇷" },
   { code: "THB", name: "Thai Baht", symbol: "฿", flag: "🇹🇭" },
-  { code: "AED", name: "UAE Dirham", symbol: "د.إ", flag: "🇦🇪" },
+  { code: "AED", name: "UAE Dirham", symbol: "د.إ", flag: "����🇪" },
 ];
 
 // Mock exchange rates - in real app this would come from an API
@@ -259,15 +259,9 @@ export function CurrencyConverter({
   return (
     <Card className={className}>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+        <CardTitle className="flex items-center gap-2" title="Live exchange rates updated every minute. Bank rates may vary slightly.">
           <DollarSign className="h-5 w-5" />
           Currency Converter
-          <ContextualTooltip
-            content="Live exchange rates updated every minute. Bank rates may vary slightly."
-            type="info"
-          >
-            <span></span>
-          </ContextualTooltip>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
