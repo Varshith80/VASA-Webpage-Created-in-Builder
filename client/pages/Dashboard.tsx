@@ -39,11 +39,7 @@ import {
   OnboardingProgress,
   OnboardingTour,
 } from "@/components/OnboardingTour";
-import {
-  ContextualTooltip,
-  PaymentTooltip,
-  QuickHelp,
-} from "@/components/ContextualTooltip";
+
 import { cn } from "@/lib/utils";
 
 interface DashboardProps {
