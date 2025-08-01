@@ -460,7 +460,7 @@ export default function ExporterDashboard() {
           </Card>
         </div>
 
-        <Tabs defaultValue="products" className="space-y-6">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="products">My Products</TabsTrigger>
             <TabsTrigger value="orders">Orders Received</TabsTrigger>
