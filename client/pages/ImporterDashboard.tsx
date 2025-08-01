@@ -303,6 +303,10 @@ export default function ImporterDashboard() {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
+  const handleCancelOrder = (orderId: number) => {
+    setOrders(orders.filter(order => order.id !== orderId));
+  };
+
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
       <Star
