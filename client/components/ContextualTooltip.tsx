@@ -1,9 +1,4 @@
 import * as React from "react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
 interface ContextualTooltipProps {
@@ -21,68 +16,71 @@ export function ContextualTooltip({
   content,
   side = "top",
   className,
-  delayDuration = 300,
 }: ContextualTooltipProps) {
+  const [isVisible, setIsVisible] = React.useState(false);
+
   return (
-    <Tooltip delayDuration={delayDuration}>
-      <TooltipTrigger asChild>
-        <span
+    <div 
+      className={cn("relative inline-block", className)}
+      onMouseEnter={() => setIsVisible(true)}
+      onMouseLeave={() => setIsVisible(false)}
+    >
+      {children}
+      {isVisible && (
+        <div 
           className={cn(
-            "inline-flex items-center gap-1 cursor-help",
-            className,
+            "absolute z-50 px-2 py-1 text-xs bg-gray-900 text-white rounded shadow-lg",
+            "max-w-xs whitespace-normal",
+            {
+              "bottom-full left-1/2 transform -translate-x-1/2 mb-1": side === "top",
+              "top-full left-1/2 transform -translate-x-1/2 mt-1": side === "bottom",
+              "right-full top-1/2 transform -translate-y-1/2 mr-1": side === "left",
+              "left-full top-1/2 transform -translate-y-1/2 ml-1": side === "right",
+            }
           )}
         >
-          {children}
-        </span>
-      </TooltipTrigger>
-      <TooltipContent side={side} className="max-w-xs">
-        {content}
-      </TooltipContent>
-    </Tooltip>
+          {content}
+          <div 
+            className={cn(
+              "absolute w-0 h-0",
+              {
+                "top-full left-1/2 transform -translate-x-1/2 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900": side === "top",
+                "bottom-full left-1/2 transform -translate-x-1/2 border-l-4 border-r-4 border-b-4 border-transparent border-b-gray-900": side === "bottom",
+                "top-1/2 left-full transform -translate-y-1/2 border-t-4 border-b-4 border-l-4 border-transparent border-l-gray-900": side === "left",
+                "top-1/2 right-full transform -translate-y-1/2 border-t-4 border-b-4 border-r-4 border-transparent border-r-gray-900": side === "right",
+              }
+            )}
+          />
+        </div>
+      )}
+    </div>
   );
 }
 
-// Export other components as placeholders for now
-export function PaymentTooltip({
-  className,
-}: {
-  type: string;
-  className?: string;
-}) {
+// Export other components as simple placeholders
+export function PaymentTooltip({ className }: { type: string; className?: string }) {
   return <span className={className}>💳</span>;
 }
 
-export function ComplianceTooltip({
-  className,
-}: {
-  country: string;
-  productCategory: string;
-  className?: string;
-}) {
+export function ComplianceTooltip({ className }: { country: string; productCategory: string; className?: string }) {
   return <span className={className}>📋</span>;
 }
 
-export function DeliveryTooltip({
-  className,
-}: {
-  estimatedDays: number;
-  shippingMethod: string;
-  className?: string;
-}) {
+export function DeliveryTooltip({ className }: { estimatedDays: number; shippingMethod: string; className?: string }) {
   return <span className={className}>🚚</span>;
 }
 
-export function FormFieldTooltip({
-  children,
-  label,
-  required,
-  className,
-}: {
-  children: React.ReactNode;
-  label: string;
-  tooltip: string | React.ReactNode;
-  required?: boolean;
-  className?: string;
+export function FormFieldTooltip({ 
+  children, 
+  label, 
+  required, 
+  className 
+}: { 
+  children: React.ReactNode; 
+  label: string; 
+  tooltip: string | React.ReactNode; 
+  required?: boolean; 
+  className?: string; 
 }) {
   return (
     <div className={cn("space-y-2", className)}>
@@ -97,15 +95,7 @@ export function FormFieldTooltip({
   );
 }
 
-export function QuickHelp({
-  title,
-  steps,
-  className,
-}: {
-  title: string;
-  steps: string[];
-  className?: string;
-}) {
+export function QuickHelp({ title, steps, className }: { title: string; steps: string[]; className?: string }) {
   return <span className={className}>❓</span>;
 }
 
