@@ -148,10 +148,40 @@ export default function Exporter() {
     setCurrentStep("kyc");
   };
 
-  const handleKYCSubmission = (e: React.FormEvent) => {
+  const handleKYCSubmission = async (e: React.FormEvent) => {
     e.preventDefault();
-    setVerificationStatus("pending");
-    setCurrentStep("dashboard");
+
+    try {
+      // Simulate file upload - in real app, this would be API calls
+      const formData = new FormData();
+
+      if (kycDocuments.businessLicense) {
+        formData.append('businessLicense', kycDocuments.businessLicense);
+      }
+      if (kycDocuments.gstCertificate) {
+        formData.append('gstCertificate', kycDocuments.gstCertificate);
+      }
+      if (kycDocuments.bankStatement) {
+        formData.append('bankStatement', kycDocuments.bankStatement);
+      }
+      if (kycDocuments.identityProof) {
+        formData.append('identityProof', kycDocuments.identityProof);
+      }
+
+      // Simulate upload delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // For demo purposes, just proceed to dashboard
+      setVerificationStatus("pending");
+      setCurrentStep("dashboard");
+
+      // Show success message
+      alert("Documents uploaded successfully! Verification is in progress.");
+
+    } catch (error) {
+      console.error('Error uploading KYC documents:', error);
+      alert("Failed to upload documents. Please try again.");
+    }
   };
 
   const handleMaterialUpload = (e: React.FormEvent) => {
