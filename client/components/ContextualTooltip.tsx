@@ -43,24 +43,46 @@ export function ContextualTooltip({
 }
 
 // Export other components as placeholders for now
-export function PaymentTooltip({ className }: { type: string; className?: string }) {
+export function PaymentTooltip({
+  className,
+}: {
+  type: string;
+  className?: string;
+}) {
   return <span className={className}>💳</span>;
 }
 
-export function ComplianceTooltip({ className }: { country: string; productCategory: string; className?: string }) {
+export function ComplianceTooltip({
+  className,
+}: {
+  country: string;
+  productCategory: string;
+  className?: string;
+}) {
   return <span className={className}>📋</span>;
 }
 
-export function DeliveryTooltip({ className }: { estimatedDays: number; shippingMethod: string; className?: string }) {
+export function DeliveryTooltip({
+  className,
+}: {
+  estimatedDays: number;
+  shippingMethod: string;
+  className?: string;
+}) {
   return <span className={className}>🚚</span>;
 }
 
-export function FormFieldTooltip({ children, label, required, className }: { 
-  children: React.ReactNode; 
-  label: string; 
-  tooltip: string | React.ReactNode; 
-  required?: boolean; 
-  className?: string; 
+export function FormFieldTooltip({
+  children,
+  label,
+  required,
+  className,
+}: {
+  children: React.ReactNode;
+  label: string;
+  tooltip: string | React.ReactNode;
+  required?: boolean;
+  className?: string;
 }) {
   return (
     <div className={cn("space-y-2", className)}>
@@ -75,7 +97,15 @@ export function FormFieldTooltip({ children, label, required, className }: {
   );
 }
 
-export function QuickHelp({ title, steps, className }: { title: string; steps: string[]; className?: string }) {
+export function QuickHelp({
+  title,
+  steps,
+  className,
+}: {
+  title: string;
+  steps: string[];
+  className?: string;
+}) {
   return <span className={className}>❓</span>;
 }
 
