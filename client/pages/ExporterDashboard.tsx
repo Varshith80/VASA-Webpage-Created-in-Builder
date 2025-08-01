@@ -204,6 +204,15 @@ export default function ExporterDashboard() {
     rating: 5,
   });
 
+  // Handle URL parameters for direct tab navigation
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const tabParam = urlParams.get('tab');
+    if (tabParam && ['products', 'orders', 'analytics', 'account'].includes(tabParam)) {
+      setActiveTab(tabParam);
+    }
+  }, [location.search]);
+
   const categories = [
     "Textiles",
     "Spices",
