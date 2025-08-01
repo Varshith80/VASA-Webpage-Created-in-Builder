@@ -24,7 +24,6 @@
     "noImplicitAny": false,
     "noFallthroughCasesInSwitch": false,
     "strictNullChecks": false,
-    "skipLibCheck": true,
     "noEmitOnError": false,
 
     
