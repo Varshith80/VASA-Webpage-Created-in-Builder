@@ -6,8 +6,21 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Badge } from "@/components/ui/badge";
-import * as LucideIcons from "lucide-react";
 import { cn } from "@/lib/utils";
+
+// Import icons explicitly to avoid tree-shaking issues
+import { 
+  HelpCircle, 
+  Info, 
+  AlertCircle, 
+  CheckCircle, 
+  Shield,
+  CreditCard,
+  FileText,
+  Truck,
+  Clock,
+  Star
+} from "lucide-react";
 
 interface ContextualTooltipProps {
   children: React.ReactNode;
@@ -28,23 +41,28 @@ export function ContextualTooltip({
   className,
   delayDuration = 300,
 }: ContextualTooltipProps) {
-  const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-    info: LucideIcons.Info,
-    help: LucideIcons.HelpCircle,
-    warning: LucideIcons.AlertCircle,
-    success: LucideIcons.CheckCircle,
-    security: LucideIcons.Shield,
+  
+  // Render icon based on type with explicit component mapping
+  const renderIcon = () => {
+    if (!showIcon) return null;
+    
+    const iconClassName = cn("h-4 w-4", getColorForType(type));
+    
+    switch (type) {
+      case "info":
+        return <Info className={iconClassName} />;
+      case "help":
+        return <HelpCircle className={iconClassName} />;
+      case "warning":
+        return <AlertCircle className={iconClassName} />;
+      case "success":
+        return <CheckCircle className={iconClassName} />;
+      case "security":
+        return <Shield className={iconClassName} />;
+      default:
+        return <Info className={iconClassName} />;
+    }
   };
-
-  const colorMap = {
-    info: "text-blue-600 dark:text-blue-400",
-    help: "text-gray-600 dark:text-gray-400",
-    warning: "text-yellow-600 dark:text-yellow-400",
-    success: "text-green-600 dark:text-green-400",
-    security: "text-purple-600 dark:text-purple-400",
-  };
-
-  const IconComponent = iconMap[type];
 
   return (
     <Tooltip delayDuration={delayDuration}>
@@ -56,9 +74,7 @@ export function ContextualTooltip({
           )}
         >
           {children}
-          {showIcon && IconComponent && (
-            <IconComponent className={cn("h-4 w-4", colorMap[type])} />
-          )}
+          {renderIcon()}
         </span>
       </TooltipTrigger>
       <TooltipContent side={side} className="max-w-xs">
@@ -66,6 +82,23 @@ export function ContextualTooltip({
       </TooltipContent>
     </Tooltip>
   );
+}
+
+function getColorForType(type: string): string {
+  switch (type) {
+    case "info":
+      return "text-blue-600 dark:text-blue-400";
+    case "help":
+      return "text-gray-600 dark:text-gray-400";
+    case "warning":
+      return "text-yellow-600 dark:text-yellow-400";
+    case "success":
+      return "text-green-600 dark:text-green-400";
+    case "security":
+      return "text-purple-600 dark:text-purple-400";
+    default:
+      return "text-blue-600 dark:text-blue-400";
+  }
 }
 
 // Pre-built tooltip content for common use cases
@@ -88,12 +121,12 @@ export const TooltipContentTemplates = {
   escrowProtection: (
     <div className="space-y-2">
       <div className="font-medium flex items-center gap-1">
-        <LucideIcons.Shield className="h-4 w-4" />
+        <Shield className="h-4 w-4" />
         Escrow Protection
       </div>
       <div className="text-sm">
-        Your payment is held securely until delivery is confirmed. If there are
-        issues, our dispute resolution team will help resolve them fairly.
+        Your payment is held securely until delivery is confirmed. If there are issues, 
+        our dispute resolution team will help resolve them fairly.
       </div>
     </div>
   ),
@@ -109,46 +142,7 @@ export const TooltipContentTemplates = {
         <div>• Bank account verification</div>
       </div>
       <div className="text-xs text-muted-foreground mt-2">
-        This ensures all traders are legitimate and builds trust in the
-        platform.
-      </div>
-    </div>
-  ),
-
-  // Shipping and logistics tooltips
-  shippingTerms: (
-    <div className="space-y-2">
-      <div className="font-medium">Shipping Terms</div>
-      <div className="text-sm space-y-1">
-        <div>
-          <strong>FOB:</strong> Free on Board
-        </div>
-        <div>
-          <strong>CIF:</strong> Cost, Insurance, Freight
-        </div>
-        <div>
-          <strong>DDP:</strong> Delivered Duty Paid
-        </div>
-        <div>
-          <strong>EXW:</strong> Ex Works
-        </div>
-      </div>
-      <div className="text-xs text-muted-foreground mt-2">
-        These terms define who pays for shipping, insurance, and customs duties.
-      </div>
-    </div>
-  ),
-
-  // Product and quality tooltips
-  qualityAssurance: (
-    <div className="space-y-2">
-      <div className="font-medium flex items-center gap-1">
-        <LucideIcons.CheckCircle className="h-4 w-4" />
-        Quality Assurance
-      </div>
-      <div className="text-sm">
-        Products undergo quality inspection before shipment. We offer sampling,
-        third-party inspection, and quality guarantees.
+        This ensures all traders are legitimate and builds trust in the platform.
       </div>
     </div>
   ),
@@ -157,12 +151,12 @@ export const TooltipContentTemplates = {
   verifiedSeller: (
     <div className="space-y-2">
       <div className="font-medium flex items-center gap-1">
-        <LucideIcons.CheckCircle className="h-4 w-4 text-green-600" />
+        <CheckCircle className="h-4 w-4 text-green-600" />
         Verified Seller
       </div>
       <div className="text-sm">
-        This seller has completed KYC verification, submitted required
-        documents, and maintains good standing on the platform.
+        This seller has completed KYC verification, submitted required documents, 
+        and maintains good standing on the platform.
       </div>
     </div>
   ),
@@ -170,34 +164,12 @@ export const TooltipContentTemplates = {
   trustScore: (
     <div className="space-y-2">
       <div className="font-medium flex items-center gap-1">
-        <LucideIcons.Star className="h-4 w-4" />
+        <Star className="h-4 w-4" />
         Trust Score
       </div>
       <div className="text-sm">
-        Based on transaction history, customer feedback, delivery performance,
+        Based on transaction history, customer feedback, delivery performance, 
         and compliance with platform policies.
-      </div>
-    </div>
-  ),
-
-  // Compliance tooltips
-  complianceCheck: (
-    <div className="space-y-2">
-      <div className="font-medium">Compliance Verification</div>
-      <div className="text-sm">
-        We automatically check trade regulations, restricted items, and
-        documentation requirements for your destination country.
-      </div>
-    </div>
-  ),
-
-  // Currency and pricing tooltips
-  currencyConversion: (
-    <div className="space-y-2">
-      <div className="font-medium">Live Currency Rates</div>
-      <div className="text-sm">
-        Prices are converted using real-time exchange rates. Final amount may
-        vary slightly based on your bank's conversion rates.
       </div>
     </div>
   ),
@@ -223,7 +195,7 @@ export function PaymentTooltip({ type, className }: PaymentTooltipProps) {
       type="security"
       className={className}
     >
-      <LucideIcons.CreditCard className="h-4 w-4" />
+      <CreditCard className="h-4 w-4" />
     </ContextualTooltip>
   );
 }
@@ -234,11 +206,7 @@ interface ComplianceTooltipProps {
   className?: string;
 }
 
-export function ComplianceTooltip({
-  country,
-  productCategory,
-  className,
-}: ComplianceTooltipProps) {
+export function ComplianceTooltip({ country, productCategory, className }: ComplianceTooltipProps) {
   const content = (
     <div className="space-y-2">
       <div className="font-medium">Compliance Information</div>
@@ -254,7 +222,7 @@ export function ComplianceTooltip({
 
   return (
     <ContextualTooltip content={content} type="info" className={className}>
-      <LucideIcons.FileText className="h-4 w-4" />
+      <FileText className="h-4 w-4" />
     </ContextualTooltip>
   );
 }
@@ -265,15 +233,11 @@ interface DeliveryTooltipProps {
   className?: string;
 }
 
-export function DeliveryTooltip({
-  estimatedDays,
-  shippingMethod,
-  className,
-}: DeliveryTooltipProps) {
+export function DeliveryTooltip({ estimatedDays, shippingMethod, className }: DeliveryTooltipProps) {
   const content = (
     <div className="space-y-2">
       <div className="font-medium flex items-center gap-1">
-        <LucideIcons.Truck className="h-4 w-4" />
+        <Truck className="h-4 w-4" />
         Delivery Information
       </div>
       <div className="text-sm">
@@ -288,7 +252,7 @@ export function DeliveryTooltip({
 
   return (
     <ContextualTooltip content={content} type="info" className={className}>
-      <LucideIcons.Clock className="h-4 w-4" />
+      <Clock className="h-4 w-4" />
     </ContextualTooltip>
   );
 }
@@ -302,12 +266,12 @@ interface FormFieldTooltipProps {
   className?: string;
 }
 
-export function FormFieldTooltip({
-  children,
-  label,
-  tooltip,
-  required = false,
-  className,
+export function FormFieldTooltip({ 
+  children, 
+  label, 
+  tooltip, 
+  required = false, 
+  className 
 }: FormFieldTooltipProps) {
   return (
     <div className={cn("space-y-2", className)}>
@@ -355,48 +319,9 @@ export function QuickHelp({ title, steps, className }: QuickHelpProps) {
       className={className}
     >
       <Badge variant="outline" className="cursor-help">
-        <LucideIcons.HelpCircle className="h-3 w-3 mr-1" />
+        <HelpCircle className="h-3 w-3 mr-1" />
         How to
       </Badge>
     </ContextualTooltip>
   );
 }
-
-// Contextual help examples for demonstration
-export const helpExamples = {
-  orderProcess: {
-    title: "How to Place an Order",
-    steps: [
-      "Browse products and select your item",
-      "Review seller information and trust badges",
-      "Configure quantity and shipping details",
-      "Pay 10% advance to secure the order",
-      "Track your order through shipment and delivery",
-      "Complete remaining payments at each milestone",
-    ],
-  },
-
-  sellerVerification: {
-    title: "How to Get Verified",
-    steps: [
-      "Upload government-issued ID",
-      "Submit business registration documents",
-      "Provide trade license (IEC/EIN/VAT)",
-      "Verify bank account details",
-      "Wait for admin review (24-48 hours)",
-      "Receive verification badge and enhanced visibility",
-    ],
-  },
-
-  paymentSecurity: {
-    title: "Payment Security Features",
-    steps: [
-      "All payments held in secure escrow",
-      "Funds released only upon delivery confirmation",
-      "Dispute resolution available if needed",
-      "Multiple payment methods supported",
-      "Real-time transaction tracking",
-      "Automatic refunds for cancelled orders",
-    ],
-  },
-};
