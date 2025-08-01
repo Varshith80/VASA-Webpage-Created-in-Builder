@@ -8,11 +8,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { useTheme } from "@/contexts/ThemeContext";
+// import { useTheme } from "@/contexts/ThemeContext";
 import { cn } from "@/lib/utils";
 
 export function ThemeToggle({ className }: { className?: string }) {
-  const { theme, setTheme, actualTheme } = useTheme();
+  // Temporary static implementation to avoid context issues
+  const theme = "system";
+  const actualTheme = "light";
+  const setTheme = (theme: string) => {
+    // Static implementation - could add localStorage logic here if needed
+    document.documentElement.classList.toggle('dark');
+  };
 
   return (
     <DropdownMenu>
