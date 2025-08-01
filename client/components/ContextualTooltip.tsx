@@ -16,8 +16,8 @@ export function ContextualTooltip({
 }) {
   // For now, just render children with a simple title attribute
   return (
-    <span 
-      className={className} 
+    <span
+      className={className}
       title={typeof content === 'string' ? content : 'Tooltip'}
     >
       {children}
@@ -26,30 +26,30 @@ export function ContextualTooltip({
 }
 
 // Simple placeholder exports
-export function PaymentTooltip(props: any) {
+export const PaymentTooltip: React.FC<any> = (props) => {
   return <span>💳</span>;
-}
+};
 
-export function ComplianceTooltip(props: any) {
+export const ComplianceTooltip: React.FC<any> = (props) => {
   return <span>📋</span>;
-}
+};
 
-export function DeliveryTooltip(props: any) {
+export const DeliveryTooltip: React.FC<any> = (props) => {
   return <span>🚚</span>;
-}
+};
 
-export function FormFieldTooltip({ 
-  children, 
-  label, 
-  required,
-  className 
-}: {
+export const FormFieldTooltip: React.FC<{
   children: React.ReactNode;
   label: string;
   tooltip?: any;
   required?: boolean;
   className?: string;
-}) {
+}> = ({
+  children,
+  label,
+  required,
+  className
+}) => {
   return (
     <div className={className}>
       <div>
@@ -61,10 +61,10 @@ export function FormFieldTooltip({
       {children}
     </div>
   );
-}
+};
 
-export function QuickHelp(props: any) {
+export const QuickHelp: React.FC<any> = (props) => {
   return <span>❓</span>;
-}
+};
 
 export const TooltipContentTemplates = {};
