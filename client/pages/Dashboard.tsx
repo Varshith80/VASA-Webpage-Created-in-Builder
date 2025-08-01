@@ -39,7 +39,11 @@ import {
   OnboardingProgress,
   OnboardingTour,
 } from "@/components/OnboardingTour";
-
+import {
+  ContextualTooltip,
+  PaymentTooltip,
+  QuickHelp,
+} from "@/components/ContextualTooltip";
 import { cn } from "@/lib/utils";
 
 interface DashboardProps {
@@ -529,7 +533,7 @@ export default function Dashboard({ userRole = "importer" }: DashboardProps) {
                           </div>
                         </div>
                         <div className="flex items-center gap-2">
-                          <span title="Payment due on shipment">💳</span>
+                          <PaymentTooltip type="shipment" />
                           <Button size="sm">Pay Now</Button>
                         </div>
                       </div>

@@ -36,9 +36,8 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { PlatformTrustSection, TrustBadge } from "@/components/TrustBadges";
 import { OnboardingTour } from "@/components/OnboardingTour";
 import { CurrencyConverter } from "@/components/CurrencyConverter";
-
+import { ContextualTooltip, QuickHelp } from "@/components/ContextualTooltip";
 import { useCart } from "@/contexts/CartContext";
-import { DebugTest } from "@/components/DebugTest";
 
 export default function Index() {
   const [selectedTab, setSelectedTab] = useState("overview");
@@ -153,7 +152,6 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-background">
-      <DebugTest />
       {/* Header */}
       <header
         role="banner"
@@ -416,8 +414,15 @@ export default function Index() {
               >
                 <CardHeader>
                   <div className="text-primary mb-3">{feature.icon}</div>
-                  <CardTitle className="text-lg flex items-center gap-2" title={feature.tooltip}>
+                  <CardTitle className="text-lg flex items-center gap-2">
                     {feature.title}
+                    <ContextualTooltip
+                      content={feature.tooltip}
+                      type="info"
+                      showIcon
+                    >
+                      <span></span>
+                    </ContextualTooltip>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>

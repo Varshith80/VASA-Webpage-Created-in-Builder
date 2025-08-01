@@ -22,7 +22,7 @@ import {
   AlertTriangle,
   Info,
 } from "lucide-react";
-
+import { ContextualTooltip } from "./ContextualTooltip";
 import { cn } from "@/lib/utils";
 
 // Major trading currencies
@@ -259,9 +259,15 @@ export function CurrencyConverter({
   return (
     <Card className={className}>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2" title="Live exchange rates updated every minute. Bank rates may vary slightly.">
+        <CardTitle className="flex items-center gap-2">
           <DollarSign className="h-5 w-5" />
           Currency Converter
+          <ContextualTooltip
+            content="Live exchange rates updated every minute. Bank rates may vary slightly."
+            type="info"
+          >
+            <span></span>
+          </ContextualTooltip>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -506,7 +512,25 @@ export function PriceDisplay({
         <Badge variant="secondary" className="text-xs cursor-help">
           ≈ {formatPrice(convertedAmount, userCurrency)}
         </Badge>
-
+        /* <ContextualTooltip
+          content={
+            <div className="space-y-1">
+              <div>Converted to {userCurrency}:</div>
+              <div className="font-medium">
+                {formatPrice(convertedAmount, userCurrency)}
+              </div>
+              <div className="text-xs text-muted-foreground">
+                Rate may vary at checkout
+              </div>
+            </div>
+          }
+          type="info"
+          side="top"
+        >
+          <Badge variant="secondary" className="text-xs cursor-help">
+            ≈ {formatPrice(convertedAmount, userCurrency)}
+          </Badge>
+        </ContextualTooltip> */
       )}
     </div>
   );
