@@ -222,7 +222,7 @@ export default function Dashboard({ userRole = "importer" }: DashboardProps) {
                 />
               </Button>
 
-              <ThemeToggle />
+
 
               <Button variant="ghost" size="sm" asChild>
                 <Link to="/notifications">
