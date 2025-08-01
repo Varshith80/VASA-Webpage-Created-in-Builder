@@ -799,13 +799,19 @@ export default function ImporterDashboard() {
                             View Details
                           </Button>
                           {order.status === "pending" && (
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="text-red-600 hover:text-red-700"
-                            >
-                              Cancel Order
-                            </Button>
+                            <CancelOrderDialog
+                              orderNumber={order.orderNumber}
+                              onConfirm={() => handleCancelOrder(order.id)}
+                              trigger={
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="text-red-600 hover:text-red-700"
+                                >
+                                  Cancel Order
+                                </Button>
+                              }
+                            />
                           )}
                         </div>
                       </div>
