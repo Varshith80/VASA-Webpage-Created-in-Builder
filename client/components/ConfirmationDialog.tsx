@@ -36,9 +36,7 @@ export function ConfirmationDialog({
 }: ConfirmationDialogProps) {
   return (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
-        {trigger || children}
-      </AlertDialogTrigger>
+      <AlertDialogTrigger asChild>{trigger || children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <div className="flex items-center gap-2">
@@ -56,8 +54,8 @@ export function ConfirmationDialog({
           <AlertDialogAction
             onClick={onConfirm}
             className={
-              variant === "destructive" 
-                ? "bg-red-600 hover:bg-red-700 focus:ring-red-600" 
+              variant === "destructive"
+                ? "bg-red-600 hover:bg-red-700 focus:ring-red-600"
                 : ""
             }
           >
@@ -133,9 +131,9 @@ export function DeleteButton({
       onConfirm={onConfirm}
       additionalWarning={additionalWarning}
       trigger={
-        <Button 
-          variant={variant} 
-          size={size} 
+        <Button
+          variant={variant}
+          size={size}
           className="text-red-600 hover:text-red-700"
         >
           {showIcon && <Trash2 className="h-3 w-3 mr-1" />}

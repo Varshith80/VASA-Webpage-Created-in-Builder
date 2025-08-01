@@ -173,26 +173,29 @@ export default function Exporter() {
       // Simulate file upload - in real app, this would be API calls
       const formData = new FormData();
 
-      formData.append('businessLicense', kycDocuments.businessLicense);
+      formData.append("businessLicense", kycDocuments.businessLicense);
       if (kycDocuments.gstCertificate) {
-        formData.append('gstCertificate', kycDocuments.gstCertificate);
+        formData.append("gstCertificate", kycDocuments.gstCertificate);
       }
-      formData.append('bankStatement', kycDocuments.bankStatement);
-      formData.append('identityProof', kycDocuments.identityProof);
+      formData.append("bankStatement", kycDocuments.bankStatement);
+      formData.append("identityProof", kycDocuments.identityProof);
 
       // Simulate upload delay with progress
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // For demo purposes, just proceed to dashboard
       setVerificationStatus("pending");
       setCurrentStep("dashboard");
 
       // Show success message
-      alert("Documents uploaded successfully! Verification is in progress. You will receive an email notification once verification is complete.");
-
+      alert(
+        "Documents uploaded successfully! Verification is in progress. You will receive an email notification once verification is complete.",
+      );
     } catch (error) {
-      console.error('Error uploading KYC documents:', error);
-      alert("Network error occurred while uploading documents. Please check your internet connection and try again.");
+      console.error("Error uploading KYC documents:", error);
+      alert(
+        "Network error occurred while uploading documents. Please check your internet connection and try again.",
+      );
     } finally {
       setIsUploadingKYC(false);
     }
@@ -226,27 +229,27 @@ export default function Exporter() {
       const formData = new FormData();
 
       // Add material data
-      formData.append('type', materialData.type);
-      formData.append('quality', materialData.quality);
-      formData.append('price', materialData.price);
-      formData.append('currency', materialData.currency);
-      formData.append('moq', materialData.moq);
-      formData.append('stockQuantity', materialData.stockQuantity);
-      formData.append('location', materialData.location);
-      formData.append('description', materialData.description);
+      formData.append("type", materialData.type);
+      formData.append("quality", materialData.quality);
+      formData.append("price", materialData.price);
+      formData.append("currency", materialData.currency);
+      formData.append("moq", materialData.moq);
+      formData.append("stockQuantity", materialData.stockQuantity);
+      formData.append("location", materialData.location);
+      formData.append("description", materialData.description);
 
       // Add images
       materialData.images.forEach((image) => {
-        formData.append('images', image);
+        formData.append("images", image);
       });
 
       // Add certificates
       materialData.certificates.forEach((cert) => {
-        formData.append('certificates', cert);
+        formData.append("certificates", cert);
       });
 
       // Simulate upload process with progress
-      await new Promise(resolve => setTimeout(resolve, 2500));
+      await new Promise((resolve) => setTimeout(resolve, 2500));
 
       // Create new material entry
       const newMaterial = {
@@ -283,11 +286,14 @@ export default function Exporter() {
       });
 
       // Show success message
-      alert("Material uploaded successfully! Your listing will be reviewed and published within 24 hours. You'll receive an email notification once it's live.");
-
+      alert(
+        "Material uploaded successfully! Your listing will be reviewed and published within 24 hours. You'll receive an email notification once it's live.",
+      );
     } catch (error) {
-      console.error('Error uploading material:', error);
-      alert("Network error occurred while uploading material. Please check your internet connection and try again. If the problem persists, contact support.");
+      console.error("Error uploading material:", error);
+      alert(
+        "Network error occurred while uploading material. Please check your internet connection and try again. If the problem persists, contact support.",
+      );
     } finally {
       setIsUploadingMaterial(false);
     }
@@ -1298,7 +1304,8 @@ export default function Exporter() {
                       </div>
                       {materialData.certificates.length > 0 && (
                         <p className="text-sm text-success">
-                          ✓ {materialData.certificates.length} certificate(s) selected
+                          ✓ {materialData.certificates.length} certificate(s)
+                          selected
                         </p>
                       )}
                     </div>

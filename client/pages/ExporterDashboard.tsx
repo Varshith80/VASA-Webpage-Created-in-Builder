@@ -88,7 +88,11 @@ interface Order {
   totalAmount: number;
   currency: string;
   status: "pending" | "confirmed" | "shipped" | "delivered" | "cancelled";
-  paymentStatus: "advance_paid" | "shipment_paid" | "delivered_paid" | "completed";
+  paymentStatus:
+    | "advance_paid"
+    | "shipment_paid"
+    | "delivered_paid"
+    | "completed";
   orderDate: string;
   estimatedDelivery: string;
   importer: {
@@ -109,8 +113,9 @@ export default function ExporterDashboard() {
     {
       id: 1,
       name: "Premium Organic Cotton",
-      description: "High-quality organic cotton, GOTS certified, perfect for textile manufacturing",
-      price: 2.50,
+      description:
+        "High-quality organic cotton, GOTS certified, perfect for textile manufacturing",
+      price: 2.5,
       currency: "USD",
       unit: "per kg",
       category: "Textiles",
@@ -129,7 +134,7 @@ export default function ExporterDashboard() {
       id: 2,
       name: "Premium Green Cardamom",
       description: "Fresh premium green cardamom from Kerala hills",
-      price: 85.00,
+      price: 85.0,
       currency: "USD",
       unit: "per kg",
       category: "Spices",
@@ -153,7 +158,7 @@ export default function ExporterDashboard() {
       productId: 1,
       productName: "Premium Organic Cotton",
       quantity: 2000,
-      unitPrice: 2.50,
+      unitPrice: 2.5,
       totalAmount: 5000,
       currency: "USD",
       status: "confirmed",
@@ -196,45 +201,70 @@ export default function ExporterDashboard() {
     rating: 5,
   });
 
-  const categories = ["Textiles", "Spices", "Food Grains", "Electronics", "Machinery", "Chemicals"];
+  const categories = [
+    "Textiles",
+    "Spices",
+    "Food Grains",
+    "Electronics",
+    "Machinery",
+    "Chemicals",
+  ];
   const currencies = ["USD", "EUR", "GBP", "INR", "CNY"];
   const units = ["per kg", "per meter", "per piece", "per ton", "per liter"];
 
-  const filteredProducts = products.filter(product => {
-    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         product.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = filterStatus === "all" || product.status === filterStatus;
+  const filteredProducts = products.filter((product) => {
+    const matchesSearch =
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus =
+      filterStatus === "all" || product.status === filterStatus;
     return matchesSearch && matchesStatus;
   });
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "active": return "bg-green-100 text-green-800";
-      case "draft": return "bg-gray-100 text-gray-800";
-      case "under_review": return "bg-yellow-100 text-yellow-800";
-      case "inactive": return "bg-red-100 text-red-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "active":
+        return "bg-green-100 text-green-800";
+      case "draft":
+        return "bg-gray-100 text-gray-800";
+      case "under_review":
+        return "bg-yellow-100 text-yellow-800";
+      case "inactive":
+        return "bg-red-100 text-red-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const getOrderStatusColor = (status: string) => {
     switch (status) {
-      case "pending": return "bg-yellow-100 text-yellow-800";
-      case "confirmed": return "bg-blue-100 text-blue-800";
-      case "shipped": return "bg-purple-100 text-purple-800";
-      case "delivered": return "bg-green-100 text-green-800";
-      case "cancelled": return "bg-red-100 text-red-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "pending":
+        return "bg-yellow-100 text-yellow-800";
+      case "confirmed":
+        return "bg-blue-100 text-blue-800";
+      case "shipped":
+        return "bg-purple-100 text-purple-800";
+      case "delivered":
+        return "bg-green-100 text-green-800";
+      case "cancelled":
+        return "bg-red-100 text-red-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const getPaymentStatusColor = (status: string) => {
     switch (status) {
-      case "advance_paid": return "bg-yellow-100 text-yellow-800";
-      case "shipment_paid": return "bg-blue-100 text-blue-800";
-      case "delivered_paid": return "bg-purple-100 text-purple-800";
-      case "completed": return "bg-green-100 text-green-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "advance_paid":
+        return "bg-yellow-100 text-yellow-800";
+      case "shipment_paid":
+        return "bg-blue-100 text-blue-800";
+      case "delivered_paid":
+        return "bg-purple-100 text-purple-800";
+      case "completed":
+        return "bg-green-100 text-green-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -252,8 +282,10 @@ export default function ExporterDashboard() {
       images: ["/api/placeholder/300/200"],
       moq: newProduct.moq,
       availability: parseInt(newProduct.availability),
-      tags: newProduct.tags.split(",").map(tag => tag.trim()),
-      certification: newProduct.certification.split(",").map(cert => cert.trim()),
+      tags: newProduct.tags.split(",").map((tag) => tag.trim()),
+      certification: newProduct.certification
+        .split(",")
+        .map((cert) => cert.trim()),
       status: "under_review",
       createdDate: new Date().toISOString().split("T")[0],
       lastUpdated: new Date().toISOString().split("T")[0],
@@ -261,7 +293,7 @@ export default function ExporterDashboard() {
 
     setProducts([...products, product]);
     setIsAddProductOpen(false);
-    
+
     // Reset form
     setNewProduct({
       name: "",
@@ -281,11 +313,11 @@ export default function ExporterDashboard() {
   };
 
   const handleDeleteProduct = (productId: number) => {
-    setProducts(products.filter(p => p.id !== productId));
+    setProducts(products.filter((p) => p.id !== productId));
   };
 
   const handleDeleteOrder = (orderId: number) => {
-    setOrders(orders.filter(o => o.id !== orderId));
+    setOrders(orders.filter((o) => o.id !== orderId));
   };
 
   const renderStars = (rating: number) => {
@@ -293,8 +325,8 @@ export default function ExporterDashboard() {
       <Star
         key={i}
         className={`h-4 w-4 ${
-          i < Math.floor(rating) 
-            ? "fill-yellow-400 text-yellow-400" 
+          i < Math.floor(rating)
+            ? "fill-yellow-400 text-yellow-400"
             : "text-gray-300"
         }`}
       />
@@ -303,13 +335,16 @@ export default function ExporterDashboard() {
 
   const getTotalRevenue = () => {
     return orders
-      .filter(order => order.status !== "cancelled")
+      .filter((order) => order.status !== "cancelled")
       .reduce((total, order) => total + order.totalAmount, 0);
   };
 
   const getActiveOrders = () => {
-    return orders.filter(order => 
-      order.status === "pending" || order.status === "confirmed" || order.status === "shipped"
+    return orders.filter(
+      (order) =>
+        order.status === "pending" ||
+        order.status === "confirmed" ||
+        order.status === "shipped",
     ).length;
   };
 
@@ -332,7 +367,10 @@ export default function ExporterDashboard() {
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <Badge variant="secondary" className="px-3 py-1 bg-green-100 text-green-800">
+              <Badge
+                variant="secondary"
+                className="px-3 py-1 bg-green-100 text-green-800"
+              >
                 <CheckCircle className="h-3 w-3 mr-1" />
                 Verified Exporter
               </Badge>
@@ -357,7 +395,9 @@ export default function ExporterDashboard() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-muted-foreground text-sm">Total Products</p>
+                  <p className="text-muted-foreground text-sm">
+                    Total Products
+                  </p>
                   <p className="text-2xl font-semibold text-foreground">
                     {products.length}
                   </p>
@@ -366,7 +406,7 @@ export default function ExporterDashboard() {
               </div>
             </CardContent>
           </Card>
-          
+
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
@@ -425,7 +465,10 @@ export default function ExporterDashboard() {
                     <Package className="h-5 w-5" />
                     My Products ({products.length})
                   </CardTitle>
-                  <Dialog open={isAddProductOpen} onOpenChange={setIsAddProductOpen}>
+                  <Dialog
+                    open={isAddProductOpen}
+                    onOpenChange={setIsAddProductOpen}
+                  >
                     <DialogTrigger asChild>
                       <Button>
                         <Plus className="h-4 w-4 mr-2" />
@@ -436,10 +479,11 @@ export default function ExporterDashboard() {
                       <DialogHeader>
                         <DialogTitle>Add New Product</DialogTitle>
                         <DialogDescription>
-                          Fill in the details to add a new product to your catalog
+                          Fill in the details to add a new product to your
+                          catalog
                         </DialogDescription>
                       </DialogHeader>
-                      
+
                       <div className="space-y-4">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div>
@@ -447,18 +491,31 @@ export default function ExporterDashboard() {
                             <Input
                               id="productName"
                               value={newProduct.name}
-                              onChange={(e) => setNewProduct({...newProduct, name: e.target.value})}
+                              onChange={(e) =>
+                                setNewProduct({
+                                  ...newProduct,
+                                  name: e.target.value,
+                                })
+                              }
                               placeholder="e.g., Premium Organic Cotton"
                             />
                           </div>
                           <div>
                             <Label htmlFor="category">Category *</Label>
-                            <Select value={newProduct.category} onValueChange={(value) => setNewProduct({...newProduct, category: value})}>
+                            <Select
+                              value={newProduct.category}
+                              onValueChange={(value) =>
+                                setNewProduct({
+                                  ...newProduct,
+                                  category: value,
+                                })
+                              }
+                            >
                               <SelectTrigger>
                                 <SelectValue placeholder="Select category" />
                               </SelectTrigger>
                               <SelectContent>
-                                {categories.map(category => (
+                                {categories.map((category) => (
                                   <SelectItem key={category} value={category}>
                                     {category}
                                   </SelectItem>
@@ -473,7 +530,12 @@ export default function ExporterDashboard() {
                           <Textarea
                             id="description"
                             value={newProduct.description}
-                            onChange={(e) => setNewProduct({...newProduct, description: e.target.value})}
+                            onChange={(e) =>
+                              setNewProduct({
+                                ...newProduct,
+                                description: e.target.value,
+                              })
+                            }
                             placeholder="Detailed description of your product..."
                             rows={3}
                           />
@@ -487,18 +549,31 @@ export default function ExporterDashboard() {
                               type="number"
                               step="0.01"
                               value={newProduct.price}
-                              onChange={(e) => setNewProduct({...newProduct, price: e.target.value})}
+                              onChange={(e) =>
+                                setNewProduct({
+                                  ...newProduct,
+                                  price: e.target.value,
+                                })
+                              }
                               placeholder="0.00"
                             />
                           </div>
                           <div>
                             <Label htmlFor="currency">Currency *</Label>
-                            <Select value={newProduct.currency} onValueChange={(value) => setNewProduct({...newProduct, currency: value})}>
+                            <Select
+                              value={newProduct.currency}
+                              onValueChange={(value) =>
+                                setNewProduct({
+                                  ...newProduct,
+                                  currency: value,
+                                })
+                              }
+                            >
                               <SelectTrigger>
                                 <SelectValue />
                               </SelectTrigger>
                               <SelectContent>
-                                {currencies.map(currency => (
+                                {currencies.map((currency) => (
                                   <SelectItem key={currency} value={currency}>
                                     {currency}
                                   </SelectItem>
@@ -508,12 +583,17 @@ export default function ExporterDashboard() {
                           </div>
                           <div>
                             <Label htmlFor="unit">Unit *</Label>
-                            <Select value={newProduct.unit} onValueChange={(value) => setNewProduct({...newProduct, unit: value})}>
+                            <Select
+                              value={newProduct.unit}
+                              onValueChange={(value) =>
+                                setNewProduct({ ...newProduct, unit: value })
+                              }
+                            >
                               <SelectTrigger>
                                 <SelectValue />
                               </SelectTrigger>
                               <SelectContent>
-                                {units.map(unit => (
+                                {units.map((unit) => (
                                   <SelectItem key={unit} value={unit}>
                                     {unit}
                                   </SelectItem>
@@ -525,21 +605,35 @@ export default function ExporterDashboard() {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div>
-                            <Label htmlFor="moq">Minimum Order Quantity *</Label>
+                            <Label htmlFor="moq">
+                              Minimum Order Quantity *
+                            </Label>
                             <Input
                               id="moq"
                               value={newProduct.moq}
-                              onChange={(e) => setNewProduct({...newProduct, moq: e.target.value})}
+                              onChange={(e) =>
+                                setNewProduct({
+                                  ...newProduct,
+                                  moq: e.target.value,
+                                })
+                              }
                               placeholder="e.g., 1000 kg"
                             />
                           </div>
                           <div>
-                            <Label htmlFor="availability">Available Quantity *</Label>
+                            <Label htmlFor="availability">
+                              Available Quantity *
+                            </Label>
                             <Input
                               id="availability"
                               type="number"
                               value={newProduct.availability}
-                              onChange={(e) => setNewProduct({...newProduct, availability: e.target.value})}
+                              onChange={(e) =>
+                                setNewProduct({
+                                  ...newProduct,
+                                  availability: e.target.value,
+                                })
+                              }
                               placeholder="Available stock"
                             />
                           </div>
@@ -550,17 +644,29 @@ export default function ExporterDashboard() {
                           <Input
                             id="tags"
                             value={newProduct.tags}
-                            onChange={(e) => setNewProduct({...newProduct, tags: e.target.value})}
+                            onChange={(e) =>
+                              setNewProduct({
+                                ...newProduct,
+                                tags: e.target.value,
+                              })
+                            }
                             placeholder="e.g., Organic, Premium, GOTS Certified"
                           />
                         </div>
 
                         <div>
-                          <Label htmlFor="certification">Certifications (comma-separated)</Label>
+                          <Label htmlFor="certification">
+                            Certifications (comma-separated)
+                          </Label>
                           <Input
                             id="certification"
                             value={newProduct.certification}
-                            onChange={(e) => setNewProduct({...newProduct, certification: e.target.value})}
+                            onChange={(e) =>
+                              setNewProduct({
+                                ...newProduct,
+                                certification: e.target.value,
+                              })
+                            }
                             placeholder="e.g., ISO 9001, GOTS, Organic"
                           />
                         </div>
@@ -578,12 +684,19 @@ export default function ExporterDashboard() {
                                 accept="image/*"
                                 multiple
                                 className="mt-2"
-                                onChange={(e) => setNewProduct({...newProduct, images: Array.from(e.target.files || [])})}
+                                onChange={(e) =>
+                                  setNewProduct({
+                                    ...newProduct,
+                                    images: Array.from(e.target.files || []),
+                                  })
+                                }
                               />
                             </div>
                           </div>
                           <div>
-                            <Label htmlFor="documents">Certificates/Documents</Label>
+                            <Label htmlFor="documents">
+                              Certificates/Documents
+                            </Label>
                             <div className="border-2 border-dashed border-border p-4 text-center">
                               <FileText className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
                               <p className="text-sm text-muted-foreground">
@@ -594,7 +707,12 @@ export default function ExporterDashboard() {
                                 accept=".pdf,.jpg,.jpeg,.png"
                                 multiple
                                 className="mt-2"
-                                onChange={(e) => setNewProduct({...newProduct, documents: Array.from(e.target.files || [])})}
+                                onChange={(e) =>
+                                  setNewProduct({
+                                    ...newProduct,
+                                    documents: Array.from(e.target.files || []),
+                                  })
+                                }
                               />
                             </div>
                           </div>
@@ -607,11 +725,16 @@ export default function ExporterDashboard() {
                               <Star
                                 key={i}
                                 className={`h-6 w-6 cursor-pointer ${
-                                  i < newProduct.rating 
-                                    ? "fill-yellow-400 text-yellow-400" 
+                                  i < newProduct.rating
+                                    ? "fill-yellow-400 text-yellow-400"
                                     : "text-gray-300"
                                 }`}
-                                onClick={() => setNewProduct({...newProduct, rating: i + 1})}
+                                onClick={() =>
+                                  setNewProduct({
+                                    ...newProduct,
+                                    rating: i + 1,
+                                  })
+                                }
                               />
                             ))}
                           </div>
@@ -619,10 +742,20 @@ export default function ExporterDashboard() {
                       </div>
 
                       <DialogFooter>
-                        <Button variant="outline" onClick={() => setIsAddProductOpen(false)}>
+                        <Button
+                          variant="outline"
+                          onClick={() => setIsAddProductOpen(false)}
+                        >
                           Cancel
                         </Button>
-                        <Button onClick={handleAddProduct} disabled={!newProduct.name || !newProduct.price || !newProduct.category}>
+                        <Button
+                          onClick={handleAddProduct}
+                          disabled={
+                            !newProduct.name ||
+                            !newProduct.price ||
+                            !newProduct.category
+                          }
+                        >
                           Add Product
                         </Button>
                       </DialogFooter>
@@ -666,10 +799,9 @@ export default function ExporterDashboard() {
                       No products found
                     </h3>
                     <p className="text-muted-foreground mb-4">
-                      {searchTerm || filterStatus !== "all" 
+                      {searchTerm || filterStatus !== "all"
                         ? "Try adjusting your search or filters"
-                        : "Start by adding your first product"
-                      }
+                        : "Start by adding your first product"}
                     </p>
                     {!searchTerm && filterStatus === "all" && (
                       <Button onClick={() => setIsAddProductOpen(true)}>
@@ -680,11 +812,14 @@ export default function ExporterDashboard() {
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    {filteredProducts.map(product => (
-                      <div key={product.id} className="border border-border rounded-lg p-6">
+                    {filteredProducts.map((product) => (
+                      <div
+                        key={product.id}
+                        className="border border-border rounded-lg p-6"
+                      >
                         <div className="flex gap-4">
-                          <img 
-                            src={product.images[0]} 
+                          <img
+                            src={product.images[0]}
                             alt={product.name}
                             className="w-20 h-20 object-cover rounded"
                           />
@@ -699,8 +834,12 @@ export default function ExporterDashboard() {
                                 </p>
                               </div>
                               <div className="flex gap-2">
-                                <Badge className={getStatusColor(product.status)}>
-                                  {product.status.replace('_', ' ').toUpperCase()}
+                                <Badge
+                                  className={getStatusColor(product.status)}
+                                >
+                                  {product.status
+                                    .replace("_", " ")
+                                    .toUpperCase()}
                                 </Badge>
                               </div>
                             </div>
@@ -709,31 +848,44 @@ export default function ExporterDashboard() {
                               <div>
                                 <p className="text-muted-foreground">Price</p>
                                 <p className="font-medium text-foreground">
-                                  {product.currency} {product.price} {product.unit}
+                                  {product.currency} {product.price}{" "}
+                                  {product.unit}
                                 </p>
                               </div>
                               <div>
-                                <p className="text-muted-foreground">Category</p>
-                                <p className="font-medium text-foreground">{product.category}</p>
+                                <p className="text-muted-foreground">
+                                  Category
+                                </p>
+                                <p className="font-medium text-foreground">
+                                  {product.category}
+                                </p>
                               </div>
                               <div>
                                 <p className="text-muted-foreground">MOQ</p>
-                                <p className="font-medium text-foreground">{product.moq}</p>
+                                <p className="font-medium text-foreground">
+                                  {product.moq}
+                                </p>
                               </div>
                               <div>
                                 <p className="text-muted-foreground">Stock</p>
-                                <p className="font-medium text-foreground">{product.availability.toLocaleString()}</p>
+                                <p className="font-medium text-foreground">
+                                  {product.availability.toLocaleString()}
+                                </p>
                               </div>
                               <div>
                                 <p className="text-muted-foreground">Rating</p>
                                 <div className="flex items-center gap-1">
                                   {renderStars(product.rating)}
-                                  <span className="text-xs text-muted-foreground">({product.reviewCount})</span>
+                                  <span className="text-xs text-muted-foreground">
+                                    ({product.reviewCount})
+                                  </span>
                                 </div>
                               </div>
                               <div>
                                 <p className="text-muted-foreground">Updated</p>
-                                <p className="font-medium text-foreground">{product.lastUpdated}</p>
+                                <p className="font-medium text-foreground">
+                                  {product.lastUpdated}
+                                </p>
                               </div>
                             </div>
 
@@ -748,22 +900,35 @@ export default function ExporterDashboard() {
                               </Button>
                               <AlertDialog>
                                 <AlertDialogTrigger asChild>
-                                  <Button variant="outline" size="sm" className="text-red-600 hover:text-red-700">
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="text-red-600 hover:text-red-700"
+                                  >
                                     <Trash2 className="h-3 w-3 mr-1" />
                                     Delete
                                   </Button>
                                 </AlertDialogTrigger>
                                 <AlertDialogContent>
                                   <AlertDialogHeader>
-                                    <AlertDialogTitle>Delete Product</AlertDialogTitle>
+                                    <AlertDialogTitle>
+                                      Delete Product
+                                    </AlertDialogTitle>
                                     <AlertDialogDescription>
-                                      Are you sure you want to delete "{product.name}"? This action cannot be undone and will remove the product from all importers' carts and wishlists.
+                                      Are you sure you want to delete "
+                                      {product.name}"? This action cannot be
+                                      undone and will remove the product from
+                                      all importers' carts and wishlists.
                                     </AlertDialogDescription>
                                   </AlertDialogHeader>
                                   <AlertDialogFooter>
-                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                    <AlertDialogAction 
-                                      onClick={() => handleDeleteProduct(product.id)}
+                                    <AlertDialogCancel>
+                                      Cancel
+                                    </AlertDialogCancel>
+                                    <AlertDialogAction
+                                      onClick={() =>
+                                        handleDeleteProduct(product.id)
+                                      }
                                       className="bg-red-600 hover:bg-red-700"
                                     >
                                       Delete Product
@@ -804,36 +969,52 @@ export default function ExporterDashboard() {
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    {orders.map(order => (
-                      <div key={order.id} className="border border-border rounded-lg p-6">
+                    {orders.map((order) => (
+                      <div
+                        key={order.id}
+                        className="border border-border rounded-lg p-6"
+                      >
                         <div className="flex justify-between items-start mb-4">
                           <div>
                             <h4 className="font-semibold text-foreground text-lg">
                               Order {order.orderNumber}
                             </h4>
                             <p className="text-sm text-muted-foreground">
-                              {order.productName} (Qty: {order.quantity.toLocaleString()})
+                              {order.productName} (Qty:{" "}
+                              {order.quantity.toLocaleString()})
                             </p>
                           </div>
                           <div className="text-right">
-                            <Badge className={getOrderStatusColor(order.status)}>
-                              {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                            <Badge
+                              className={getOrderStatusColor(order.status)}
+                            >
+                              {order.status.charAt(0).toUpperCase() +
+                                order.status.slice(1)}
                             </Badge>
-                            <Badge className={`${getPaymentStatusColor(order.paymentStatus)} ml-2`}>
-                              {order.paymentStatus.replace('_', ' ').toUpperCase()}
+                            <Badge
+                              className={`${getPaymentStatusColor(order.paymentStatus)} ml-2`}
+                            >
+                              {order.paymentStatus
+                                .replace("_", " ")
+                                .toUpperCase()}
                             </Badge>
                           </div>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                           <div>
-                            <h5 className="font-medium text-foreground mb-2">Importer Details</h5>
+                            <h5 className="font-medium text-foreground mb-2">
+                              Importer Details
+                            </h5>
                             <div className="text-sm text-muted-foreground space-y-1">
                               <div className="flex items-center gap-1">
                                 <Building2 className="h-3 w-3" />
                                 {order.importer.name}
                                 {order.importer.verified && (
-                                  <Badge variant="outline" className="text-xs ml-1">
+                                  <Badge
+                                    variant="outline"
+                                    className="text-xs ml-1"
+                                  >
                                     Verified
                                   </Badge>
                                 )}
@@ -844,29 +1025,55 @@ export default function ExporterDashboard() {
                               </div>
                             </div>
                           </div>
-                          
+
                           <div>
-                            <h5 className="font-medium text-foreground mb-2">Payment Progress</h5>
+                            <h5 className="font-medium text-foreground mb-2">
+                              Payment Progress
+                            </h5>
                             <div className="space-y-1">
-                              <div className={`text-xs p-1 rounded ${order.paymentMilestones.advance.paid ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}`}>
-                                Advance: ${order.paymentMilestones.advance.amount} {order.paymentMilestones.advance.paid ? '✓' : 'Pending'}
+                              <div
+                                className={`text-xs p-1 rounded ${order.paymentMilestones.advance.paid ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-600"}`}
+                              >
+                                Advance: $
+                                {order.paymentMilestones.advance.amount}{" "}
+                                {order.paymentMilestones.advance.paid
+                                  ? "✓"
+                                  : "Pending"}
                               </div>
-                              <div className={`text-xs p-1 rounded ${order.paymentMilestones.shipment.paid ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}`}>
-                                Shipment: ${order.paymentMilestones.shipment.amount} {order.paymentMilestones.shipment.paid ? '✓' : 'Pending'}
+                              <div
+                                className={`text-xs p-1 rounded ${order.paymentMilestones.shipment.paid ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-600"}`}
+                              >
+                                Shipment: $
+                                {order.paymentMilestones.shipment.amount}{" "}
+                                {order.paymentMilestones.shipment.paid
+                                  ? "✓"
+                                  : "Pending"}
                               </div>
-                              <div className={`text-xs p-1 rounded ${order.paymentMilestones.delivery.paid ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}`}>
-                                Delivery: ${order.paymentMilestones.delivery.amount} {order.paymentMilestones.delivery.paid ? '✓' : 'Pending'}
+                              <div
+                                className={`text-xs p-1 rounded ${order.paymentMilestones.delivery.paid ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-600"}`}
+                              >
+                                Delivery: $
+                                {order.paymentMilestones.delivery.amount}{" "}
+                                {order.paymentMilestones.delivery.paid
+                                  ? "✓"
+                                  : "Pending"}
                               </div>
                             </div>
                           </div>
 
                           <div>
-                            <h5 className="font-medium text-foreground mb-2">Order Details</h5>
+                            <h5 className="font-medium text-foreground mb-2">
+                              Order Details
+                            </h5>
                             <div className="text-sm text-muted-foreground space-y-1">
-                              <div>Total: ${order.totalAmount.toLocaleString()}</div>
+                              <div>
+                                Total: ${order.totalAmount.toLocaleString()}
+                              </div>
                               <div>Unit Price: ${order.unitPrice}</div>
                               <div>Order Date: {order.orderDate}</div>
-                              <div>Est. Delivery: {order.estimatedDelivery}</div>
+                              <div>
+                                Est. Delivery: {order.estimatedDelivery}
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -876,24 +1083,36 @@ export default function ExporterDashboard() {
                             <Eye className="h-3 w-3 mr-1" />
                             View Details
                           </Button>
-                          {(order.status === "pending" || order.status === "confirmed") && (
+                          {(order.status === "pending" ||
+                            order.status === "confirmed") && (
                             <AlertDialog>
                               <AlertDialogTrigger asChild>
-                                <Button variant="outline" size="sm" className="text-red-600 hover:text-red-700">
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="text-red-600 hover:text-red-700"
+                                >
                                   <Trash2 className="h-3 w-3 mr-1" />
                                   Cancel Order
                                 </Button>
                               </AlertDialogTrigger>
                               <AlertDialogContent>
                                 <AlertDialogHeader>
-                                  <AlertDialogTitle>Cancel Order</AlertDialogTitle>
+                                  <AlertDialogTitle>
+                                    Cancel Order
+                                  </AlertDialogTitle>
                                   <AlertDialogDescription>
-                                    Are you sure you want to cancel order {order.orderNumber}? The importer will be notified and any advance payments will be refunded.
+                                    Are you sure you want to cancel order{" "}
+                                    {order.orderNumber}? The importer will be
+                                    notified and any advance payments will be
+                                    refunded.
                                   </AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
-                                  <AlertDialogCancel>Keep Order</AlertDialogCancel>
-                                  <AlertDialogAction 
+                                  <AlertDialogCancel>
+                                    Keep Order
+                                  </AlertDialogCancel>
+                                  <AlertDialogAction
                                     onClick={() => handleDeleteOrder(order.id)}
                                     className="bg-red-600 hover:bg-red-700"
                                   >
@@ -924,13 +1143,23 @@ export default function ExporterDashboard() {
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <h3 className="font-medium text-foreground mb-4">Product Performance</h3>
+                    <h3 className="font-medium text-foreground mb-4">
+                      Product Performance
+                    </h3>
                     <div className="space-y-3">
-                      {products.map(product => (
-                        <div key={product.id} className="flex justify-between items-center p-3 border border-border rounded">
+                      {products.map((product) => (
+                        <div
+                          key={product.id}
+                          className="flex justify-between items-center p-3 border border-border rounded"
+                        >
                           <div>
-                            <p className="font-medium text-foreground">{product.name}</p>
-                            <p className="text-sm text-muted-foreground">Rating: {product.rating} ({product.reviewCount} reviews)</p>
+                            <p className="font-medium text-foreground">
+                              {product.name}
+                            </p>
+                            <p className="text-sm text-muted-foreground">
+                              Rating: {product.rating} ({product.reviewCount}{" "}
+                              reviews)
+                            </p>
                           </div>
                           <Badge className={getStatusColor(product.status)}>
                             {product.status}
@@ -939,27 +1168,44 @@ export default function ExporterDashboard() {
                       ))}
                     </div>
                   </div>
-                  
+
                   <div>
-                    <h3 className="font-medium text-foreground mb-4">Revenue Overview</h3>
+                    <h3 className="font-medium text-foreground mb-4">
+                      Revenue Overview
+                    </h3>
                     <div className="space-y-4">
                       <div className="p-4 border border-border rounded">
                         <div className="flex justify-between items-center">
-                          <span className="text-muted-foreground">Total Revenue</span>
-                          <span className="font-semibold text-foreground">${getTotalRevenue().toLocaleString()}</span>
-                        </div>
-                      </div>
-                      <div className="p-4 border border-border rounded">
-                        <div className="flex justify-between items-center">
-                          <span className="text-muted-foreground">Active Orders</span>
-                          <span className="font-semibold text-foreground">{getActiveOrders()}</span>
-                        </div>
-                      </div>
-                      <div className="p-4 border border-border rounded">
-                        <div className="flex justify-between items-center">
-                          <span className="text-muted-foreground">Average Order Value</span>
+                          <span className="text-muted-foreground">
+                            Total Revenue
+                          </span>
                           <span className="font-semibold text-foreground">
-                            ${orders.length > 0 ? Math.round(getTotalRevenue() / orders.length).toLocaleString() : 0}
+                            ${getTotalRevenue().toLocaleString()}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="p-4 border border-border rounded">
+                        <div className="flex justify-between items-center">
+                          <span className="text-muted-foreground">
+                            Active Orders
+                          </span>
+                          <span className="font-semibold text-foreground">
+                            {getActiveOrders()}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="p-4 border border-border rounded">
+                        <div className="flex justify-between items-center">
+                          <span className="text-muted-foreground">
+                            Average Order Value
+                          </span>
+                          <span className="font-semibold text-foreground">
+                            $
+                            {orders.length > 0
+                              ? Math.round(
+                                  getTotalRevenue() / orders.length,
+                                ).toLocaleString()
+                              : 0}
                           </span>
                         </div>
                       </div>
@@ -980,7 +1226,9 @@ export default function ExporterDashboard() {
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <h5 className="font-medium text-foreground mb-2">Business Details</h5>
+                      <h5 className="font-medium text-foreground mb-2">
+                        Business Details
+                      </h5>
                       <div className="text-sm text-muted-foreground space-y-1">
                         <div>Business Name: Mumbai Cotton Mills</div>
                         <div>Owner: Raj Patel</div>
@@ -990,32 +1238,46 @@ export default function ExporterDashboard() {
                       </div>
                     </div>
                     <div>
-                      <h5 className="font-medium text-foreground mb-2">Verification Status</h5>
+                      <h5 className="font-medium text-foreground mb-2">
+                        Verification Status
+                      </h5>
                       <div className="text-sm space-y-1">
                         <div className="flex items-center gap-2">
-                          <Badge variant="secondary" className="bg-green-100 text-green-800">
+                          <Badge
+                            variant="secondary"
+                            className="bg-green-100 text-green-800"
+                          >
                             ✓ Email Verified
                           </Badge>
                         </div>
                         <div className="flex items-center gap-2">
-                          <Badge variant="secondary" className="bg-green-100 text-green-800">
+                          <Badge
+                            variant="secondary"
+                            className="bg-green-100 text-green-800"
+                          >
                             ✓ KYC Verified
                           </Badge>
                         </div>
                         <div className="flex items-center gap-2">
-                          <Badge variant="secondary" className="bg-green-100 text-green-800">
+                          <Badge
+                            variant="secondary"
+                            className="bg-green-100 text-green-800"
+                          >
                             ✓ Business Verified
                           </Badge>
                         </div>
                         <div className="flex items-center gap-2">
-                          <Badge variant="secondary" className="bg-green-100 text-green-800">
+                          <Badge
+                            variant="secondary"
+                            className="bg-green-100 text-green-800"
+                          >
                             ✓ Export License Verified
                           </Badge>
                         </div>
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="border-t border-border pt-4">
                     <div className="flex gap-2">
                       <Button variant="outline">Edit Profile</Button>
