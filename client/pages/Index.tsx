@@ -153,6 +153,7 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-background">
+      <DebugTest />
       {/* Header */}
       <header
         role="banner"
