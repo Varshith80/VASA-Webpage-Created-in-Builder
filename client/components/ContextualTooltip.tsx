@@ -223,7 +223,7 @@ export function PaymentTooltip({ type, className }: PaymentTooltipProps) {
       type="security"
       className={className}
     >
-      <CreditCard className="h-4 w-4" />
+      <LucideIcons.CreditCard className="h-4 w-4" />
     </ContextualTooltip>
   );
 }
