@@ -533,7 +533,7 @@ export default function Dashboard({ userRole = "importer" }: DashboardProps) {
                           </div>
                         </div>
                         <div className="flex items-center gap-2">
-                          <PaymentTooltip type="shipment" />
+                          <span title="Payment due on shipment">💳</span>
                           <Button size="sm">Pay Now</Button>
                         </div>
                       </div>
