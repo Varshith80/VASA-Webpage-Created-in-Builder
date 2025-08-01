@@ -40,7 +40,7 @@ import {
   Users,
 } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { ContextualTooltip } from "@/components/ContextualTooltip";
+
 import { cn } from "@/lib/utils";
 
 interface NotificationCategory {
