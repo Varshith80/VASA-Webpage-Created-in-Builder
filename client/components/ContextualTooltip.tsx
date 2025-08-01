@@ -1,19 +1,21 @@
-import React from "react";
+import * as React from "react";
 
-// Ultra-simple tooltip component that just passes through children
-export function ContextualTooltip({
-  children,
-  content,
-  type,
-  showIcon,
-  className,
-}: {
+interface ContextualTooltipProps {
   children: React.ReactNode;
   content: string | React.ReactNode;
   type?: string;
   showIcon?: boolean;
   className?: string;
-}) {
+}
+
+// Ultra-simple tooltip component that just passes through children
+const ContextualTooltip: React.FC<ContextualTooltipProps> = ({
+  children,
+  content,
+  type,
+  showIcon,
+  className,
+}) => {
   // For now, just render children with a simple title attribute
   return (
     <span 
@@ -23,33 +25,33 @@ export function ContextualTooltip({
       {children}
     </span>
   );
-}
+};
 
 // Simple placeholder exports
-export function PaymentTooltip(props: any) {
+const PaymentTooltip: React.FC<any> = (props) => {
   return <span>💳</span>;
-}
+};
 
-export function ComplianceTooltip(props: any) {
+const ComplianceTooltip: React.FC<any> = (props) => {
   return <span>📋</span>;
-}
+};
 
-export function DeliveryTooltip(props: any) {
+const DeliveryTooltip: React.FC<any> = (props) => {
   return <span>🚚</span>;
-}
+};
 
-export function FormFieldTooltip({ 
-  children, 
-  label, 
-  required,
-  className 
-}: {
+const FormFieldTooltip: React.FC<{
   children: React.ReactNode;
   label: string;
   tooltip?: any;
   required?: boolean;
   className?: string;
-}) {
+}> = ({ 
+  children, 
+  label, 
+  required,
+  className 
+}) => {
   return (
     <div className={className}>
       <div>
@@ -61,10 +63,20 @@ export function FormFieldTooltip({
       {children}
     </div>
   );
-}
+};
 
-export function QuickHelp(props: any) {
+const QuickHelp: React.FC<any> = (props) => {
   return <span>❓</span>;
-}
+};
 
-export const TooltipContentTemplates = {};
+const TooltipContentTemplates = {};
+
+export {
+  ContextualTooltip,
+  PaymentTooltip,
+  ComplianceTooltip,
+  DeliveryTooltip,
+  FormFieldTooltip,
+  QuickHelp,
+  TooltipContentTemplates
+};
