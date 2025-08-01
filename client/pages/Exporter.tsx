@@ -743,7 +743,7 @@ export default function Exporter() {
                         <Input
                           type="file"
                           accept=".pdf,.jpg,.jpeg,.png"
-                          className="hidden"
+                          className="mt-2"
                           onChange={(e) =>
                             setKycDocuments({
                               ...kycDocuments,
