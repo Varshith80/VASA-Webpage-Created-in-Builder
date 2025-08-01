@@ -392,7 +392,7 @@ export default function ImporterDashboard() {
           </p>
         </div>
 
-        <Tabs defaultValue="products" className="space-y-6">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="products">All Products</TabsTrigger>
             <TabsTrigger value="cart" className="relative">
