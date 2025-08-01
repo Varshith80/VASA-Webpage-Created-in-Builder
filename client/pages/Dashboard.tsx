@@ -33,7 +33,7 @@ import {
   Search,
   RefreshCw,
 } from "lucide-react";
-import { ThemeToggle } from "@/components/ThemeToggle";
+
 import { TrustBadge, UserTrustIndicator } from "@/components/TrustBadges";
 import {
   OnboardingProgress,
