@@ -41,6 +41,7 @@ import { useCart } from "@/contexts/CartContext";
 
 export default function Index() {
   const [selectedTab, setSelectedTab] = useState("overview");
+  const { cartCount } = useCart();
 
   const platformStats = [
     { label: "Active Traders", value: "50,000+", icon: Users },
