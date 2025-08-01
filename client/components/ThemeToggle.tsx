@@ -92,7 +92,11 @@ export function ThemeToggle({ className }: { className?: string }) {
 }
 
 export function SimpleThemeToggle({ className }: { className?: string }) {
-  const { actualTheme, setTheme } = useTheme();
+  // Temporary static implementation
+  const actualTheme = "light";
+  const setTheme = (theme: string) => {
+    document.documentElement.classList.toggle('dark');
+  };
 
   const toggleTheme = () => {
     setTheme(actualTheme === "dark" ? "light" : "dark");
