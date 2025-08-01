@@ -288,7 +288,7 @@ export function DeliveryTooltip({
 
   return (
     <ContextualTooltip content={content} type="info" className={className}>
-      <Clock className="h-4 w-4" />
+      <LucideIcons.Clock className="h-4 w-4" />
     </ContextualTooltip>
   );
 }
