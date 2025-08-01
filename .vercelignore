@@ -1,13 +1,23 @@
 # Dependencies
 node_modules
 
+# Build outputs (keep only dist for deployment)
+dist/server
+dist/spa
+
+# Server files (not needed for frontend deployment)
+server
+scripts
+
+# Development configs
+vite.config.ts
+vite.config.*.ts
+!vite.config.vercel.ts
+
 # Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# Build output (only upload dist/spa)
-dist/server
 
 # Environment files
 .env
@@ -18,6 +28,8 @@ dist/server
 
 # Testing
 coverage
+*.test.*
+*.spec.*
 
 # IDE
 .vscode
@@ -30,3 +42,4 @@ Thumbs.db
 # Development files
 *.log
 .cache
+test-build.js
