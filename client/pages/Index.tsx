@@ -37,12 +37,11 @@ import { PlatformTrustSection, TrustBadge } from "@/components/TrustBadges";
 import { OnboardingTour } from "@/components/OnboardingTour";
 import { CurrencyConverter } from "@/components/CurrencyConverter";
 
-// import { useCart } from "@/contexts/CartContext";
+import { useCart } from "@/contexts/CartContext";
 
 export default function Index() {
   const [selectedTab, setSelectedTab] = useState("overview");
-  // const { cartCount } = useCart();
-  const cartCount = 3; // Temporary hardcoded value
+  const { cartCount } = useCart();
 
   const platformStats = [
     { label: "Active Traders", value: "50,000+", icon: Users },
