@@ -506,25 +506,7 @@ export function PriceDisplay({
         <Badge variant="secondary" className="text-xs cursor-help">
           ≈ {formatPrice(convertedAmount, userCurrency)}
         </Badge>
-        /* <ContextualTooltip
-          content={
-            <div className="space-y-1">
-              <div>Converted to {userCurrency}:</div>
-              <div className="font-medium">
-                {formatPrice(convertedAmount, userCurrency)}
-              </div>
-              <div className="text-xs text-muted-foreground">
-                Rate may vary at checkout
-              </div>
-            </div>
-          }
-          type="info"
-          side="top"
-        >
-          <Badge variant="secondary" className="text-xs cursor-help">
-            ≈ {formatPrice(convertedAmount, userCurrency)}
-          </Badge>
-        </ContextualTooltip> */
+
       )}
     </div>
   );
