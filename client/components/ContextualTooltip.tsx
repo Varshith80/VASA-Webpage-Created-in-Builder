@@ -254,7 +254,7 @@ export function ComplianceTooltip({
 
   return (
     <ContextualTooltip content={content} type="info" className={className}>
-      <FileText className="h-4 w-4" />
+      <LucideIcons.FileText className="h-4 w-4" />
     </ContextualTooltip>
   );
 }
