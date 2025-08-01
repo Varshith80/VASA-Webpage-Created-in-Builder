@@ -509,7 +509,10 @@ export function PriceDisplay({
       <span className="font-semibold">{formatPrice(amount, currency)}</span>
 
       {showConverter && currency !== userCurrency && (
-        <ContextualTooltip
+        <Badge variant="secondary" className="text-xs cursor-help">
+          ≈ {formatPrice(convertedAmount, userCurrency)}
+        </Badge>
+        /* <ContextualTooltip
           content={
             <div className="space-y-1">
               <div>Converted to {userCurrency}:</div>
@@ -527,7 +530,7 @@ export function PriceDisplay({
           <Badge variant="secondary" className="text-xs cursor-help">
             ≈ {formatPrice(convertedAmount, userCurrency)}
           </Badge>
-        </ContextualTooltip>
+        </ContextualTooltip> */
       )}
     </div>
   );
