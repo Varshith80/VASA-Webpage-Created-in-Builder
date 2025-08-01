@@ -44,7 +44,7 @@ function expressPlugin(): Plugin {
         const app = createServer();
 
         // Add Express app as middleware to Vite dev server BEFORE Vite's internal middleware
-        server.middlewares.use((req, res, next) => {
+        server.middlewares.use((req: any, res: any, next: any) => {
           if (req.url?.startsWith('/api')) {
             app(req, res, next);
           } else {
