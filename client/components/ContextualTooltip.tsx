@@ -42,7 +42,7 @@ export function ContextualTooltip({
   className,
   delayDuration = 300,
 }: ContextualTooltipProps) {
-  const iconMap = {
+  const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
     info: Info,
     help: HelpCircle,
     warning: AlertCircle,
@@ -58,7 +58,7 @@ export function ContextualTooltip({
     security: "text-purple-600 dark:text-purple-400",
   };
 
-  const Icon = iconMap[type];
+  const IconComponent = iconMap[type];
 
   return (
     <Tooltip delayDuration={delayDuration}>
