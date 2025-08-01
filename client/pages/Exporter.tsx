@@ -184,37 +184,83 @@ export default function Exporter() {
     }
   };
 
-  const handleMaterialUpload = (e: React.FormEvent) => {
+  const handleMaterialUpload = async (e: React.FormEvent) => {
     e.preventDefault();
-    const newMaterial = {
-      id: uploadedMaterials.length + 1,
-      type: materialData.type,
-      quality: materialData.quality,
-      price: `${materialData.currency} ${materialData.price}`,
-      unit: "per kg",
-      moq: materialData.moq,
-      stockQuantity: materialData.stockQuantity,
-      location: materialData.location,
-      status: "Pending Review",
-      inquiries: 0,
-      views: 0,
-      lastUpdated: new Date().toISOString().split("T")[0],
-      certificates: materialData.certificates.map((f) => f.name),
-      images: materialData.images.length,
-    };
-    setUploadedMaterials([...uploadedMaterials, newMaterial]);
-    setMaterialData({
-      type: "",
-      quality: "",
-      price: "",
-      currency: "USD",
-      location: "",
-      moq: "",
-      stockQuantity: "",
-      description: "",
-      certificates: [],
-      images: [],
-    });
+
+    try {
+      // Validate required files
+      if (materialData.images.length === 0) {
+        alert("Please upload at least one product image.");
+        return;
+      }
+
+      // Create FormData for file upload
+      const formData = new FormData();
+
+      // Add material data
+      formData.append('type', materialData.type);
+      formData.append('quality', materialData.quality);
+      formData.append('price', materialData.price);
+      formData.append('currency', materialData.currency);
+      formData.append('moq', materialData.moq);
+      formData.append('stockQuantity', materialData.stockQuantity);
+      formData.append('location', materialData.location);
+      formData.append('description', materialData.description);
+
+      // Add images
+      materialData.images.forEach((image, index) => {
+        formData.append(`images`, image);
+      });
+
+      // Add certificates
+      materialData.certificates.forEach((cert, index) => {
+        formData.append(`certificates`, cert);
+      });
+
+      // Simulate upload process
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      // Create new material entry
+      const newMaterial = {
+        id: uploadedMaterials.length + 1,
+        type: materialData.type,
+        quality: materialData.quality,
+        price: `${materialData.currency} ${materialData.price}`,
+        unit: "per kg",
+        moq: materialData.moq,
+        stockQuantity: materialData.stockQuantity,
+        location: materialData.location,
+        status: "Pending Review",
+        inquiries: 0,
+        views: 0,
+        lastUpdated: new Date().toISOString().split("T")[0],
+        certificates: materialData.certificates.map((f) => f.name),
+        images: materialData.images.length,
+      };
+
+      setUploadedMaterials([...uploadedMaterials, newMaterial]);
+
+      // Reset form
+      setMaterialData({
+        type: "",
+        quality: "",
+        price: "",
+        currency: "USD",
+        location: "",
+        moq: "",
+        stockQuantity: "",
+        description: "",
+        certificates: [],
+        images: [],
+      });
+
+      // Show success message
+      alert("Material uploaded successfully! It will be reviewed before going live.");
+
+    } catch (error) {
+      console.error('Error uploading material:', error);
+      alert("Failed to upload material. Please check your connection and try again.");
+    }
   };
 
   // Welcome Screen
