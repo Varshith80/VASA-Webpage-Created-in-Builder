@@ -196,6 +196,58 @@ export default function Index() {
                 Reviews
               </a>
               <ThemeToggle />
+
+              {/* Cart Dropdown */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="relative"
+                    aria-label="Access cart and orders"
+                  >
+                    <ShoppingCart className="h-4 w-4 mr-1" />
+                    Orders
+                    <ChevronDown className="h-3 w-3 ml-1" />
+                    <Badge
+                      variant="destructive"
+                      className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center text-xs"
+                    >
+                      3
+                    </Badge>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuItem asChild>
+                    <Link to="/importer-dashboard?tab=orders" className="flex items-center">
+                      <Package className="h-4 w-4 mr-2" />
+                      <div>
+                        <div className="font-medium">Importer Orders</div>
+                        <div className="text-xs text-muted-foreground">View your purchases</div>
+                      </div>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/exporter-dashboard?tab=orders" className="flex items-center">
+                      <Mail className="h-4 w-4 mr-2" />
+                      <div>
+                        <div className="font-medium">Exporter Orders</div>
+                        <div className="text-xs text-muted-foreground">Orders received</div>
+                      </div>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/importer-dashboard?tab=cart" className="flex items-center">
+                      <ShoppingCart className="h-4 w-4 mr-2" />
+                      <div>
+                        <div className="font-medium">Shopping Cart</div>
+                        <div className="text-xs text-muted-foreground">3 items pending</div>
+                      </div>
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+
               <Link to="/login">
                 <Button
                   variant="outline"
