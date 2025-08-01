@@ -22,7 +22,7 @@ import {
   AlertTriangle,
   Info,
 } from "lucide-react";
-import { ContextualTooltip } from "./SimpleTooltip";
+import { ContextualTooltip } from "./ContextualTooltip";
 import { cn } from "@/lib/utils";
 
 // Major trading currencies
@@ -36,7 +36,7 @@ const CURRENCIES = [
   { code: "CAD", name: "Canadian Dollar", symbol: "C$", flag: "🇨🇦" },
   { code: "AUD", name: "Australian Dollar", symbol: "A$", flag: "🇦🇺" },
   { code: "CHF", name: "Swiss Franc", symbol: "CHF", flag: "🇨🇭" },
-  { code: "SGD", name: "Singapore Dollar", symbol: "S$", flag: "🇸🇬" },
+  { code: "SGD", name: "Singapore Dollar", symbol: "S$", flag: "���🇬" },
   { code: "HKD", name: "Hong Kong Dollar", symbol: "HK$", flag: "🇭🇰" },
   { code: "SEK", name: "Swedish Krona", symbol: "kr", flag: "🇸🇪" },
   { code: "NOK", name: "Norwegian Krone", symbol: "kr", flag: "🇳🇴" },
