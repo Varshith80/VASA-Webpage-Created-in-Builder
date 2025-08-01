@@ -201,13 +201,27 @@ export default function Exporter() {
   const handleMaterialUpload = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    try {
-      // Validate required files
-      if (materialData.images.length === 0) {
-        alert("Please upload at least one product image.");
-        return;
-      }
+    // Validate required fields
+    if (!materialData.type) {
+      alert("Please select a material type.");
+      return;
+    }
+    if (!materialData.quality) {
+      alert("Please specify the quality/grade.");
+      return;
+    }
+    if (!materialData.price) {
+      alert("Please enter the price per unit.");
+      return;
+    }
+    if (materialData.images.length === 0) {
+      alert("Please upload at least one product image.");
+      return;
+    }
 
+    setIsUploadingMaterial(true);
+
+    try {
       // Create FormData for file upload
       const formData = new FormData();
 
@@ -222,17 +236,17 @@ export default function Exporter() {
       formData.append('description', materialData.description);
 
       // Add images
-      materialData.images.forEach((image, index) => {
-        formData.append(`images`, image);
+      materialData.images.forEach((image) => {
+        formData.append('images', image);
       });
 
       // Add certificates
-      materialData.certificates.forEach((cert, index) => {
-        formData.append(`certificates`, cert);
+      materialData.certificates.forEach((cert) => {
+        formData.append('certificates', cert);
       });
 
-      // Simulate upload process
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Simulate upload process with progress
+      await new Promise(resolve => setTimeout(resolve, 2500));
 
       // Create new material entry
       const newMaterial = {
@@ -269,11 +283,13 @@ export default function Exporter() {
       });
 
       // Show success message
-      alert("Material uploaded successfully! It will be reviewed before going live.");
+      alert("Material uploaded successfully! Your listing will be reviewed and published within 24 hours. You'll receive an email notification once it's live.");
 
     } catch (error) {
       console.error('Error uploading material:', error);
-      alert("Failed to upload material. Please check your connection and try again.");
+      alert("Network error occurred while uploading material. Please check your internet connection and try again. If the problem persists, contact support.");
+    } finally {
+      setIsUploadingMaterial(false);
     }
   };
 
