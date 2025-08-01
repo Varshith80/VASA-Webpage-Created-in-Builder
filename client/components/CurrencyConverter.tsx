@@ -22,7 +22,7 @@ import {
   AlertTriangle,
   Info,
 } from "lucide-react";
-import { ContextualTooltip } from "./ContextualTooltip";
+// import { ContextualTooltip } from "./ContextualTooltip";
 import { cn } from "@/lib/utils";
 
 // Major trading currencies
