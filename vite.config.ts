@@ -3,36 +3,40 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
-  server: {
-    host: "::",
-    port: 8080,
-    hmr: {
-      overlay: true,
-      clientPort: 8080,
+export default defineConfig(({ mode }) => {
+  const isDevelopment = mode === "development";
+
+  return {
+    server: isDevelopment ? {
+      host: "::",
+      port: 8080,
+      hmr: {
+        overlay: true,
+        clientPort: 8080,
+      },
+      fs: {
+        allow: ["./client", "./shared"],
+        deny: [".env", ".env.*", "*.{crt,pem}", "**/.git/**", "server/**"],
+      },
+    } : undefined,
+    build: {
+      outDir: "dist/spa",
     },
-    fs: {
-      allow: ["./client", "./shared"],
-      deny: [".env", ".env.*", "*.{crt,pem}", "**/.git/**", "server/**"],
+    plugins: [
+      react(),
+      ...(isDevelopment ? [expressPlugin()] : []),
+    ],
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "./client"),
+        "@shared": path.resolve(__dirname, "./shared"),
+      },
     },
-  },
-  build: {
-    outDir: "dist/spa",
-  },
-  plugins: [
-    react(),
-    ...(mode === "development" ? [expressPlugin()] : []),
-  ],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./client"),
-      "@shared": path.resolve(__dirname, "./shared"),
+    optimizeDeps: {
+      exclude: isDevelopment ? ["server"] : [],
     },
-  },
-  optimizeDeps: {
-    exclude: ["server"],
-  },
-}));
+  };
+});
 
 function expressPlugin(): Plugin {
   return {
