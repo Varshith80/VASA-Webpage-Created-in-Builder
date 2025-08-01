@@ -24,6 +24,7 @@ import {
   Play,
   ChevronRight,
   Award,
+  ChevronDown,
 } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { PlatformTrustSection, TrustBadge } from "@/components/TrustBadges";
