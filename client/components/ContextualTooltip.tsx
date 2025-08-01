@@ -1,20 +1,38 @@
 import React from "react";
 
-// Simple stub component to prevent import errors
-export const ContextualTooltip: React.FC<{
-  children: React.ReactNode;
-  content?: any;
-  type?: any;
-  showIcon?: any;
-  className?: any;
-}> = ({ children }) => {
-  return <>{children}</>;
-};
+// Extremely simple components to avoid any export/import issues
+function ContextualTooltip({ children }: { children: React.ReactNode }) {
+  return <span>{children}</span>;
+}
 
-// Simple stubs for other exports
-export const QuickHelp: React.FC<any> = () => null;
-export const PaymentTooltip: React.FC<any> = () => null;
-export const ComplianceTooltip: React.FC<any> = () => null;
-export const DeliveryTooltip: React.FC<any> = () => null;
-export const FormFieldTooltip: React.FC<any> = ({ children }) => <>{children}</>;
-export const TooltipContentTemplates = {};
+function QuickHelp() {
+  return <span>❓</span>;
+}
+
+function PaymentTooltip() {
+  return <span>💳</span>;
+}
+
+function ComplianceTooltip() {
+  return <span>📋</span>;
+}
+
+function DeliveryTooltip() {
+  return <span>🚚</span>;
+}
+
+function FormFieldTooltip({ children }: { children: React.ReactNode }) {
+  return <div>{children}</div>;
+}
+
+const TooltipContentTemplates = {};
+
+export {
+  ContextualTooltip,
+  QuickHelp,
+  PaymentTooltip,
+  ComplianceTooltip,
+  DeliveryTooltip,
+  FormFieldTooltip,
+  TooltipContentTemplates
+};
