@@ -245,7 +245,9 @@ export default function Index() {
                       <ShoppingCart className="h-4 w-4 mr-2" />
                       <div>
                         <div className="font-medium">Shopping Cart</div>
-                        <div className="text-xs text-muted-foreground">3 items pending</div>
+                        <div className="text-xs text-muted-foreground">
+                          {cartCount > 0 ? `${cartCount} items pending` : 'Cart is empty'}
+                        </div>
                       </div>
                     </Link>
                   </DropdownMenuItem>
