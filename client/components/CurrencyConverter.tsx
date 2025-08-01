@@ -22,7 +22,7 @@ import {
   AlertTriangle,
   Info,
 } from "lucide-react";
-// import { ContextualTooltip } from "./ContextualTooltip";
+
 import { cn } from "@/lib/utils";
 
 // Major trading currencies
@@ -46,7 +46,7 @@ const CURRENCIES = [
   { code: "ZAR", name: "South African Rand", symbol: "R", flag: "🇿🇦" },
   { code: "KRW", name: "South Korean Won", symbol: "₩", flag: "🇰🇷" },
   { code: "THB", name: "Thai Baht", symbol: "฿", flag: "🇹🇭" },
-  { code: "AED", name: "UAE Dirham", symbol: "د.إ", flag: "����🇪" },
+  { code: "AED", name: "UAE Dirham", symbol: "د.إ", flag: "🇦🇪" },
 ];
 
 // Mock exchange rates - in real app this would come from an API
