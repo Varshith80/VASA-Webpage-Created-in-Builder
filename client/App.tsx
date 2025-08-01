@@ -85,8 +85,7 @@ const App = () => {
   return (
     <ErrorBoundary>
       <ThemeProvider defaultTheme="system" storageKey="vasa-theme">
-        <CartProvider>
-          <QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={queryClient}>
           <TooltipProvider>
             <Toaster />
             <Sonner />
@@ -129,8 +128,7 @@ const App = () => {
               </aside>
             </BrowserRouter>
           </TooltipProvider>
-          </QueryClientProvider>
-        </CartProvider>
+        </QueryClientProvider>
       </ThemeProvider>
     </ErrorBoundary>
   );
