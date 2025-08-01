@@ -106,6 +106,14 @@ const App = () => {
                     element={<Dashboard userRole="importer" />}
                   />
                   <Route
+                    path="/importer-dashboard"
+                    element={<ImporterDashboard />}
+                  />
+                  <Route
+                    path="/exporter-dashboard"
+                    element={<ExporterDashboard />}
+                  />
+                  <Route
                     path="/notifications"
                     element={<NotificationSettings />}
                   />
