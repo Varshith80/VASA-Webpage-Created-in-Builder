@@ -83,8 +83,7 @@ const App = () => {
     <ErrorBoundary>
       <ThemeProvider defaultTheme="system" storageKey="vasa-theme">
         <QueryClientProvider client={queryClient}>
-          <TooltipProvider>
-            <Toaster />
+          <Toaster />
             <Sonner />
             <BrowserRouter>
               <main id="main-content" role="main" tabIndex={-1}>
@@ -124,7 +123,6 @@ const App = () => {
                 <BugReportButton className="bg-red-600 hover:bg-red-700 text-white shadow-lg hover:shadow-xl" />
               </aside>
             </BrowserRouter>
-          </TooltipProvider>
         </QueryClientProvider>
       </ThemeProvider>
     </ErrorBoundary>
