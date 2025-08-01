@@ -772,7 +772,23 @@ export default function Exporter() {
                         <p className="text-xs text-muted-foreground">
                           PDF, JPG, PNG up to 10MB
                         </p>
+                        <Input
+                          type="file"
+                          accept=".pdf,.jpg,.jpeg,.png"
+                          className="mt-2"
+                          onChange={(e) =>
+                            setKycDocuments({
+                              ...kycDocuments,
+                              gstCertificate: e.target.files?.[0] || null,
+                            })
+                          }
+                        />
                       </div>
+                      {kycDocuments.gstCertificate && (
+                        <p className="text-sm text-success">
+                          ✓ {kycDocuments.gstCertificate.name}
+                        </p>
+                      )}
                     </div>
 
                     {/* Bank Statement */}
