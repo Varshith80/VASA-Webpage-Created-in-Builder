@@ -911,8 +911,16 @@ export default function Exporter() {
                     type="submit"
                     className="btn-corporate w-full"
                     size="lg"
+                    disabled={isUploadingKYC}
                   >
-                    Submit for Verification
+                    {isUploadingKYC ? (
+                      <>
+                        <Clock className="mr-2 h-4 w-4 animate-spin" />
+                        Uploading Documents...
+                      </>
+                    ) : (
+                      "Submit for Verification"
+                    )}
                   </Button>
                 </form>
               </CardContent>
