@@ -1097,8 +1097,10 @@ export default function ExporterDashboard() {
                           </Button>
                           {(order.status === "pending" ||
                             order.status === "confirmed") && (
-                            <AlertDialog>
-                              <AlertDialogTrigger asChild>
+                            <CancelOrderDialog
+                              orderNumber={order.orderNumber}
+                              onConfirm={() => handleDeleteOrder(order.id)}
+                              trigger={
                                 <Button
                                   variant="outline"
                                   size="sm"
@@ -1107,32 +1109,8 @@ export default function ExporterDashboard() {
                                   <Trash2 className="h-3 w-3 mr-1" />
                                   Cancel Order
                                 </Button>
-                              </AlertDialogTrigger>
-                              <AlertDialogContent>
-                                <AlertDialogHeader>
-                                  <AlertDialogTitle>
-                                    Cancel Order
-                                  </AlertDialogTitle>
-                                  <AlertDialogDescription>
-                                    Are you sure you want to cancel order{" "}
-                                    {order.orderNumber}? The importer will be
-                                    notified and any advance payments will be
-                                    refunded.
-                                  </AlertDialogDescription>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                  <AlertDialogCancel>
-                                    Keep Order
-                                  </AlertDialogCancel>
-                                  <AlertDialogAction
-                                    onClick={() => handleDeleteOrder(order.id)}
-                                    className="bg-red-600 hover:bg-red-700"
-                                  >
-                                    Cancel Order
-                                  </AlertDialogAction>
-                                </AlertDialogFooter>
-                              </AlertDialogContent>
-                            </AlertDialog>
+                              }
+                            />
                           )}
                         </div>
                       </div>
