@@ -414,15 +414,9 @@ export default function Index() {
               >
                 <CardHeader>
                   <div className="text-primary mb-3">{feature.icon}</div>
-                  <CardTitle className="text-lg flex items-center gap-2">
+                  <CardTitle className="text-lg flex items-center gap-2" title={feature.tooltip}>
                     {feature.title}
-                    <ContextualTooltip
-                      content={feature.tooltip}
-                      type="info"
-                      showIcon
-                    >
-                      <span></span>
-                    </ContextualTooltip>
+                    <span className="text-xs text-muted-foreground cursor-help">ℹ️</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
