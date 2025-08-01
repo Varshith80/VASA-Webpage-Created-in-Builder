@@ -70,11 +70,9 @@ export function ContextualTooltip({
           )}
         >
           {children}
-          {showIcon &&
-            Icon &&
-            React.createElement(Icon, {
-              className: cn("h-4 w-4", colorMap[type]),
-            })}
+          {showIcon && IconComponent && (
+            <IconComponent className={cn("h-4 w-4", colorMap[type])} />
+          )}
         </span>
       </TooltipTrigger>
       <TooltipContent side={side} className="max-w-xs">
