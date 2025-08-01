@@ -519,26 +519,15 @@ export default function Register() {
 
                   <div className="space-y-2">
                     <Label htmlFor="role">Trading Role *</Label>
-                    <Select
+                    <select
                       value={formData.role}
-                      onValueChange={(value) =>
-                        handleInputChange("role", value)
-                      }
+                      onChange={(e) => handleInputChange("role", e.target.value)}
+                      className={`flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${errors.role ? "border-destructive" : ""}`}
                     >
-                      <SelectTrigger
-                        className={errors.role ? "border-destructive" : ""}
-                      >
-                        <SelectValue placeholder="Select your role" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="importer">
-                          Importer - I buy products globally
-                        </SelectItem>
-                        <SelectItem value="exporter">
-                          Exporter - I sell products globally
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
+                      <option value="">Select your role</option>
+                      <option value="importer">Importer - I buy products globally</option>
+                      <option value="exporter">Exporter - I sell products globally</option>
+                    </select>
                     {errors.role && (
                       <p className="text-sm text-destructive">{errors.role}</p>
                     )}
