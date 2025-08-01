@@ -6,21 +6,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Badge } from "@/components/ui/badge";
-import {
-  HelpCircle,
-  Info,
-  AlertCircle,
-  CheckCircle,
-  Shield,
-  CreditCard,
-  FileText,
-  Truck,
-  Globe,
-  Clock,
-  Star,
-  Users,
-  Zap,
-} from "lucide-react";
+import * as LucideIcons from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ContextualTooltipProps {
