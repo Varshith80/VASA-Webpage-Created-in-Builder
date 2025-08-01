@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 interface CartItem {
   id: number;
@@ -20,7 +20,7 @@ interface CartContextType {
   clearCart: () => void;
 }
 
-const CartContext = createContext<CartContextType | undefined>(undefined);
+const CartContext = createContext<CartContextType | null>(null);
 
 export const useCart = () => {
   const context = useContext(CartContext);
@@ -31,12 +31,12 @@ export const useCart = () => {
 };
 
 interface CartProviderProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
-export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
+export function CartProvider({ children }: CartProviderProps) {
   const [cartItems, setCartItems] = useState<CartItem[]>([
-    // Mock data for demo - in real app this would come from API/localStorage
+    // Mock data for demo
     {
       id: 1,
       product: { id: 1, name: "Premium Organic Cotton", price: 2.5 },
@@ -94,16 +94,18 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     setCartItems([]);
   };
 
+  const value: CartContextType = {
+    cartItems,
+    cartCount,
+    addToCart,
+    removeFromCart,
+    updateQuantity,
+    clearCart
+  };
+
   return (
-    <CartContext.Provider value={{
-      cartItems,
-      cartCount,
-      addToCart,
-      removeFromCart,
-      updateQuantity,
-      clearCart
-    }}>
+    <CartContext.Provider value={value}>
       {children}
     </CartContext.Provider>
   );
-};
+}
