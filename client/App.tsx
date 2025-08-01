@@ -5,7 +5,7 @@ import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React, { Component, ErrorInfo, ReactNode } from "react";
-import { ThemeProvider } from "./contexts/ThemeContext";
+
 
 import { accessibility } from "./utils/accessibility";
 import Index from "./pages/Index";
