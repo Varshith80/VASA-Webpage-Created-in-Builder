@@ -211,12 +211,14 @@ export default function Index() {
                     <ShoppingCart className="h-4 w-4 mr-1" />
                     Orders
                     <ChevronDown className="h-3 w-3 ml-1" />
-                    <Badge
-                      variant="destructive"
-                      className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center text-xs"
-                    >
-                      3
-                    </Badge>
+                    {cartCount > 0 && (
+                      <Badge
+                        variant="destructive"
+                        className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center text-xs"
+                      >
+                        {cartCount > 99 ? '99+' : cartCount}
+                      </Badge>
+                    )}
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56">
