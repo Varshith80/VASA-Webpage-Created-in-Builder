@@ -1,58 +1,61 @@
 import React from "react";
 
-interface ContextualTooltipProps {
-  children: React.ReactNode;
-  content: string | React.ReactNode;
-  type?: "info" | "help" | "warning" | "success" | "security";
-  side?: "top" | "right" | "bottom" | "left";
-  showIcon?: boolean;
-  className?: string;
-  delayDuration?: number;
-}
-
+// Ultra-simple tooltip component that just passes through children
 export function ContextualTooltip({
   children,
   content,
-  className = "",
-}: ContextualTooltipProps) {
+  type,
+  showIcon,
+  className,
+}: {
+  children: React.ReactNode;
+  content: string | React.ReactNode;
+  type?: string;
+  showIcon?: boolean;
+  className?: string;
+}) {
+  // For now, just render children with a simple title attribute
   return (
-    <div className={`relative inline-block ${className}`} title={typeof content === 'string' ? content : ''}>
+    <span 
+      className={className} 
+      title={typeof content === 'string' ? content : 'Tooltip'}
+    >
       {children}
-    </div>
+    </span>
   );
 }
 
-// Ultra-simple placeholder components
-export function PaymentTooltip({ className = "" }: { type: string; className?: string }) {
-  return <span className={className}>💳</span>;
+// Simple placeholder exports
+export function PaymentTooltip(props: any) {
+  return <span>💳</span>;
 }
 
-export function ComplianceTooltip({ className = "" }: { country: string; productCategory: string; className?: string }) {
-  return <span className={className}>📋</span>;
+export function ComplianceTooltip(props: any) {
+  return <span>📋</span>;
 }
 
-export function DeliveryTooltip({ className = "" }: { estimatedDays: number; shippingMethod: string; className?: string }) {
-  return <span className={className}>🚚</span>;
+export function DeliveryTooltip(props: any) {
+  return <span>🚚</span>;
 }
 
 export function FormFieldTooltip({ 
   children, 
   label, 
-  required = false, 
-  className = "" 
-}: { 
-  children: React.ReactNode; 
-  label: string; 
-  tooltip: string | React.ReactNode; 
-  required?: boolean; 
-  className?: string; 
+  required,
+  className 
+}: {
+  children: React.ReactNode;
+  label: string;
+  tooltip?: any;
+  required?: boolean;
+  className?: string;
 }) {
   return (
-    <div className={`space-y-2 ${className}`}>
-      <div className="flex items-center gap-2">
-        <label className="text-sm font-medium">
+    <div className={className}>
+      <div>
+        <label>
           {label}
-          {required && <span className="text-red-500 ml-1">*</span>}
+          {required && <span style={{color: 'red'}}> *</span>}
         </label>
       </div>
       {children}
@@ -60,8 +63,8 @@ export function FormFieldTooltip({
   );
 }
 
-export function QuickHelp({ className = "" }: { title: string; steps: string[]; className?: string }) {
-  return <span className={className}>❓</span>;
+export function QuickHelp(props: any) {
+  return <span>❓</span>;
 }
 
 export const TooltipContentTemplates = {};
