@@ -7,17 +7,27 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-// import { useTheme } from "@/contexts/ThemeContext";
 import { cn } from "@/lib/utils";
 
 export function ThemeToggle({ className }: { className?: string }) {
-  // Temporary static implementation to avoid context issues
-  const theme = "system";
-  const actualTheme = "light";
-  const setTheme = (theme: string) => {
-    // Static implementation - could add localStorage logic here if needed
-    document.documentElement.classList.toggle('dark');
+  const [theme, setTheme] = React.useState("system");
+  
+  const handleThemeChange = (newTheme: string) => {
+    setTheme(newTheme);
+    
+    // Simple theme application
+    const root = document.documentElement;
+    root.classList.remove("light", "dark");
+    
+    if (newTheme === "dark") {
+      root.classList.add("dark");
+    } else if (newTheme === "light") {
+      root.classList.add("light");
+    } else {
+      // System theme
+      const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      root.classList.add(isDark ? "dark" : "light");
+    }
   };
 
   return (
@@ -32,93 +42,57 @@ export function ThemeToggle({ className }: { className?: string }) {
           )}
           aria-label="Toggle theme"
         >
-          {actualTheme === "dark" ? (
-            <Moon className="h-4 w-4" />
-          ) : (
-            <Sun className="h-4 w-4" />
-          )}
+          <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-[160px]">
-        <DropdownMenuItem
-          onClick={() => setTheme("light")}
-          className={cn(
-            "cursor-pointer flex items-center justify-between",
-            theme === "light" && "bg-accent font-medium",
-          )}
+        <DropdownMenuItem 
+          onClick={() => handleThemeChange("light")}
+          className="cursor-pointer"
         >
-          <div className="flex items-center">
-            <Sun className="mr-2 h-4 w-4" />
-            <span>Light</span>
-          </div>
-          {theme === "light" && (
-            <div className="h-2 w-2 rounded-full bg-primary" />
-          )}
+          <Sun className="mr-2 h-4 w-4" />
+          <span>Light</span>
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setTheme("dark")}
-          className={cn(
-            "cursor-pointer flex items-center justify-between",
-            theme === "dark" && "bg-accent font-medium",
-          )}
+        <DropdownMenuItem 
+          onClick={() => handleThemeChange("dark")}
+          className="cursor-pointer"
         >
-          <div className="flex items-center">
-            <Moon className="mr-2 h-4 w-4" />
-            <span>Dark</span>
-          </div>
-          {theme === "dark" && (
-            <div className="h-2 w-2 rounded-full bg-primary" />
-          )}
+          <Moon className="mr-2 h-4 w-4" />
+          <span>Dark</span>
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setTheme("system")}
-          className={cn(
-            "cursor-pointer flex items-center justify-between",
-            theme === "system" && "bg-accent font-medium",
-          )}
+        <DropdownMenuItem 
+          onClick={() => handleThemeChange("system")}
+          className="cursor-pointer"
         >
-          <div className="flex items-center">
-            <Monitor className="mr-2 h-4 w-4" />
-            <span>System</span>
-          </div>
-          {theme === "system" && (
-            <div className="h-2 w-2 rounded-full bg-primary" />
-          )}
+          <Monitor className="mr-2 h-4 w-4" />
+          <span>System</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
 
+// Simple version for basic use cases
 export function SimpleThemeToggle({ className }: { className?: string }) {
-  // Temporary static implementation
-  const actualTheme = "light";
-  const setTheme = (theme: string) => {
-    document.documentElement.classList.toggle('dark');
-  };
-
   const toggleTheme = () => {
-    setTheme(actualTheme === "dark" ? "light" : "dark");
+    const root = document.documentElement;
+    root.classList.toggle('dark');
   };
 
   return (
     <Button
-      size="sm"
       onClick={toggleTheme}
+      size="sm"
       className={cn(
         "h-9 w-9 px-0 bg-primary text-primary-foreground hover:bg-primary/90",
-        "shadow-sm border-0",
         className,
       )}
-      aria-label={`Switch to ${actualTheme === "dark" ? "light" : "dark"} mode`}
+      aria-label="Toggle theme"
     >
-      {actualTheme === "dark" ? (
-        <Sun className="h-4 w-4" />
-      ) : (
-        <Moon className="h-4 w-4" />
-      )}
-      <span className="sr-only">Toggle theme</span>
+      <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+      <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
     </Button>
   );
 }
