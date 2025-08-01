@@ -88,7 +88,7 @@ export const TooltipContentTemplates = {
   escrowProtection: (
     <div className="space-y-2">
       <div className="font-medium flex items-center gap-1">
-        <Shield className="h-4 w-4" />
+        <LucideIcons.Shield className="h-4 w-4" />
         Escrow Protection
       </div>
       <div className="text-sm">
@@ -143,7 +143,7 @@ export const TooltipContentTemplates = {
   qualityAssurance: (
     <div className="space-y-2">
       <div className="font-medium flex items-center gap-1">
-        <CheckCircle className="h-4 w-4" />
+        <LucideIcons.CheckCircle className="h-4 w-4" />
         Quality Assurance
       </div>
       <div className="text-sm">
@@ -157,7 +157,7 @@ export const TooltipContentTemplates = {
   verifiedSeller: (
     <div className="space-y-2">
       <div className="font-medium flex items-center gap-1">
-        <CheckCircle className="h-4 w-4 text-green-600" />
+        <LucideIcons.CheckCircle className="h-4 w-4 text-green-600" />
         Verified Seller
       </div>
       <div className="text-sm">
@@ -170,7 +170,7 @@ export const TooltipContentTemplates = {
   trustScore: (
     <div className="space-y-2">
       <div className="font-medium flex items-center gap-1">
-        <Star className="h-4 w-4" />
+        <LucideIcons.Star className="h-4 w-4" />
         Trust Score
       </div>
       <div className="text-sm">
@@ -355,7 +355,7 @@ export function QuickHelp({ title, steps, className }: QuickHelpProps) {
       className={className}
     >
       <Badge variant="outline" className="cursor-help">
-        <HelpCircle className="h-3 w-3 mr-1" />
+        <LucideIcons.HelpCircle className="h-3 w-3 mr-1" />
         How to
       </Badge>
     </ContextualTooltip>
