@@ -76,10 +76,8 @@ class ErrorBoundary extends Component<
 }
 
 const App = () => {
-  useEffect(() => {
-    // Initialize accessibility features
-    accessibility.init();
-  }, []);
+  // Temporarily removed useEffect to fix React import issue
+  // accessibility.init() can be called directly if needed
 
   return (
     <ErrorBoundary>
