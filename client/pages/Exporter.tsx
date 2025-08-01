@@ -1308,9 +1308,19 @@ export default function Exporter() {
                     type="submit"
                     className="btn-corporate w-full"
                     size="lg"
+                    disabled={isUploadingMaterial}
                   >
-                    <Plus className="mr-2 h-4 w-4" />
-                    Upload Material
+                    {isUploadingMaterial ? (
+                      <>
+                        <Clock className="mr-2 h-4 w-4 animate-spin" />
+                        Uploading Material...
+                      </>
+                    ) : (
+                      <>
+                        <Plus className="mr-2 h-4 w-4" />
+                        Upload Material
+                      </>
+                    )}
                   </Button>
                 </form>
               </CardContent>
