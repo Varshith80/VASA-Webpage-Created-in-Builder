@@ -153,36 +153,48 @@ export default function Exporter() {
   const handleKYCSubmission = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Validate required documents
+    if (!kycDocuments.businessLicense) {
+      alert("Please upload your business license/registration certificate.");
+      return;
+    }
+    if (!kycDocuments.bankStatement) {
+      alert("Please upload your bank statement.");
+      return;
+    }
+    if (!kycDocuments.identityProof) {
+      alert("Please upload your government ID proof.");
+      return;
+    }
+
+    setIsUploadingKYC(true);
+
     try {
       // Simulate file upload - in real app, this would be API calls
       const formData = new FormData();
 
-      if (kycDocuments.businessLicense) {
-        formData.append('businessLicense', kycDocuments.businessLicense);
-      }
+      formData.append('businessLicense', kycDocuments.businessLicense);
       if (kycDocuments.gstCertificate) {
         formData.append('gstCertificate', kycDocuments.gstCertificate);
       }
-      if (kycDocuments.bankStatement) {
-        formData.append('bankStatement', kycDocuments.bankStatement);
-      }
-      if (kycDocuments.identityProof) {
-        formData.append('identityProof', kycDocuments.identityProof);
-      }
+      formData.append('bankStatement', kycDocuments.bankStatement);
+      formData.append('identityProof', kycDocuments.identityProof);
 
-      // Simulate upload delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Simulate upload delay with progress
+      await new Promise(resolve => setTimeout(resolve, 2000));
 
       // For demo purposes, just proceed to dashboard
       setVerificationStatus("pending");
       setCurrentStep("dashboard");
 
       // Show success message
-      alert("Documents uploaded successfully! Verification is in progress.");
+      alert("Documents uploaded successfully! Verification is in progress. You will receive an email notification once verification is complete.");
 
     } catch (error) {
       console.error('Error uploading KYC documents:', error);
-      alert("Failed to upload documents. Please try again.");
+      alert("Network error occurred while uploading documents. Please check your internet connection and try again.");
+    } finally {
+      setIsUploadingKYC(false);
     }
   };
 
