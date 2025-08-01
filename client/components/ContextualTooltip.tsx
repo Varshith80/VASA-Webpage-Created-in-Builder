@@ -273,7 +273,7 @@ export function DeliveryTooltip({
   const content = (
     <div className="space-y-2">
       <div className="font-medium flex items-center gap-1">
-        <Truck className="h-4 w-4" />
+        <LucideIcons.Truck className="h-4 w-4" />
         Delivery Information
       </div>
       <div className="text-sm">
