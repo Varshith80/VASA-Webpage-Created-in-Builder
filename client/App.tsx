@@ -79,11 +79,8 @@ const App = () => {
 
   return (
     <ErrorBoundary>
-      <ThemeProvider defaultTheme="system" storageKey="vasa-theme">
-        <QueryClientProvider client={queryClient}>
-          <Toaster />
-            <Sonner />
-            <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
               <main id="main-content" role="main" tabIndex={-1}>
                 <Routes>
                   <Route path="/" element={<Index />} />
@@ -122,7 +119,6 @@ const App = () => {
               </aside>
             </BrowserRouter>
         </QueryClientProvider>
-      </ThemeProvider>
     </ErrorBoundary>
   );
 };
