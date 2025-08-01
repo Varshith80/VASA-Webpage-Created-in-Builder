@@ -1215,7 +1215,24 @@ export default function Exporter() {
                         <p className="text-xs text-muted-foreground">
                           Multiple files allowed
                         </p>
+                        <Input
+                          type="file"
+                          accept="image/*"
+                          multiple
+                          className="mt-2"
+                          onChange={(e) =>
+                            setMaterialData({
+                              ...materialData,
+                              images: Array.from(e.target.files || []),
+                            })
+                          }
+                        />
                       </div>
+                      {materialData.images.length > 0 && (
+                        <p className="text-sm text-success">
+                          ✓ {materialData.images.length} image(s) selected
+                        </p>
+                      )}
                     </div>
 
                     <div className="space-y-3">
@@ -1228,7 +1245,24 @@ export default function Exporter() {
                         <p className="text-xs text-muted-foreground">
                           ISO, GOTS, Organic, etc.
                         </p>
+                        <Input
+                          type="file"
+                          accept=".pdf,.jpg,.jpeg,.png"
+                          multiple
+                          className="mt-2"
+                          onChange={(e) =>
+                            setMaterialData({
+                              ...materialData,
+                              certificates: Array.from(e.target.files || []),
+                            })
+                          }
+                        />
                       </div>
+                      {materialData.certificates.length > 0 && (
+                        <p className="text-sm text-success">
+                          ✓ {materialData.certificates.length} certificate(s) selected
+                        </p>
+                      )}
                     </div>
                   </div>
 
