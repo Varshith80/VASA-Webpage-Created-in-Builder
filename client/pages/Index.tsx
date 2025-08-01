@@ -351,13 +351,13 @@ export default function Index() {
                   <div className="text-primary mb-3">{feature.icon}</div>
                   <CardTitle className="text-lg flex items-center gap-2">
                     {feature.title}
-{/* <ContextualTooltip
+<ContextualTooltip
                       content={feature.tooltip}
                       type="info"
                       showIcon
                     >
                       <span></span>
-                    </ContextualTooltip> */}
+                    </ContextualTooltip>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
