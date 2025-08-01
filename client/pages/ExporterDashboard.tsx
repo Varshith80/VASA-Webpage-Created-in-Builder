@@ -110,6 +110,8 @@ interface Order {
 }
 
 export default function ExporterDashboard() {
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState("products");
   const [products, setProducts] = useState<Product[]>([
     {
       id: 1,
