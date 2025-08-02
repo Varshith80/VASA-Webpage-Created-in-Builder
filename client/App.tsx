@@ -22,6 +22,7 @@ import ExporterDashboard from "./pages/ExporterDashboard";
 import NotificationSettings from "./pages/NotificationSettings";
 import Cart from "./pages/Cart";
 import Login from "./pages/Login";
+import ForgotPassword from "./pages/ForgotPassword";
 import NotFound from "./pages/NotFound";
 import { BugReportButton } from "./components/BugReportWidget";
 
