@@ -30,7 +30,7 @@ import {
 import { PlatformTrustSection, TrustBadge } from "@/components/TrustBadges";
 import { OnboardingTour } from "@/components/OnboardingTour";
 import { CurrencyConverter } from "@/components/CurrencyConverter";
-import { SimpleThemeToggle } from "@/components/SimpleThemeToggle";
+import { StaticThemeToggle } from "@/components/StaticThemeToggle";
 
 export default function Index() {
   const [selectedTab, setSelectedTab] = useState("overview");
