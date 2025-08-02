@@ -30,6 +30,7 @@ import { PlatformTrustSection, TrustBadge } from "@/components/TrustBadges";
 import { OnboardingTour } from "@/components/OnboardingTour";
 import { CurrencyConverter } from "@/components/CurrencyConverter";
 import { ContextualTooltip, QuickHelp } from "@/components/ContextualTooltip";
+import CartBadge from "@/components/CartBadge";
 
 export default function Index() {
   const [selectedTab, setSelectedTab] = useState("overview");
@@ -188,6 +189,7 @@ export default function Index() {
               >
                 Reviews
               </a>
+              <CartBadge itemCount={3} />
               <ThemeToggle />
               <Link to="/login">
                 <Button
