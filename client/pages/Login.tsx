@@ -64,13 +64,20 @@ const Login: React.FC = () => {
       script.defer = true;
       script.onload = () => {
         if (window.google && window.google.accounts) {
-          window.google.accounts.id.initialize({
-            client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID || "your-google-client-id.googleusercontent.com",
-            callback: handleGoogleSignIn,
-            auto_select: false,
-            cancel_on_tap_outside: true,
-          });
-          setGoogleReady(true);
+          try {
+            window.google.accounts.id.initialize({
+              client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID || "demo-google-client-id.googleusercontent.com",
+              callback: handleGoogleSignIn,
+              auto_select: false,
+              cancel_on_tap_outside: true,
+              use_fedcm_for_prompt: false, // Disable FedCM to avoid permission issues
+            });
+            setGoogleReady(true);
+          } catch (error) {
+            console.warn("Google Sign-In initialization failed:", error);
+            // Fallback to simple OAuth flow without GSI
+            setGoogleReady(true);
+          }
         }
       };
       document.head.appendChild(script);
