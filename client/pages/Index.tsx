@@ -30,7 +30,12 @@ import {
 import { PlatformTrustSection, TrustBadge } from "@/components/TrustBadges";
 import { OnboardingTour } from "@/components/OnboardingTour";
 import { CurrencyConverter } from "@/components/CurrencyConverter";
+<<<<<<< HEAD
 import { SimpleThemeToggle } from "@/components/SimpleThemeToggle";
+=======
+import { ContextualTooltip, QuickHelp } from "@/components/ContextualTooltip";
+import CartBadge from "@/components/CartBadge";
+>>>>>>> 939a3707c98cb3dfdda87ad017bd6c7231bab838
 
 export default function Index() {
   const [selectedTab, setSelectedTab] = useState("overview");
@@ -190,6 +195,7 @@ export default function Index() {
               >
                 Reviews
               </a>
+<<<<<<< HEAD
 
               {/* Cart and Theme Toggle */}
               <div className="flex items-center gap-3">
@@ -216,6 +222,10 @@ export default function Index() {
                 </Link>
               </div>
 
+=======
+              <CartBadge itemCount={3} />
+              <ThemeToggle />
+>>>>>>> 939a3707c98cb3dfdda87ad017bd6c7231bab838
               <Link to="/login">
                 <Button
                   variant="outline"
