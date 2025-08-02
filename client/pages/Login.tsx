@@ -210,6 +210,20 @@ const Login: React.FC = () => {
     }
   };
 
+  const fallbackGoogleSignIn = () => {
+    // Simple OAuth redirect flow as fallback
+    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || "demo-google-client-id.googleusercontent.com";
+    const redirectUri = `${window.location.origin}/login`;
+    const scope = "openid email profile";
+    const responseType = "code";
+
+    const authUrl = `https://accounts.google.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}&access_type=offline`;
+
+    // For demo purposes, show a message instead of redirecting
+    console.log("Google OAuth URL:", authUrl);
+    setAuthError("Google Sign-In demo - In production, this would redirect to Google OAuth");
+  };
+
   const renderGoogleSignInButton = () => {
     if (!googleReady) {
       return (
