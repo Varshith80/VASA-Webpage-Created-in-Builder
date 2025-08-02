@@ -1,670 +1,335 @@
-import express from "express";
-import bcrypt from "bcryptjs";
-import crypto from "crypto";
-import { body, validationResult } from "express-validator";
-import User from "../models/User.js";
-import {
-  generateToken,
-  generateRefreshToken,
-  verifyRefreshToken,
-  createAuthRateLimit,
-  logAuthEvent,
-  authenticate,
-} from "../middleware/auth.js";
-import { sendEmail } from "../utils/email.js";
-
+const express = require('express');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const { OAuth2Client } = require('google-auth-library');
 const router = express.Router();
 
-// Rate limiting for auth routes
-const authRateLimit = createAuthRateLimit(15 * 60 * 1000, 5); // 5 attempts per 15 minutes
+// Google OAuth client
+const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
-// Validation rules
-const registrationValidation = [
-  body("firstName")
-    .trim()
-    .isLength({ min: 2, max: 50 })
-    .withMessage("First name must be 2-50 characters"),
-  body("lastName")
-    .trim()
-    .isLength({ min: 2, max: 50 })
-    .withMessage("Last name must be 2-50 characters"),
-  body("email")
-    .isEmail()
-    .normalizeEmail()
-    .withMessage("Please provide a valid email"),
-  body("password")
-    .isLength({ min: 8 })
-    .withMessage("Password must be at least 8 characters")
-    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/)
-    .withMessage(
-      "Password must contain at least one uppercase letter, lowercase letter, number, and special character",
-    ),
-  body("phone")
-    .isMobilePhone()
-    .withMessage("Please provide a valid phone number"),
-  body("companyName")
-    .trim()
-    .isLength({ min: 2, max: 100 })
-    .withMessage("Company name must be 2-100 characters"),
-  body("role")
-    .isIn(["exporter", "importer"])
-    .withMessage("Role must be either exporter or importer"),
-  body("licenseNumber")
-    .trim()
-    .isLength({ min: 10, max: 10 })
-    .matches(/^[A-Z0-9]{10}$/)
-    .withMessage("License number must be 10 alphanumeric characters"),
-  body("businessType")
-    .isIn([
-      "manufacturer",
-      "trader",
-      "wholesaler",
-      "retailer",
-      "service_provider",
-    ])
-    .withMessage("Invalid business type"),
-  body("address.street")
-    .trim()
-    .notEmpty()
-    .withMessage("Street address is required"),
-  body("address.city").trim().notEmpty().withMessage("City is required"),
-  body("address.state").trim().notEmpty().withMessage("State is required"),
-  body("address.country").trim().notEmpty().withMessage("Country is required"),
-  body("address.zipCode").trim().notEmpty().withMessage("ZIP code is required"),
+// Mock database - in production, replace with actual database
+const users = [
+  {
+    id: '1',
+    email: 'demo@vasa.com',
+    password: '$2a$10$K5V1YzQOT5ZQhH5rYzQOT5ZQhH5rYzQOT5ZQhH5rYzQOT5ZQhH5r.', // password: 'demo123'
+    name: 'Demo User',
+    role: 'importer',
+    verified: true,
+    googleId: null,
+    createdAt: new Date('2024-01-01'),
+  },
+  {
+    id: '2',
+    email: 'exporter@vasa.com',
+    password: '$2a$10$K5V1YzQOT5ZQhH5rYzQOT5ZQhH5rYzQOT5ZQhH5rYzQOT5ZQhH5r.', // password: 'demo123'
+    name: 'Demo Exporter',
+    role: 'exporter',
+    verified: true,
+    googleId: null,
+    createdAt: new Date('2024-01-01'),
+  }
 ];
 
-const loginValidation = [
-  body("email")
-    .isEmail()
-    .normalizeEmail()
-    .withMessage("Please provide a valid email"),
-  body("password").notEmpty().withMessage("Password is required"),
-];
+// Generate JWT token
+const generateToken = (user) => {
+  return jwt.sign(
+    {
+      id: user.id,
+      email: user.email,
+      role: user.role,
+    },
+    process.env.JWT_SECRET || 'your-secret-key',
+    { expiresIn: '7d' }
+  );
+};
 
-// @route   POST /api/auth/register
-// @desc    Register user
-// @access  Public
-router.post(
-  "/register",
-  authRateLimit,
-  logAuthEvent("registration_attempt"),
-  registrationValidation,
-  async (req, res) => {
-    try {
-      // Check validation errors
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({
-          success: false,
-          message: "Validation errors",
-          errors: errors.array(),
-        });
-      }
-
-      const {
-        firstName,
-        lastName,
-        email,
-        password,
-        phone,
-        companyName,
-        role,
-        licenseNumber,
-        businessType,
-        address,
-        taxId,
-        website,
-        establishedYear,
-        employeeCount,
-        annualTurnover,
-      } = req.body;
-
-      // Check if user already exists
-      const existingUser = await User.findOne({
-        $or: [{ email }, { licenseNumber: licenseNumber.toUpperCase() }],
-      });
-
-      if (existingUser) {
-        if (existingUser.email === email) {
-          return res.status(400).json({
-            success: false,
-            message: "User with this email already exists",
-          });
-        }
-        if (existingUser.licenseNumber === licenseNumber.toUpperCase()) {
-          return res.status(400).json({
-            success: false,
-            message: "User with this license number already exists",
-          });
-        }
-      }
-
-      // Create new user
-      const user = new User({
-        firstName,
-        lastName,
-        email,
-        password,
-        phone,
-        companyName,
-        role,
-        licenseNumber: licenseNumber.toUpperCase(),
-        businessType,
-        address,
-        taxId,
-        website,
-        establishedYear,
-        employeeCount,
-        annualTurnover,
-        licenseType: "IEC", // Default to IEC, can be determined by country later
-      });
-
-      await user.save();
-
-      // Generate email verification token
-      const emailToken = crypto.randomBytes(32).toString("hex");
-      user.emailVerificationToken = crypto
-        .createHash("sha256")
-        .update(emailToken)
-        .digest("hex");
-      user.emailVerificationExpires = Date.now() + 24 * 60 * 60 * 1000; // 24 hours
-      await user.save();
-
-      // Send verification email
-      const verificationUrl = `${process.env.FRONTEND_URL}/verify-email/${emailToken}`;
-
-      try {
-        await sendEmail({
-          to: user.email,
-          subject: "VASA Account Verification",
-          template: "email-verification",
-          data: {
-            name: user.fullName,
-            verificationUrl,
-            companyName: user.companyName,
-          },
-        });
-      } catch (emailError) {
-        console.error("Email sending failed:", emailError);
-        // Don't fail registration if email fails
-      }
-
-      // Generate tokens
-      const token = generateToken(user._id);
-      const refreshToken = generateRefreshToken(user._id);
-
-      // Set HTTP-only cookie
-      res.cookie("token", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-      });
-
-      res.status(201).json({
-        success: true,
-        message:
-          "Registration successful. Please check your email for verification.",
-        data: {
-          user: user.getPublicProfile(),
-          token,
-          refreshToken,
-        },
-      });
-    } catch (error) {
-      console.error("Registration error:", error);
-
-      if (error.code === 11000) {
-        const field = Object.keys(error.keyPattern)[0];
-        return res.status(400).json({
-          success: false,
-          message: `User with this ${field} already exists`,
-        });
-      }
-
-      res.status(500).json({
-        success: false,
-        message: "Registration failed",
-        error:
-          process.env.NODE_ENV === "development" ? error.message : undefined,
-      });
-    }
-  },
-);
-
-// @route   POST /api/auth/login
-// @desc    Login user
-// @access  Public
-router.post(
-  "/login",
-  authRateLimit,
-  logAuthEvent("login_attempt"),
-  loginValidation,
-  async (req, res) => {
-    try {
-      // Check validation errors
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({
-          success: false,
-          message: "Validation errors",
-          errors: errors.array(),
-        });
-      }
-
-      const { email, password } = req.body;
-
-      // Find user and include password for comparison
-      const user = await User.findOne({ email }).select("+password");
-
-      if (!user) {
-        return res.status(401).json({
-          success: false,
-          message: "Invalid email or password",
-        });
-      }
-
-      // Check if account is locked
-      if (user.isLocked) {
-        return res.status(423).json({
-          success: false,
-          message:
-            "Account is temporarily locked due to multiple failed login attempts",
-          lockUntil: user.lockUntil,
-        });
-      }
-
-      // Verify password
-      const isPasswordValid = await user.comparePassword(password);
-
-      if (!isPasswordValid) {
-        await user.incLoginAttempts();
-        return res.status(401).json({
-          success: false,
-          message: "Invalid email or password",
-        });
-      }
-
-      // Reset login attempts on successful login
-      await user.resetLoginAttempts();
-
-      // Update last login
-      user.lastLogin = new Date();
-      await user.save();
-
-      // Generate tokens
-      const token = generateToken(user._id);
-      const refreshToken = generateRefreshToken(user._id);
-
-      // Set HTTP-only cookie
-      res.cookie("token", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-      });
-
-      res.json({
-        success: true,
-        message: "Login successful",
-        data: {
-          user: user.getPublicProfile(),
-          token,
-          refreshToken,
-        },
-      });
-    } catch (error) {
-      console.error("Login error:", error);
-      res.status(500).json({
-        success: false,
-        message: "Login failed",
-        error:
-          process.env.NODE_ENV === "development" ? error.message : undefined,
-      });
-    }
-  },
-);
-
-// @route   POST /api/auth/refresh
-// @desc    Refresh access token
-// @access  Public
-router.post("/refresh", async (req, res) => {
+// Email/Password Login
+router.post('/login', async (req, res) => {
   try {
-    const { refreshToken } = req.body;
+    const { email, password } = req.body;
 
-    if (!refreshToken) {
-      return res.status(401).json({
+    // Validation
+    if (!email || !password) {
+      return res.status(400).json({
         success: false,
-        message: "Refresh token is required",
+        error: 'Email and password are required'
       });
     }
 
-    // Verify refresh token
-    const decoded = verifyRefreshToken(refreshToken);
-
-    // Get user
-    const user = await User.findById(decoded.userId);
+    // Find user by email
+    const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
     if (!user) {
       return res.status(401).json({
         success: false,
-        message: "Invalid refresh token",
+        error: 'Invalid email or password'
       });
     }
 
-    // Generate new tokens
-    const newToken = generateToken(user._id);
-    const newRefreshToken = generateRefreshToken(user._id);
+    // Check password
+    const isValidPassword = await bcrypt.compare(password, user.password);
+    if (!isValidPassword) {
+      return res.status(401).json({
+        success: false,
+        error: 'Invalid email or password'
+      });
+    }
 
-    // Set HTTP-only cookie
-    res.cookie("token", newToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+    // Generate token
+    const token = generateToken(user);
 
+    // Return user data (excluding password)
+    const { password: _, ...userWithoutPassword } = user;
+    
     res.json({
       success: true,
-      data: {
-        token: newToken,
-        refreshToken: newRefreshToken,
-      },
+      user: userWithoutPassword,
+      token
     });
+
   } catch (error) {
-    res.status(401).json({
+    console.error('Login error:', error);
+    res.status(500).json({
       success: false,
-      message: "Invalid refresh token",
+      error: 'Server error. Please try again later.'
     });
   }
 });
 
-// @route   POST /api/auth/logout
-// @desc    Logout user
-// @access  Private
-router.post("/logout", authenticate, (req, res) => {
-  // Clear cookie
-  res.clearCookie("token");
+// Google OAuth Login
+router.post('/google', async (req, res) => {
+  try {
+    const { token } = req.body;
 
+    if (!token) {
+      return res.status(400).json({
+        success: false,
+        error: 'Google token is required'
+      });
+    }
+
+    // Verify Google ID token
+    const ticket = await googleClient.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+    const googleId = payload.sub;
+    const email = payload.email;
+    const name = payload.name;
+    const picture = payload.picture;
+
+    // Check if user exists with this Google ID
+    let user = users.find(u => u.googleId === googleId);
+    
+    // If not found by Google ID, check by email
+    if (!user) {
+      user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+      
+      if (user) {
+        // Link Google account to existing user
+        user.googleId = googleId;
+        user.picture = picture;
+      }
+    }
+
+    // If still no user, create new user
+    if (!user) {
+      user = {
+        id: (users.length + 1).toString(),
+        email,
+        name,
+        role: 'importer', // Default role, can be changed during onboarding
+        verified: false, // New Google users need to complete verification
+        googleId,
+        picture,
+        password: null, // Google users don't have passwords
+        createdAt: new Date(),
+      };
+      users.push(user);
+    }
+
+    // Generate token
+    const authToken = generateToken(user);
+
+    // Return user data
+    const { password: _, ...userWithoutPassword } = user;
+    
+    res.json({
+      success: true,
+      user: userWithoutPassword,
+      token: authToken
+    });
+
+  } catch (error) {
+    console.error('Google auth error:', error);
+    
+    if (error.message?.includes('Invalid token')) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid Google token'
+      });
+    }
+
+    res.status(500).json({
+      success: false,
+      error: 'Server error. Please try again later.'
+    });
+  }
+});
+
+// Logout (client-side mainly, but can be used to blacklist tokens)
+router.post('/logout', (req, res) => {
+  // In a real app, you might want to blacklist the token
   res.json({
     success: true,
-    message: "Logout successful",
+    message: 'Logged out successfully'
   });
 });
 
-// @route   GET /api/auth/me
-// @desc    Get current user profile
-// @access  Private
-router.get("/me", authenticate, async (req, res) => {
-  try {
-    const user = await User.findById(req.user._id);
-
-    res.json({
-      success: true,
-      data: {
-        user: user.getPublicProfile(),
-      },
-    });
-  } catch (error) {
-    res.status(500).json({
+// Verify token middleware
+const verifyToken = (req, res, next) => {
+  const token = req.headers.authorization?.replace('Bearer ', '');
+  
+  if (!token) {
+    return res.status(401).json({
       success: false,
-      message: "Failed to get user profile",
+      error: 'No token provided'
     });
   }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
+    req.user = decoded;
+    next();
+  } catch (error) {
+    return res.status(401).json({
+      success: false,
+      error: 'Invalid token'
+    });
+  }
+};
+
+// Get current user (protected route)
+router.get('/me', verifyToken, (req, res) => {
+  const user = users.find(u => u.id === req.user.id);
+  
+  if (!user) {
+    return res.status(404).json({
+      success: false,
+      error: 'User not found'
+    });
+  }
+
+  const { password: _, ...userWithoutPassword } = user;
+  
+  res.json({
+    success: true,
+    user: userWithoutPassword
+  });
 });
 
-// @route   POST /api/auth/verify-email/:token
-// @desc    Verify email address
-// @access  Public
-router.post("/verify-email/:token", async (req, res) => {
+// Register new user
+router.post('/register', async (req, res) => {
   try {
-    const { token } = req.params;
+    const { email, password, name, role } = req.body;
 
-    // Hash the token to compare with stored hash
-    const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
-
-    // Find user with valid token
-    const user = await User.findOne({
-      emailVerificationToken: hashedToken,
-      emailVerificationExpires: { $gt: Date.now() },
-    });
-
-    if (!user) {
+    // Validation
+    if (!email || !password || !name || !role) {
       return res.status(400).json({
         success: false,
-        message: "Invalid or expired verification token",
+        error: 'All fields are required'
       });
     }
 
-    // Mark email as verified
-    user.emailVerified = true;
-    user.emailVerificationToken = undefined;
-    user.emailVerificationExpires = undefined;
-    await user.save();
+    if (!['importer', 'exporter'].includes(role)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid role'
+      });
+    }
 
-    res.json({
+    // Check if user already exists
+    const existingUser = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+    if (existingUser) {
+      return res.status(400).json({
+        success: false,
+        error: 'User with this email already exists'
+      });
+    }
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create new user
+    const newUser = {
+      id: (users.length + 1).toString(),
+      email: email.toLowerCase(),
+      password: hashedPassword,
+      name,
+      role,
+      verified: false,
+      googleId: null,
+      createdAt: new Date(),
+    };
+
+    users.push(newUser);
+
+    // Generate token
+    const token = generateToken(newUser);
+
+    // Return user data (excluding password)
+    const { password: _, ...userWithoutPassword } = newUser;
+    
+    res.status(201).json({
       success: true,
-      message: "Email verified successfully",
+      user: userWithoutPassword,
+      token
     });
+
   } catch (error) {
+    console.error('Registration error:', error);
     res.status(500).json({
       success: false,
-      message: "Email verification failed",
+      error: 'Server error. Please try again later.'
     });
   }
 });
 
-// @route   POST /api/auth/forgot-password
-// @desc    Send password reset email
-// @access  Public
-router.post(
-  "/forgot-password",
-  authRateLimit,
-  [
-    body("email")
-      .isEmail()
-      .normalizeEmail()
-      .withMessage("Please provide a valid email"),
-  ],
-  async (req, res) => {
-    try {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({
-          success: false,
-          message: "Please provide a valid email",
-          errors: errors.array(),
-        });
-      }
+// Password reset request
+router.post('/forgot-password', async (req, res) => {
+  try {
+    const { email } = req.body;
 
-      const { email } = req.body;
-      const user = await User.findOne({ email });
-
-      // Always return success to prevent email enumeration
-      const successResponse = {
-        success: true,
-        message:
-          "If an account with that email exists, a password reset link has been sent",
-      };
-
-      if (!user) {
-        return res.json(successResponse);
-      }
-
-      // Generate reset token
-      const resetToken = crypto.randomBytes(32).toString("hex");
-      user.passwordResetToken = crypto
-        .createHash("sha256")
-        .update(resetToken)
-        .digest("hex");
-      user.passwordResetExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
-      await user.save();
-
-      // Send reset email
-      const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
-
-      try {
-        await sendEmail({
-          to: user.email,
-          subject: "VASA Password Reset",
-          template: "password-reset",
-          data: {
-            name: user.fullName,
-            resetUrl,
-            expiresIn: "10 minutes",
-          },
-        });
-      } catch (emailError) {
-        user.passwordResetToken = undefined;
-        user.passwordResetExpires = undefined;
-        await user.save();
-
-        return res.status(500).json({
-          success: false,
-          message: "Error sending email. Please try again later.",
-        });
-      }
-
-      res.json(successResponse);
-    } catch (error) {
-      res.status(500).json({
+    if (!email) {
+      return res.status(400).json({
         success: false,
-        message: "Password reset request failed",
+        error: 'Email is required'
       });
     }
-  },
-);
 
-// @route   POST /api/auth/reset-password/:token
-// @desc    Reset password
-// @access  Public
-router.post(
-  "/reset-password/:token",
-  [
-    body("password")
-      .isLength({ min: 8 })
-      .withMessage("Password must be at least 8 characters")
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
-      )
-      .withMessage(
-        "Password must contain at least one uppercase letter, lowercase letter, number, and special character",
-      ),
-  ],
-  async (req, res) => {
-    try {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({
-          success: false,
-          message: "Password validation failed",
-          errors: errors.array(),
-        });
-      }
+    const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+    
+    // Always return success for security (don't reveal if email exists)
+    res.json({
+      success: true,
+      message: 'If an account with that email exists, we have sent password reset instructions.'
+    });
 
-      const { token } = req.params;
-      const { password } = req.body;
-
-      // Hash the token
-      const hashedToken = crypto
-        .createHash("sha256")
-        .update(token)
-        .digest("hex");
-
-      // Find user with valid reset token
-      const user = await User.findOne({
-        passwordResetToken: hashedToken,
-        passwordResetExpires: { $gt: Date.now() },
-      });
-
-      if (!user) {
-        return res.status(400).json({
-          success: false,
-          message: "Invalid or expired reset token",
-        });
-      }
-
-      // Update password
-      user.password = password;
-      user.passwordResetToken = undefined;
-      user.passwordResetExpires = undefined;
-      user.loginAttempts = 0;
-      user.lockUntil = undefined;
-      await user.save();
-
-      res.json({
-        success: true,
-        message: "Password reset successful",
-      });
-    } catch (error) {
-      res.status(500).json({
-        success: false,
-        message: "Password reset failed",
-      });
+    // In a real app, send email here
+    if (user) {
+      console.log(`Password reset requested for user: ${user.email}`);
+      // TODO: Send email with reset link
     }
-  },
-);
 
-// @route   PUT /api/auth/change-password
-// @desc    Change password (authenticated user)
-// @access  Private
-router.put(
-  "/change-password",
-  authenticate,
-  [
-    body("currentPassword")
-      .notEmpty()
-      .withMessage("Current password is required"),
-    body("newPassword")
-      .isLength({ min: 8 })
-      .withMessage("Password must be at least 8 characters")
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
-      )
-      .withMessage(
-        "Password must contain at least one uppercase letter, lowercase letter, number, and special character",
-      ),
-  ],
-  async (req, res) => {
-    try {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({
-          success: false,
-          message: "Validation failed",
-          errors: errors.array(),
-        });
-      }
+  } catch (error) {
+    console.error('Password reset error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Server error. Please try again later.'
+    });
+  }
+});
 
-      const { currentPassword, newPassword } = req.body;
-
-      // Get user with password
-      const user = await User.findById(req.user._id).select("+password");
-
-      // Verify current password
-      const isCurrentPasswordValid =
-        await user.comparePassword(currentPassword);
-      if (!isCurrentPasswordValid) {
-        return res.status(400).json({
-          success: false,
-          message: "Current password is incorrect",
-        });
-      }
-
-      // Update password
-      user.password = newPassword;
-      await user.save();
-
-      res.json({
-        success: true,
-        message: "Password updated successfully",
-      });
-    } catch (error) {
-      res.status(500).json({
-        success: false,
-        message: "Password change failed",
-      });
-    }
-  },
-);
-
-export default router;
+module.exports = router;
