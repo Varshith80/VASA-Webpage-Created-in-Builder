@@ -44,10 +44,10 @@ const createServer = () => {
         "🚧 Invoice Generation",
         "🚧 Analytics Dashboard",
         "🚧 PWA Support",
-        "✅ Webhook Integrations"
+        "✅ Webhook Integrations",
       ],
       version: "2.0.0",
-      buildDate: new Date().toISOString()
+      buildDate: new Date().toISOString(),
     });
   });
 
@@ -57,7 +57,7 @@ const createServer = () => {
       status: "OK",
       service: "VASA API",
       timestamp: new Date().toISOString(),
-      environment: "development"
+      environment: "development",
     });
   });
 
@@ -106,12 +106,12 @@ const createServer = () => {
 
   // Demo search endpoints
   app.get("/api/search/global", (req, res) => {
-    const { q: query, type = 'all' } = req.query;
-    
+    const { q: query, type = "all" } = req.query;
+
     res.json({
       success: true,
       data: {
-        query: query || '',
+        query: query || "",
         type,
         totalResults: 3,
         results: {
@@ -123,43 +123,44 @@ const createServer = () => {
                 category: "Electronics",
                 price: 1250,
                 origin: "CN",
-                description: "High-quality electronic components for manufacturing",
-                images: ["/placeholder.svg"]
+                description:
+                  "High-quality electronic components for manufacturing",
+                images: ["/placeholder.svg"],
               },
               {
                 _id: "prod-2",
                 title: "Organic Cotton Textiles",
-                category: "Textiles", 
+                category: "Textiles",
                 price: 890,
                 origin: "IN",
                 description: "Certified organic cotton fabrics",
-                images: ["/placeholder.svg"]
-              }
+                images: ["/placeholder.svg"],
+              },
             ],
             total: 2,
-            hasMore: false
-          }
+            hasMore: false,
+          },
         },
         pagination: {
           page: 1,
           limit: 10,
-          hasMore: false
-        }
-      }
+          hasMore: false,
+        },
+      },
     });
   });
 
   app.get("/api/search/suggestions", (req, res) => {
     const { q: query } = req.query;
-    
+
     res.json({
       success: true,
       data: [
         { title: "Electronics", type: "category" },
         { title: "Textiles", type: "category" },
         { title: "Premium Components", type: "product", price: 1250 },
-        { title: "Organic Materials", type: "product", price: 890 }
-      ]
+        { title: "Organic Materials", type: "product", price: 890 },
+      ],
     });
   });
 
@@ -170,20 +171,20 @@ const createServer = () => {
         popularCategories: [
           { category: "Electronics", count: 156 },
           { category: "Textiles", count: 89 },
-          { category: "Machinery", count: 67 }
+          { category: "Machinery", count: 67 },
         ],
         trendingProducts: [
           { title: "Smart Components", category: "Electronics", price: 1299 },
-          { title: "Eco Textiles", category: "Textiles", price: 799 }
-        ]
-      }
+          { title: "Eco Textiles", category: "Textiles", price: 799 },
+        ],
+      },
     });
   });
 
   // Demo compliance endpoints
   app.post("/api/compliance/check", (req, res) => {
     const { destinationCountry } = req.body;
-    
+
     res.json({
       success: true,
       data: {
@@ -192,36 +193,36 @@ const createServer = () => {
           warnings: [],
           requirements: [
             "Commercial Invoice",
-            "Certificate of Origin", 
-            "Packing List"
+            "Certificate of Origin",
+            "Packing List",
           ],
           prohibitions: [],
           recommendations: [
             "Consider preferential trade agreements",
-            "Ensure proper documentation"
-          ]
+            "Ensure proper documentation",
+          ],
         },
         documents: [
           {
             type: "COMMERCIAL_INVOICE",
             description: "Detailed invoice showing transaction value and terms",
             issuingAuthority: "Exporter/Seller",
-            validity: "No expiry"
-          }
+            validity: "No expiry",
+          },
         ],
         duties: {
           estimatedDuty: 125,
           rate: 5,
           currency: "USD",
-          note: "Estimated duties - actual rates may vary"
+          note: "Estimated duties - actual rates may vary",
         },
         countryInfo: {
           agencies: {
             customs: "Customs Authority",
-            foodSafety: "Food Safety Agency"
-          }
-        }
-      }
+            foodSafety: "Food Safety Agency",
+          },
+        },
+      },
     });
   });
 
@@ -232,8 +233,8 @@ const createServer = () => {
         { code: "US", name: "United States", agencies: 4 },
         { code: "EU", name: "European Union", agencies: 3 },
         { code: "IN", name: "India", agencies: 4 },
-        { code: "CN", name: "China", agencies: 3 }
-      ]
+        { code: "CN", name: "China", agencies: 3 },
+      ],
     });
   });
 
@@ -248,9 +249,9 @@ const createServer = () => {
         methods: {
           authenticator: false,
           sms: false,
-          email: true
-        }
-      }
+          email: true,
+        },
+      },
     });
   });
 
@@ -262,8 +263,8 @@ const createServer = () => {
       data: {
         reportId: "BUG-" + Date.now(),
         status: "open",
-        createdAt: new Date().toISOString()
-      }
+        createdAt: new Date().toISOString(),
+      },
     });
   });
 
@@ -275,7 +276,7 @@ const createServer = () => {
       path: req.originalUrl,
       availableEndpoints: [
         "GET /api/health",
-        "GET /api/demo", 
+        "GET /api/demo",
         "POST /api/auth/register",
         "POST /api/auth/login",
         "GET /api/search/global",
@@ -283,8 +284,8 @@ const createServer = () => {
         "POST /api/compliance/check",
         "GET /api/compliance/countries",
         "GET /api/mfa/status",
-        "POST /api/bug-reports"
-      ]
+        "POST /api/bug-reports",
+      ],
     });
   });
 

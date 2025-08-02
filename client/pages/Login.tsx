@@ -53,17 +53,22 @@ const Login: React.FC = () => {
   useEffect(() => {
     // Load Google Sign-In API
     const loadGoogleAPI = () => {
-      const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || "demo-google-client-id.googleusercontent.com";
+      const clientId =
+        import.meta.env.VITE_GOOGLE_CLIENT_ID ||
+        "demo-google-client-id.googleusercontent.com";
 
       // Check if client ID is valid (not a demo/placeholder)
-      const isValidClientId = clientId &&
+      const isValidClientId =
+        clientId &&
         !clientId.includes("demo-") &&
         !clientId.includes("your-") &&
         clientId.endsWith(".googleusercontent.com") &&
         clientId.length > 30; // Real client IDs are much longer
 
       if (!isValidClientId) {
-        console.warn("Google Sign-In disabled: Invalid or demo client ID provided");
+        console.warn(
+          "Google Sign-In disabled: Invalid or demo client ID provided",
+        );
         setGoogleReady(true); // Set ready but don't initialize GSI
         return;
       }
@@ -134,10 +139,10 @@ const Login: React.FC = () => {
   };
 
   const handleInputChange = (field: keyof LoginFormData, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
     // Clear field error when user starts typing
     if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: undefined }));
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
     }
     // Clear auth error when user makes changes
     if (authError) {
@@ -147,7 +152,7 @@ const Login: React.FC = () => {
 
   const handleEmailPasswordLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
 
     setIsLoading(true);
@@ -170,20 +175,25 @@ const Login: React.FC = () => {
         localStorage.setItem("user", JSON.stringify(data.user));
 
         // Success notification - could be replaced with a proper toast system later
-        console.log(`Welcome back! Signed in successfully as ${data.user.name}`);
+        console.log(
+          `Welcome back! Signed in successfully as ${data.user.name}`,
+        );
 
         // Redirect to appropriate dashboard based on user role
-        const redirectPath = data.user.role === "exporter" 
-          ? "/exporter-dashboard" 
-          : "/importer-dashboard";
-        
+        const redirectPath =
+          data.user.role === "exporter"
+            ? "/exporter-dashboard"
+            : "/importer-dashboard";
+
         navigate(redirectPath, { replace: true });
       } else {
         setAuthError(data.error || "Invalid email or password");
       }
     } catch (error) {
       console.error("Login error:", error);
-      setAuthError("Network error. Please check your connection and try again.");
+      setAuthError(
+        "Network error. Please check your connection and try again.",
+      );
     } finally {
       setIsLoading(false);
     }
@@ -212,22 +222,25 @@ const Login: React.FC = () => {
         localStorage.setItem("user", JSON.stringify(data.user));
 
         // Success notification - could be replaced with a proper toast system later
-        console.log(`Welcome! Signed in successfully with Google as ${data.user.name}`);
+        console.log(
+          `Welcome! Signed in successfully with Google as ${data.user.name}`,
+        );
 
         // If new user, redirect to complete registration
         if (!data.user.verified) {
-          navigate("/register?step=verify", { 
+          navigate("/register?step=verify", {
             state: { user: data.user },
-            replace: true 
+            replace: true,
           });
           return;
         }
 
         // Redirect to appropriate dashboard
-        const redirectPath = data.user.role === "exporter" 
-          ? "/exporter-dashboard" 
-          : "/importer-dashboard";
-        
+        const redirectPath =
+          data.user.role === "exporter"
+            ? "/exporter-dashboard"
+            : "/importer-dashboard";
+
         navigate(redirectPath, { replace: true });
       } else {
         setAuthError(data.error || "Google sign-in failed. Please try again.");
@@ -242,7 +255,9 @@ const Login: React.FC = () => {
 
   const fallbackGoogleSignIn = () => {
     // Simple OAuth redirect flow as fallback
-    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || "demo-google-client-id.googleusercontent.com";
+    const clientId =
+      import.meta.env.VITE_GOOGLE_CLIENT_ID ||
+      "demo-google-client-id.googleusercontent.com";
     const redirectUri = `${window.location.origin}/login`;
     const scope = "openid email profile";
     const responseType = "code";
@@ -251,12 +266,17 @@ const Login: React.FC = () => {
 
     // For demo purposes, show a message instead of redirecting
     console.log("Google OAuth URL:", authUrl);
-    setAuthError("Google Sign-In demo - In production, this would redirect to Google OAuth");
+    setAuthError(
+      "Google Sign-In demo - In production, this would redirect to Google OAuth",
+    );
   };
 
   const renderGoogleSignInButton = () => {
-    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || "demo-google-client-id.googleusercontent.com";
-    const isValidClientId = clientId &&
+    const clientId =
+      import.meta.env.VITE_GOOGLE_CLIENT_ID ||
+      "demo-google-client-id.googleusercontent.com";
+    const isValidClientId =
+      clientId &&
       !clientId.includes("demo-") &&
       !clientId.includes("your-") &&
       clientId.endsWith(".googleusercontent.com") &&
@@ -264,12 +284,7 @@ const Login: React.FC = () => {
 
     if (!googleReady) {
       return (
-        <Button
-          type="button"
-          variant="outline"
-          className="w-full"
-          disabled
-        >
+        <Button type="button" variant="outline" className="w-full" disabled>
           Loading Google Sign-In...
         </Button>
       );
@@ -318,7 +333,10 @@ const Login: React.FC = () => {
             try {
               window.google.accounts.id.prompt();
             } catch (error) {
-              console.warn("Google Sign-In prompt failed, using fallback:", error);
+              console.warn(
+                "Google Sign-In prompt failed, using fallback:",
+                error,
+              );
               fallbackGoogleSignIn();
             }
           } else {
@@ -360,7 +378,11 @@ const Login: React.FC = () => {
         {/* Back to Home Link */}
         <div className="mb-6">
           <Link to="/">
-            <Button variant="ghost" size="sm" className="text-slate-600 hover:text-slate-800">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-slate-600 hover:text-slate-800"
+            >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Home
             </Button>
@@ -376,9 +398,7 @@ const Login: React.FC = () => {
             <CardTitle className="text-2xl font-bold text-slate-800">
               Welcome Back
             </CardTitle>
-            <p className="text-slate-600 mt-2">
-              Sign in to your VASA account
-            </p>
+            <p className="text-slate-600 mt-2">Sign in to your VASA account</p>
           </CardHeader>
 
           <CardContent className="space-y-6">
@@ -393,8 +413,8 @@ const Login: React.FC = () => {
             <form onSubmit={handleEmailPasswordLogin} className="space-y-4">
               {/* Email Field */}
               <div className="space-y-2">
-                <label 
-                  htmlFor="email" 
+                <label
+                  htmlFor="email"
                   className="text-sm font-medium text-slate-700"
                 >
                   Email Address
@@ -414,7 +434,11 @@ const Login: React.FC = () => {
                   />
                 </div>
                 {errors.email && (
-                  <p id="email-error" className="text-sm text-red-600" role="alert">
+                  <p
+                    id="email-error"
+                    className="text-sm text-red-600"
+                    role="alert"
+                  >
                     {errors.email}
                   </p>
                 )}
@@ -422,8 +446,8 @@ const Login: React.FC = () => {
 
               {/* Password Field */}
               <div className="space-y-2">
-                <label 
-                  htmlFor="password" 
+                <label
+                  htmlFor="password"
                   className="text-sm font-medium text-slate-700"
                 >
                   Password
@@ -435,9 +459,13 @@ const Login: React.FC = () => {
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
                     value={formData.password}
-                    onChange={(e) => handleInputChange("password", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("password", e.target.value)
+                    }
                     className={`pl-10 pr-10 ${errors.password ? "border-red-500 focus-visible:ring-red-500" : ""}`}
-                    aria-describedby={errors.password ? "password-error" : undefined}
+                    aria-describedby={
+                      errors.password ? "password-error" : undefined
+                    }
                     autoComplete="current-password"
                     required
                   />
@@ -447,13 +475,23 @@ const Login: React.FC = () => {
                     size="sm"
                     className="absolute right-1 top-1/2 transform -translate-y-1/2 h-8 w-8 p-0 text-slate-400 hover:text-slate-600"
                     onClick={() => setShowPassword(!showPassword)}
-                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
                   >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    {showPassword ? (
+                      <EyeOff className="w-4 h-4" />
+                    ) : (
+                      <Eye className="w-4 h-4" />
+                    )}
                   </Button>
                 </div>
                 {errors.password && (
-                  <p id="password-error" className="text-sm text-red-600" role="alert">
+                  <p
+                    id="password-error"
+                    className="text-sm text-red-600"
+                    role="alert"
+                  >
                     {errors.password}
                   </p>
                 )}
@@ -482,7 +520,9 @@ const Login: React.FC = () => {
                 <span className="w-full border-t border-slate-200" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-white px-2 text-slate-500">Or continue with</span>
+                <span className="bg-white px-2 text-slate-500">
+                  Or continue with
+                </span>
               </div>
             </div>
 
@@ -493,8 +533,8 @@ const Login: React.FC = () => {
             <div className="text-center pt-4">
               <p className="text-sm text-slate-600">
                 Don't have an account?{" "}
-                <Link 
-                  to="/register" 
+                <Link
+                  to="/register"
                   className="font-medium text-blue-600 hover:text-blue-500 transition-colors"
                 >
                   Register here
@@ -504,8 +544,8 @@ const Login: React.FC = () => {
 
             {/* Forgot Password Link */}
             <div className="text-center">
-              <Link 
-                to="/forgot-password" 
+              <Link
+                to="/forgot-password"
                 className="text-sm text-slate-500 hover:text-slate-700 transition-colors"
               >
                 Forgot your password?

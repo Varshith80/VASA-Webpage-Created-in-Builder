@@ -15,7 +15,7 @@ const ForgotPassword: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!email) {
       setError("Email address is required");
       return;
@@ -43,7 +43,9 @@ const ForgotPassword: React.FC = () => {
       if (data.success) {
         setIsSubmitted(true);
         // Success notification - could be replaced with a proper toast system later
-        console.log("Reset link sent - Check your email for password reset instructions.");
+        console.log(
+          "Reset link sent - Check your email for password reset instructions.",
+        );
       } else {
         setError(data.error || "Failed to send reset email");
       }
@@ -61,7 +63,11 @@ const ForgotPassword: React.FC = () => {
         <div className="w-full max-w-md">
           <div className="mb-6">
             <Link to="/login">
-              <Button variant="ghost" size="sm" className="text-slate-600 hover:text-slate-800">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-slate-600 hover:text-slate-800"
+              >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Sign In
               </Button>
@@ -116,7 +122,11 @@ const ForgotPassword: React.FC = () => {
       <div className="w-full max-w-md">
         <div className="mb-6">
           <Link to="/login">
-            <Button variant="ghost" size="sm" className="text-slate-600 hover:text-slate-800">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-slate-600 hover:text-slate-800"
+            >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Sign In
             </Button>
@@ -132,7 +142,8 @@ const ForgotPassword: React.FC = () => {
               Forgot Password?
             </CardTitle>
             <p className="text-slate-600 mt-2">
-              Enter your email address and we'll send you a link to reset your password.
+              Enter your email address and we'll send you a link to reset your
+              password.
             </p>
           </CardHeader>
 
@@ -145,8 +156,8 @@ const ForgotPassword: React.FC = () => {
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <label 
-                  htmlFor="email" 
+                <label
+                  htmlFor="email"
                   className="text-sm font-medium text-slate-700"
                 >
                   Email Address
@@ -189,8 +200,8 @@ const ForgotPassword: React.FC = () => {
             <div className="text-center">
               <p className="text-sm text-slate-600">
                 Remember your password?{" "}
-                <Link 
-                  to="/login" 
+                <Link
+                  to="/login"
                   className="font-medium text-blue-600 hover:text-blue-500 transition-colors"
                 >
                   Sign in

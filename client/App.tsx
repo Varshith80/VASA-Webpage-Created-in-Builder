@@ -82,47 +82,44 @@ const App = () => {
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-              <main id="main-content" role="main" tabIndex={-1}>
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/register" element={<Register />} />
-                  <Route path="/importer" element={<Importer />} />
-                  <Route path="/exporter" element={<Exporter />} />
-                  <Route path="/orders" element={<Orders />} />
-                  <Route path="/registration" element={<Registration />} />
-                  <Route path="/messages" element={<Messages />} />
-                  <Route path="/product/:id" element={<ProductDetail />} />
-                  <Route path="/disputes" element={<DisputeResolution />} />
-                  <Route path="/webhooks" element={<Webhooks />} />
-                  <Route path="/cart" element={<Cart />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/forgot-password" element={<ForgotPassword />} />
-                  <Route
-                    path="/dashboard"
-                    element={<Dashboard userRole="importer" />}
-                  />
-                  <Route
-                    path="/importer-dashboard"
-                    element={<ImporterDashboard />}
-                  />
-                  <Route
-                    path="/exporter-dashboard"
-                    element={<ExporterDashboard />}
-                  />
-                  <Route
-                    path="/notifications"
-                    element={<NotificationSettings />}
-                  />
-                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </main>
-              {/* Global Bug Report Widget */}
-              <aside aria-label="Bug reporting">
-                <BugReportButton className="bg-red-600 hover:bg-red-700 text-white shadow-lg hover:shadow-xl" />
-              </aside>
-            </BrowserRouter>
-        </QueryClientProvider>
+          <main id="main-content" role="main" tabIndex={-1}>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/importer" element={<Importer />} />
+              <Route path="/exporter" element={<Exporter />} />
+              <Route path="/orders" element={<Orders />} />
+              <Route path="/registration" element={<Registration />} />
+              <Route path="/messages" element={<Messages />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
+              <Route path="/disputes" element={<DisputeResolution />} />
+              <Route path="/webhooks" element={<Webhooks />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route
+                path="/dashboard"
+                element={<Dashboard userRole="importer" />}
+              />
+              <Route
+                path="/importer-dashboard"
+                element={<ImporterDashboard />}
+              />
+              <Route
+                path="/exporter-dashboard"
+                element={<ExporterDashboard />}
+              />
+              <Route path="/notifications" element={<NotificationSettings />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+          {/* Global Bug Report Widget */}
+          <aside aria-label="Bug reporting">
+            <BugReportButton className="bg-red-600 hover:bg-red-700 text-white shadow-lg hover:shadow-xl" />
+          </aside>
+        </BrowserRouter>
+      </QueryClientProvider>
     </ErrorBoundary>
   );
 };
