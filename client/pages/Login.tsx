@@ -132,10 +132,8 @@ const Login: React.FC = () => {
         localStorage.setItem("auth_token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
 
-        toast({
-          title: "Welcome back!",
-          description: `Signed in successfully as ${data.user.name}`,
-        });
+        // Success notification - could be replaced with a proper toast system later
+        console.log(`Welcome back! Signed in successfully as ${data.user.name}`);
 
         // Redirect to appropriate dashboard based on user role
         const redirectPath = data.user.role === "exporter" 
