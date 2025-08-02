@@ -188,6 +188,17 @@ export default function Index() {
               >
                 Reviews
               </a>
+              <Link to="/cart">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-muted-foreground hover:text-foreground"
+                  aria-label="View cart and orders"
+                >
+                  <ShoppingCart className="h-4 w-4 mr-2" />
+                  Cart
+                </Button>
+              </Link>
               <ThemeToggle />
               <Link to="/login">
                 <Button
