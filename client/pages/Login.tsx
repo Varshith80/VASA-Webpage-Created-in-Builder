@@ -53,8 +53,35 @@ const Login: React.FC = () => {
   useEffect(() => {
     // Load Google Sign-In API
     const loadGoogleAPI = () => {
+      const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || "demo-google-client-id.googleusercontent.com";
+
+      // Check if client ID is valid (not a demo/placeholder)
+      const isValidClientId = clientId &&
+        !clientId.includes("demo-") &&
+        !clientId.includes("your-") &&
+        clientId.endsWith(".googleusercontent.com") &&
+        clientId.length > 30; // Real client IDs are much longer
+
+      if (!isValidClientId) {
+        console.warn("Google Sign-In disabled: Invalid or demo client ID provided");
+        setGoogleReady(true); // Set ready but don't initialize GSI
+        return;
+      }
+
       if (window.google && window.google.accounts) {
-        setGoogleReady(true);
+        try {
+          window.google.accounts.id.initialize({
+            client_id: clientId,
+            callback: handleGoogleSignIn,
+            auto_select: false,
+            cancel_on_tap_outside: true,
+            use_fedcm_for_prompt: false,
+          });
+          setGoogleReady(true);
+        } catch (error) {
+          console.warn("Google Sign-In initialization failed:", error);
+          setGoogleReady(true);
+        }
         return;
       }
 
@@ -66,19 +93,22 @@ const Login: React.FC = () => {
         if (window.google && window.google.accounts) {
           try {
             window.google.accounts.id.initialize({
-              client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID || "demo-google-client-id.googleusercontent.com",
+              client_id: clientId,
               callback: handleGoogleSignIn,
               auto_select: false,
               cancel_on_tap_outside: true,
-              use_fedcm_for_prompt: false, // Disable FedCM to avoid permission issues
+              use_fedcm_for_prompt: false,
             });
             setGoogleReady(true);
           } catch (error) {
             console.warn("Google Sign-In initialization failed:", error);
-            // Fallback to simple OAuth flow without GSI
             setGoogleReady(true);
           }
         }
+      };
+      script.onerror = () => {
+        console.warn("Failed to load Google Sign-In script");
+        setGoogleReady(true);
       };
       document.head.appendChild(script);
     };
