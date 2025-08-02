@@ -147,7 +147,7 @@ export default function ImporterDashboard() {
   const categories = [
     "all",
     "Textiles",
-    "Spices", 
+    "Spices",
     "Food Grains",
     "Electronics",
     "Machinery",
@@ -167,8 +167,12 @@ export default function ImporterDashboard() {
                 </Button>
               </Link>
               <div>
-                <h1 className="text-2xl font-bold text-foreground">Importer Dashboard</h1>
-                <p className="text-sm text-muted-foreground">Manage your imports and orders</p>
+                <h1 className="text-2xl font-bold text-foreground">
+                  Importer Dashboard
+                </h1>
+                <p className="text-sm text-muted-foreground">
+                  Manage your imports and orders
+                </p>
               </div>
             </div>
           </div>
@@ -275,7 +279,10 @@ export default function ImporterDashboard() {
             {/* Products Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {mockProducts.map((product) => (
-                <Card key={product.id} className="group hover:shadow-lg transition-shadow">
+                <Card
+                  key={product.id}
+                  className="group hover:shadow-lg transition-shadow"
+                >
                   <div className="aspect-video relative overflow-hidden rounded-t-lg">
                     <img
                       src={product.image}
@@ -303,7 +310,7 @@ export default function ImporterDashboard() {
                         </div>
                       </div>
                       <Button
-                        onClick={() => console.log('Add to cart:', product.id)}
+                        onClick={() => console.log("Add to cart:", product.id)}
                         size="sm"
                         className="w-full"
                       >
@@ -356,7 +363,10 @@ export default function ImporterDashboard() {
             <CardContent>
               <div className="space-y-4">
                 {mockOrders.map((order) => (
-                  <div key={order.id} className="border border-border rounded-lg p-4">
+                  <div
+                    key={order.id}
+                    className="border border-border rounded-lg p-4"
+                  >
                     <div className="flex items-center justify-between mb-4">
                       <div>
                         <h3 className="font-medium text-foreground">
@@ -392,10 +402,18 @@ export default function ImporterDashboard() {
                 <div>
                   <h3 className="font-medium text-foreground mb-2">Profile</h3>
                   <div className="space-y-2">
-                    <p><strong>Name:</strong> John Doe</p>
-                    <p><strong>Email:</strong> john@example.com</p>
-                    <p><strong>Role:</strong> Importer</p>
-                    <p><strong>Company:</strong> Global Trade Inc.</p>
+                    <p>
+                      <strong>Name:</strong> John Doe
+                    </p>
+                    <p>
+                      <strong>Email:</strong> john@example.com
+                    </p>
+                    <p>
+                      <strong>Role:</strong> Importer
+                    </p>
+                    <p>
+                      <strong>Company:</strong> Global Trade Inc.
+                    </p>
                   </div>
                 </div>
                 <div className="border-t border-border pt-4">

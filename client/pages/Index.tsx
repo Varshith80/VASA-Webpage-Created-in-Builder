@@ -191,7 +191,6 @@ export default function Index() {
                 Reviews
               </a>
 
-
               {/* Cart and Theme Toggle */}
               <div className="flex items-center gap-3">
                 <SimpleThemeToggle />
@@ -210,7 +209,7 @@ export default function Index() {
                         variant="secondary"
                         className="absolute -top-1 -right-1 h-4 w-4 flex items-center justify-center text-xs bg-blue-600 text-white border-background border-2"
                       >
-                        {cartCount > 99 ? '99' : cartCount}
+                        {cartCount > 99 ? "99" : cartCount}
                       </Badge>
                     )}
                   </Button>
@@ -377,9 +376,14 @@ export default function Index() {
               >
                 <CardHeader>
                   <div className="text-primary mb-3">{feature.icon}</div>
-                  <CardTitle className="text-lg flex items-center gap-2" title={feature.tooltip}>
+                  <CardTitle
+                    className="text-lg flex items-center gap-2"
+                    title={feature.tooltip}
+                  >
                     {feature.title}
-                    <span className="text-xs text-muted-foreground cursor-help">ℹ️</span>
+                    <span className="text-xs text-muted-foreground cursor-help">
+                      ℹ️
+                    </span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>

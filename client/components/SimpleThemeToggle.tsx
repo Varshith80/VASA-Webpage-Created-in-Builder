@@ -3,11 +3,17 @@ import { Button } from "@/components/ui/button";
 import { Sun, Moon, Monitor } from "lucide-react";
 
 export function SimpleThemeToggle() {
-  const [currentTheme, setCurrentTheme] = useState<"light" | "dark" | "system">("dark");
+  const [currentTheme, setCurrentTheme] = useState<"light" | "dark" | "system">(
+    "dark",
+  );
 
   useEffect(() => {
     // Initialize theme from localStorage or default to dark
-    const storedTheme = localStorage.getItem("theme") as "light" | "dark" | "system" | null;
+    const storedTheme = localStorage.getItem("theme") as
+      | "light"
+      | "dark"
+      | "system"
+      | null;
     const theme = storedTheme || "dark";
     setCurrentTheme(theme);
     updateDocumentTheme(theme);
@@ -15,20 +21,26 @@ export function SimpleThemeToggle() {
 
   const updateDocumentTheme = (theme: "light" | "dark" | "system") => {
     const htmlElement = document.documentElement;
-    
+
     if (theme === "system") {
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
       htmlElement.classList.toggle("dark", prefersDark);
     } else {
       htmlElement.classList.toggle("dark", theme === "dark");
     }
-    
+
     localStorage.setItem("theme", theme);
   };
 
   const cycleTheme = () => {
-    const nextTheme = currentTheme === "light" ? "dark" : 
-                     currentTheme === "dark" ? "system" : "light";
+    const nextTheme =
+      currentTheme === "light"
+        ? "dark"
+        : currentTheme === "dark"
+          ? "system"
+          : "light";
     setCurrentTheme(nextTheme);
     updateDocumentTheme(nextTheme);
   };
