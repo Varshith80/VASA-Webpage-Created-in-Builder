@@ -102,6 +102,7 @@ const App = () => {
                   <Route path="/product/:id" element={<ProductDetail />} />
                   <Route path="/disputes" element={<DisputeResolution />} />
                   <Route path="/webhooks" element={<Webhooks />} />
+                  <Route path="/cart" element={<Cart />} />
                   <Route
                     path="/dashboard"
                     element={<Dashboard userRole="importer" />}
