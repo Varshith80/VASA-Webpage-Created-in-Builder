@@ -194,7 +194,7 @@ export default function Index() {
 
               {/* Cart and Theme Toggle */}
               <div className="flex items-center gap-3">
-                <ThemeToggle />
+                <SimpleThemeToggle />
 
                 <Link to="/importer-dashboard?tab=cart">
                   <Button
