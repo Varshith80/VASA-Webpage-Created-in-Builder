@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Eye, EyeOff, ArrowLeft, Mail, Lock } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+// Removed useToast to prevent React hook corruption
 
 declare global {
   interface Window {
