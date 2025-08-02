@@ -46,7 +46,6 @@ const Login: React.FC = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const { toast } = useToast();
 
   // Get redirect path from location state
   const from = location.state?.from?.pathname || "/importer-dashboard";
