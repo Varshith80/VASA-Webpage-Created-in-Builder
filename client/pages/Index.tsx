@@ -200,7 +200,7 @@ export default function Index() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="relative bg-background/80 backdrop-blur-sm border-muted-foreground/20 hover:bg-muted/50 hover:border-muted-foreground/40 transition-all"
+                    className="relative bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100 hover:border-blue-300 dark:bg-blue-950 dark:border-blue-800 dark:text-blue-300 dark:hover:bg-blue-900 dark:hover:border-blue-700 transition-all"
                     aria-label="Shopping cart"
                   >
                     <ShoppingCart className="h-4 w-4 mr-2" />
@@ -208,7 +208,7 @@ export default function Index() {
                     {cartCount > 0 && (
                       <Badge
                         variant="secondary"
-                        className="absolute -top-1 -right-1 h-4 w-4 flex items-center justify-center text-xs bg-primary text-primary-foreground border-background border-2"
+                        className="absolute -top-1 -right-1 h-4 w-4 flex items-center justify-center text-xs bg-blue-600 text-white border-background border-2"
                       >
                         {cartCount > 99 ? '99' : cartCount}
                       </Badge>
