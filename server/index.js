@@ -17,6 +17,9 @@ const createServer = () => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
+  // Auth routes
+  app.use("/api/auth", authRoutes);
+
   // Demo ping endpoint
   app.get("/api/ping", (req, res) => {
     res.json({
