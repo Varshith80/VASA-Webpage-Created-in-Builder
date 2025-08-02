@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { ArrowLeft, Mail, CheckCircle } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+// Removed useToast to prevent React hook corruption
 
 const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState("");
