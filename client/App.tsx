@@ -96,6 +96,7 @@ const App = () => {
                   <Route path="/webhooks" element={<Webhooks />} />
                   <Route path="/cart" element={<Cart />} />
                   <Route path="/login" element={<Login />} />
+                  <Route path="/forgot-password" element={<ForgotPassword />} />
                   <Route
                     path="/dashboard"
                     element={<Dashboard userRole="importer" />}
