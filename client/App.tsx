@@ -4,14 +4,7 @@ import { createRoot } from "react-dom/client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-<<<<<<< HEAD
 import React, { Component, ErrorInfo, ReactNode } from "react";
-
-
-=======
-import React, { Component, ErrorInfo, ReactNode, useEffect } from "react";
-import { ThemeProvider } from "./contexts/ThemeContext";
->>>>>>> 939a3707c98cb3dfdda87ad017bd6c7231bab838
 import { accessibility } from "./utils/accessibility";
 import Index from "./pages/Index";
 import Register from "./pages/Register";
@@ -28,6 +21,7 @@ import ImporterDashboard from "./pages/ImporterDashboard";
 import ExporterDashboard from "./pages/ExporterDashboard";
 import NotificationSettings from "./pages/NotificationSettings";
 import Cart from "./pages/Cart";
+import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import { BugReportButton } from "./components/BugReportWidget";
 
@@ -100,6 +94,7 @@ const App = () => {
                   <Route path="/disputes" element={<DisputeResolution />} />
                   <Route path="/webhooks" element={<Webhooks />} />
                   <Route path="/cart" element={<Cart />} />
+                  <Route path="/login" element={<Login />} />
                   <Route
                     path="/dashboard"
                     element={<Dashboard userRole="importer" />}
