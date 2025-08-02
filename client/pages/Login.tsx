@@ -232,7 +232,14 @@ const Login: React.FC = () => {
         disabled={googleLoading}
         onClick={() => {
           if (window.google && window.google.accounts) {
-            window.google.accounts.id.prompt();
+            try {
+              window.google.accounts.id.prompt();
+            } catch (error) {
+              console.warn("Google Sign-In prompt failed:", error);
+              setAuthError("Google Sign-In is not available. Please use email/password login.");
+            }
+          } else {
+            setAuthError("Google Sign-In is not available. Please use email/password login.");
           }
         }}
       >
