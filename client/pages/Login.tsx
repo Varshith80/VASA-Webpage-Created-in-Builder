@@ -249,11 +249,12 @@ const Login: React.FC = () => {
             try {
               window.google.accounts.id.prompt();
             } catch (error) {
-              console.warn("Google Sign-In prompt failed:", error);
-              setAuthError("Google Sign-In is not available. Please use email/password login.");
+              console.warn("Google Sign-In prompt failed, using fallback:", error);
+              fallbackGoogleSignIn();
             }
           } else {
-            setAuthError("Google Sign-In is not available. Please use email/password login.");
+            console.warn("Google Sign-In not available, using fallback");
+            fallbackGoogleSignIn();
           }
         }}
       >
