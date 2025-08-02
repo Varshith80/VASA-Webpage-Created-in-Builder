@@ -14,7 +14,6 @@ import {
   CheckCircle,
   Star,
   Users,
-  Package,
   CreditCard,
   Truck,
   BarChart3,
