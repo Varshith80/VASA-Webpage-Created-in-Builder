@@ -31,6 +31,7 @@ import {
 import { PlatformTrustSection, TrustBadge } from "@/components/TrustBadges";
 import { OnboardingTour } from "@/components/OnboardingTour";
 import { CurrencyConverter } from "@/components/CurrencyConverter";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function Index() {
   const [selectedTab, setSelectedTab] = useState("overview");
@@ -192,31 +193,27 @@ export default function Index() {
               </a>
 
 
-              {/* Cart Links */}
-              <div className="flex items-center gap-2">
+              {/* Cart and Theme Toggle */}
+              <div className="flex items-center gap-3">
+                <ThemeToggle />
+
                 <Link to="/importer-dashboard?tab=cart">
                   <Button
                     variant="outline"
                     size="sm"
-                    className="relative"
+                    className="relative bg-background/80 backdrop-blur-sm border-muted-foreground/20 hover:bg-muted/50 hover:border-muted-foreground/40 transition-all"
                     aria-label="Shopping cart"
                   >
-                    <ShoppingCart className="h-4 w-4 mr-1" />
-                    Cart
+                    <ShoppingCart className="h-4 w-4 mr-2" />
+                    <span className="hidden sm:inline">Cart</span>
                     {cartCount > 0 && (
                       <Badge
-                        variant="destructive"
-                        className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center text-xs"
+                        variant="secondary"
+                        className="absolute -top-1 -right-1 h-4 w-4 flex items-center justify-center text-xs bg-primary text-primary-foreground border-background border-2"
                       >
-                        {cartCount > 99 ? '99+' : cartCount}
+                        {cartCount > 99 ? '99' : cartCount}
                       </Badge>
                     )}
-                  </Button>
-                </Link>
-                <Link to="/importer-dashboard?tab=orders">
-                  <Button variant="outline" size="sm">
-                    <Package className="h-4 w-4 mr-1" />
-                    Orders
                   </Button>
                 </Link>
               </div>
