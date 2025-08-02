@@ -174,10 +174,8 @@ const Login: React.FC = () => {
         localStorage.setItem("auth_token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
 
-        toast({
-          title: "Welcome!",
-          description: `Signed in successfully with Google as ${data.user.name}`,
-        });
+        // Success notification - could be replaced with a proper toast system later
+        console.log(`Welcome! Signed in successfully with Google as ${data.user.name}`);
 
         // If new user, redirect to complete registration
         if (!data.user.verified) {
